@@ -1,0 +1,93 @@
+/* Arrière-plan global */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  /*height: 100vh;*/
+  /*!*background-image: url('assets/background.jpg');  Remplacez par le chemin de votre image *!*/
+  /*background-size: cover;*/
+  /*background-position: center;*/
+}
+
+/* Cadre blanc */
+.card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Style des groupes de formulaires */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Style des labels */
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Style des champs de saisie */
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 0.5px solid #ccc;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Style du bouton */
+.btn-block {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 0.8rem;
+  background-color: #289a59;
+  color: white;
+
+  border-radius: 3px;
+  font-family: 'Arial', sans-serif;
+}
+
+.btn-block:hover {
+  background-color: #0056b3;
+}
+
+/* Style pour le message d'erreur */
+.error-message {
+  color: #ff4d4d; /* Rouge clair pour une alerte douce */
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espace entre l'icône et le texte */
+  font-family: 'Arial', sans-serif;
+}
+
+
+
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.register-link a {
+  color: #007bff; /* Bleu pour les liens */
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+

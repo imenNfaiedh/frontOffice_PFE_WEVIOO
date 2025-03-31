@@ -1,0 +1,37 @@
+<div class= "card">
+  <h2> Inscription</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div> <label for="firstName"> Prénom</label></div>
+      <input formControlName="firstName"pInputText type="text" id="firstName" placeholder="Entrez votre prénom" />
+    </div>
+    <div class="form-group">
+      <div> <label for="lastName"> Nom</label></div>
+      <input formControlName="lastName"pInputText type="text" id="lastName" placeholder="Entrez votre nom" />
+    </div>
+    <div class="form-group">
+      <div> <label for="username"> Nom utilisateur</label></div>
+      <input formControlName="username"pInputText type="text" id="username" placeholder="Entrez votre nom utilisateur" />
+    </div>
+    <div class="form-group">
+      <div> <label for="email"> E-mail</label></div>
+      <input formControlName="email"pInputText type="email" id="email" placeholder="Entrez votre e-mail" />
+    </div>
+
+    <div class="form-group">
+      <div> <label for="password"> Mot de passe</label></div>
+      <input formControlName="password"pInputText type="password" id="password" placeholder="Entrez votre mot de passe" />
+    </div>
+    <div class="form-group">
+      <label for="roleName">Rôle</label>
+      <select formControlName="roleName" id="roleName" class="form-control">
+        <option value="" disabled>Sélectionnez un rôle</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+    <button pButton type="submit" label="S'inscrire" class="btn-block"></button>
+
+  </form>
+  <p-toast></p-toast>
+
+</div>

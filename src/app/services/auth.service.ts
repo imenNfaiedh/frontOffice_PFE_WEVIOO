@@ -24,7 +24,6 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
     const body = `grant_type=password&client_id=spring-micro-gateway&client_secret=r4EsUp1M8iHFvEOg1Da5MZ6RgaLdlzKZ&username=${username}&password=${password}`;
-
     return this.http.post(this.tokenUrl, body, { headers });
   }
 

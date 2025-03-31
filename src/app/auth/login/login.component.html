@@ -1,16 +1,23 @@
 <div class="login-container">
-  <form [formGroup]="loginForm"  (ngSubmit) = "onSubmit()">
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input formControlName="username" pInputText type="text" id="username" class="form-control" placeholder="Enter username">
-    </div>
+  <div class="card">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Nom utilisateur</label>
+        <input formControlName="username" pInputText type="text" id="username" placeholder="Entrez votre nom d'utilisateur" />
+      </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input formControlName="password" pInputText type="password" id="password" class="form-control" placeholder="Enter password">
-    </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input formControlName="password" pPassword type="password" id="password" placeholder="Entrez votre mot de passe" [feedback]="false" />
+      </div>
 
-<button class="btn btn-primary btn-block" tabindex="4">Login</button>
-    <div   *ngIf ="errorMessage" class="error">{{ errorMessage }}</div>
-  </form>
+      <button pButton type="submit" label="Se connecter" class="btn-block"   ></button>
+      <div *ngIf="errorMessage" class="error-message">
+        ⚠️ {{ errorMessage }}
+      </div>
+    </form>
+    <p class="register-link">
+      Pas encore inscrit ? <a routerLink="auth/register">Créer un compte</a>
+    </p>
+  </div>
 </div>
