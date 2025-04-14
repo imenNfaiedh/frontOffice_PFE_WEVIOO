@@ -14,42 +14,41 @@ import {catchError, Observable, throwError} from 'rxjs';
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // Injection des services nécessaires
   const authService = inject(AuthService);
   const router = inject(Router);
-
 
   const token = authService.getToken();
   console.log('Requête interceptée :', req);
 
-  if (req.url.includes('/users')) {
+  // On garde la requête inchangée au début
+  let modifiedReq = req;
+
+  // Si l'URL n'est pas '/users', on ajoute le token (si disponible)
+  if (!req.url.endsWith('/users')) {
+    if (token) {
+      modifiedReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log("Requête clonée avec token :", modifiedReq);
+    }
+  } else {
     console.log("Requête pour '/users' : Pas de token ajouté.");
-    return next(req);
   }
 
-  // Si un token existe, l'ajouter à l'en-tête Authorization
-  if (token) {
-    console.log("Token récupéré :", token);
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    console.log("Requête clonée avec token :", req);
-  }
-
-  // Continuer avec la requête et gérer les erreurs
-  return next(req).pipe(
+  // Ensuite, on continue la requête ET on gère les erreurs
+  return next(modifiedReq).pipe(
     catchError((error) => {
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
-          console.error('Accès non autorisé détecté. Redirection vers la page de connexion...');
-          router.navigate(['auth/login']); // Redirection vers la page de connexion
+          console.error('401 - Non autorisé. Redirection vers login.');
+          router.navigate(['auth/login']);
         } else {
           console.error('Erreur HTTP :', error.message);
         }
       }
-      return throwError(() => error); // Propager l'erreur
+      return throwError(() => error);
     })
   );
 };
