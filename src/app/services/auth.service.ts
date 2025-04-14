@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class AuthService {
   private tokenUrl = "http://localhost:8080/realms/spring-micro-main/protocol/openid-connect/token";
-  private userUrl = "http://localhost:8085/users"
+  private userUrl = "http://localhost:8090/users"
 
   constructor( private http: HttpClient) { }
 
@@ -23,7 +23,9 @@ export class AuthService {
 
   login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    const body = `grant_type=password&client_id=spring-micro-gateway&client_secret=r4EsUp1M8iHFvEOg1Da5MZ6RgaLdlzKZ&username=${username}&password=${password}`;
+    const body = `grant_type=password&client_id=spring-micro-gateway&client_secret=siT3jx502YejZ5ANkFEE85I1DSs2FyHh&username=${username}&password=${password}`;
+    //const body = `grant_type=password&client_id=spring-micro-gateway&client_secret=r4EsUp1M8iHFvEOg1Da5MZ6RgaLdlzKZ&username=${username}&password=${password}`;
+
     return this.http.post(this.tokenUrl, body, { headers });
   }
 
@@ -35,4 +37,5 @@ export class AuthService {
     });
 
     return this.http.post(this.userUrl, user, { headers });
-}}
+}
+}

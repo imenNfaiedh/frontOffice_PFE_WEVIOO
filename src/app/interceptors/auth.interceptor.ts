@@ -1,8 +1,16 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpInterceptorFn,
+  HttpRequest
+} from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
+
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -10,15 +18,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  // Récupérer le token d'authentification
-  const token = authService.getToken();
 
+  const token = authService.getToken();
   console.log('Requête interceptée :', req);
 
-  // Ignorer l'ajout du token pour les requêtes vers '/users'
   if (req.url.includes('/users')) {
     console.log("Requête pour '/users' : Pas de token ajouté.");
-    return next(req); // Transmettre la requête sans modification
+    return next(req);
   }
 
   // Si un token existe, l'ajouter à l'en-tête Authorization

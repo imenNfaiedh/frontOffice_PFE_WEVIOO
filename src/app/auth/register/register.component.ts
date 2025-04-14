@@ -69,14 +69,14 @@ export class RegisterComponent implements OnInit{
         this.messageService.add({ severity:'success', summary:'Success', detail:'Utilisateur créé avec succes!!'});
 
         this.router.navigate(['/auth/login']);
-      },
-      error => {
-        console.error('Error creating user:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erreur',
-          detail: 'Une erreur est survenue lors de la création de l\'utilisateur.'
-        });
+      // },
+      // error => {
+      //   console.error('Error creating user:', error);
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Erreur',
+      //     detail: 'Une erreur est survenue lors de la création de l\'utilisateur.'
+      //   });
       }
     );
   }}
