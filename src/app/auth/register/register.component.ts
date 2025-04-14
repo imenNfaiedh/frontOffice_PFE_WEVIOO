@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
@@ -7,6 +7,10 @@ import {ButtonModule} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
+import {InputText} from "primeng/inputtext";
+import {PasswordDirective} from "primeng/password";
+import {Select, SelectModule} from "primeng/select";
+import {DropdownModule} from "primeng/dropdown";
 
 @Component({
   selector: 'app-register',
@@ -17,6 +21,11 @@ import {CommonModule} from "@angular/common";
     Ripple,
     ReactiveFormsModule,
     CommonModule,
+    InputText,
+    PasswordDirective,
+    SelectModule,
+    DropdownModule,
+    Select
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -27,7 +36,9 @@ export class RegisterComponent implements OnInit{
   public registerForm!: FormGroup;
   public submitted = false;
 
+
   roles: string[] = ['Administrateur', 'Chef Agent', 'Client'];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +47,8 @@ export class RegisterComponent implements OnInit{
     private router: Router,
   ) {}
   ngOnInit(): void{
+
+
     this.registerForm = this.formBuilder.group({
       firstName:['', [Validators.required]],
       lastName:['', [Validators.required]],
