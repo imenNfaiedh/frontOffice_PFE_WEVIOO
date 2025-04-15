@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit{
     if (this.registerForm.invalid){
       return;
     }
-
+    console.log("jfjfj")
     const user = {
       firstName: this.registerForm.value.firstName,
       lastName: this.registerForm.value.lastName,
@@ -76,6 +76,8 @@ export class RegisterComponent implements OnInit{
       password: this.registerForm.value.password,
       roleName: this.registerForm.value.roleName
     };
+    console.log(user)
+
     this.authService.createUser(user).subscribe(
       response=>{
         console.log('User created successfully:', response);

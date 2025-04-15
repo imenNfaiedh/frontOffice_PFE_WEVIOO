@@ -24,7 +24,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   let modifiedReq = req;
 
   // Si l'URL n'est pas '/users', on ajoute le token (si disponible)
+
   if (!req.url.endsWith('/users')) {
+
     if (token) {
       modifiedReq = req.clone({
         setHeaders: {
