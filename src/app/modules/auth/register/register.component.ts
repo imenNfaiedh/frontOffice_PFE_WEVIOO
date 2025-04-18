@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
+
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {ButtonModule} from "primeng/button";
@@ -11,6 +11,7 @@ import {InputText} from "primeng/inputtext";
 import {PasswordDirective} from "primeng/password";
 import {Select, SelectModule} from "primeng/select";
 import {DropdownModule} from "primeng/dropdown";
+import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -41,10 +42,10 @@ export class RegisterComponent implements OnInit{
 
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService : AuthService,
-    private messageService: MessageService,
-    private router: Router,
+      private formBuilder: FormBuilder,
+      private authService : AuthService,
+      private messageService: MessageService,
+      private router: Router,
   ) {}
   ngOnInit(): void{
 
@@ -79,19 +80,19 @@ export class RegisterComponent implements OnInit{
     console.log(user)
 
     this.authService.createUser(user).subscribe(
-      response=>{
-        console.log('User created successfully:', response);
-        this.messageService.add({ severity:'success', summary:'Success', detail:'Utilisateur créé avec succes!!'});
+        response=>{
+          console.log('User created successfully:', response);
+          this.messageService.add({ severity:'success', summary:'Success', detail:'Utilisateur créé avec succes!!'});
 
-        this.router.navigate(['/auth/login']);
-      // },
-      // error => {
-      //   console.error('Error creating user:', error);
-      //   this.messageService.add({
-      //     severity: 'error',
-      //     summary: 'Erreur',
-      //     detail: 'Une erreur est survenue lors de la création de l\'utilisateur.'
-      //   });
-      }
+          this.router.navigate(['/auth/login']);
+          // },
+          // error => {
+          //   console.error('Error creating user:', error);
+          //   this.messageService.add({
+          //     severity: 'error',
+          //     summary: 'Erreur',
+          //     detail: 'Une erreur est survenue lors de la création de l\'utilisateur.'
+          //   });
+        }
     );
   }}

@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
-import {CommonModule} from "@angular/common";
-import {InputTextModule} from "primeng/inputtext";
-import {PasswordModule} from "primeng/password";
-import {ButtonModule} from "primeng/button";
-import {MessageModule} from "primeng/message";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {AuthService} from "../../../core/services/auth.service";
 import {CardModule} from "primeng/card";
-
+import {CommonModule} from "@angular/common";
+import {MessageModule} from "primeng/message";
+import {ButtonModule} from "primeng/button";
+import {PasswordModule} from "primeng/password";
+import {InputTextModule} from "primeng/inputtext";
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -30,7 +28,7 @@ export class LoginComponent implements OnInit{
   public errorMessage: string = '';
   constructor( private formBuilder : FormBuilder,
                private authService : AuthService,
-               ) {}
+  ) {}
 
   ngOnInit(): void {
 
@@ -50,19 +48,19 @@ export class LoginComponent implements OnInit{
       password: this.loginForm.value.password
     };
     this.authService.login(loginData.username, loginData.password).subscribe(
-      (response) => {
-        if (response && response.access_token) {
-          this.authService.storeToken(response.access_token);
-          console.log('Login successful, token stored.');
+        (response) => {
+          if (response && response.access_token) {
+            this.authService.storeToken(response.access_token);
+            console.log('Login successful, token stored.');
 
 
-        } else {
-          this.errorMessage = 'Identifiants incorrects.';
+          } else {
+            this.errorMessage = 'Identifiants incorrects.';
+          }
+        },
+        error => {
+          console.error('Login failed:', error);
         }
-      },
-      error => {
-        console.error('Login failed:', error);
-      }
     );
   }
 

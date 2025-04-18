@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {providePrimeNG} from "primeng/config";
 import Aura from '@primeng/themes/aura';
-import {authInterceptor} from "./interceptors/auth.interceptor";
+import {authInterceptor} from "./core/interceptors/auth.interceptor";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
 
 export const appConfig: ApplicationConfig = {
