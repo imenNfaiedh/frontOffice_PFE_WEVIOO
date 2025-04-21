@@ -1,1 +1,7 @@
-<p>admin-layout works!</p>
+<app-header></app-header>
+<div class="layout">
+  <app-sidebar></app-sidebar>
+  <div class="content p-4">
+    <router-outlet></router-outlet> <!-- Affiche les pages admin ici -->
+  </div>
+</div>
