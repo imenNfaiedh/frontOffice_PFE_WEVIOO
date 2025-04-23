@@ -1,5 +1,16 @@
 <div class="login-container">
+  <!-- Arrière-plan supérieur avec une image -->
+  <div class="background-top"></div>
+
+  <!-- Arrière-plan inférieur gris -->
+  <div class="background-bottom"></div>
+
   <div class="card">
+<!--    <div class="logo">-->
+<!--      <img src="assets/logo.png" alt="Logo Banque" width="100" />-->
+<!--    </div>-->
+    <h2 class="title">Bienvenue !</h2>
+
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="username">Nom utilisateur</label>
@@ -11,13 +22,9 @@
         <input formControlName="password" pPassword type="password" id="password" placeholder="Entrez votre mot de passe" [feedback]="false" />
       </div>
 
-      <button pButton type="submit" label="Se connecter" class="btn-block"   ></button>
-      <div *ngIf="errorMessage" class="error-message">
-        ⚠️ {{ errorMessage }}
-      </div>
+      <button pButton type="submit" label="Se connecter" class="btn-block"></button>
+
     </form>
-    <p class="register-link">
-      Pas encore inscrit ? <a routerLink="auth/register">Créer un compte</a>
-    </p>
+
   </div>
 </div>

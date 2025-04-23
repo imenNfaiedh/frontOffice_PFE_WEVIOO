@@ -1,92 +1,188 @@
-/* Arrière-plan global */
+
+
+/* Conteneur principal */
 .login-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative;
   overflow: hidden;
-  /*height: 100vh;*/
-  /*!*background-image: url('assets/background.jpg');  Remplacez par le chemin de votre image *!*/
-  /*background-size: cover;*/
-  /*background-position: center;*/
+}
+
+.background-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background-image: url('C:/Users/Lenovo/Desktop/frontOffice/frontOffice_pfeV1/src/assets/img/login5.webp');
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+  z-index: -1;
+}
+
+/* Arrière-plan inférieur */
+.background-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-color: #f5f7fa;
+  z-index: -1;
 }
 
 /* Cadre blanc */
 .card {
+  position: relative;
   background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  text-align: center;
+  z-index: 1; /* Pour s'assurer que le formulaire est au-dessus des arrière-plans */
+}
+
+/* Titre principal */
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #373e9a; /* Bleu profond */
+  margin-bottom: 1.5rem;
 }
 
 /* Style des groupes de formulaires */
 .form-group {
   margin-bottom: 1.5rem;
+  text-align: left; /* Alignement des labels à gauche */
 }
 
 /* Style des labels */
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: #333;
-  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  color: #262525; /* Gris foncé */
+  font-size: 0.9rem;
 }
 
 /* Style des champs de saisie */
 .form-group input {
   width: 100%;
   padding: 0.8rem;
-  border: 0.5px solid #ccc;
-  border-radius: 3px;
-  font-size: 0.8rem;
-  font-family: 'Arial', sans-serif;
+  border: 1px solid #d1d5db; /* Gris clair */
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #0ab29b; /* Vert bancaire */
+  box-shadow: 0 0 5px rgba(10, 178, 155, 0.3); /* Effet de focus doux */
+  outline: none;
 }
 
 /* Style du bouton */
 .btn-block {
   width: 100%;
-  padding: 0.8rem;
-  font-size: 0.8rem;
-  background-color: #289a59;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: #0ab29b; /* Vert bancaire */
   color: white;
-
-  border-radius: 3px;
-  font-family: 'Arial', sans-serif;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-block:hover {
-  background-color: #0056b3;
-}
-
-/* Style pour le message d'erreur */
-.error-message {
-  color: #ff4d4d; /* Rouge clair pour une alerte douce */
-  font-size: 0.8rem;
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* Espace entre l'icône et le texte */
-  font-family: 'Arial', sans-serif;
+  background-color: #088f77; /* Vert plus foncé */
 }
 
 
+/*!* Arrière-plan global *!*/
+/*.h1{*/
 
-.register-link {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
+/*}*/
+/*.login-container {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  height: 100vh;*/
+/*  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);*/
+/*  overflow: hidden;*/
+/*}*/
 
-.register-link a {
-  color: #007bff; /* Bleu pour les liens */
-  text-decoration: none;
-}
+/*!* Cadre blanc *!*/
+/*.card {*/
+/*  background-color: white;*/
+/*  padding: 2.5rem;*/
+/*  border-radius: 15px;*/
+/*  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);*/
+/*  width: 100%;*/
+/*  max-width: 450px;*/
+/*  text-align: center;*/
+/*}*/
 
-.register-link a:hover {
-  text-decoration: underline;
-}
 
+
+/*.title {*/
+/*  font-size: 1.5rem;*/
+/*  font-weight: 600;*/
+/*  color: #373e9a;*/
+/*  margin-bottom: 1.5rem;*/
+/*}*/
+
+/*!* Style des groupes de formulaires *!*/
+/*.form-group {*/
+/*  margin-bottom: 1.5rem;*/
+/*}*/
+
+/*!* Style des labels *!*/
+/*.form-group label {*/
+/*  display: block;*/
+/*  margin-bottom: 0.5rem;*/
+/*  font-weight: 500;*/
+/*  color: #262525;*/
+/*  text-align: left;*/
+/*  font-size: 0.9rem;*/
+/*}*/
+
+/*!* Style des champs de saisie *!*/
+/*.form-group input {*/
+/*  width: 100%;*/
+/*  padding: 0.8rem;*/
+/*  border: 1px solid #d1d5db;*/
+/*  border-radius: 8px;*/
+/*  font-size: 1rem;*/
+/*  transition: border-color 0.3s ease;*/
+/*}*/
+
+/*.form-group input:focus {*/
+/*  border-color: #289a59;*/
+/*  box-shadow: 0 0 5px rgba(40, 154, 89, 0.3);*/
+/*  outline: none;*/
+/*}*/
+
+/*!* Style du bouton *!*/
+/*.btn-block {*/
+/*  width: 100%;*/
+/*  padding: 1rem;*/
+/*  font-size: 1rem;*/
+/*  background-color: #0ab29b;*/
+/*  color: white;*/
+/*  border: none;*/
+/*  border-radius: 8px;*/
+/*  cursor: pointer;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.btn-block:hover {*/
+/*  background-color: #207d4a;*/
+
+
+/*}*/
