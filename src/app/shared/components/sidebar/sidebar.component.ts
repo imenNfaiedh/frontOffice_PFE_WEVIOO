@@ -15,10 +15,9 @@ import {StyleClass} from "primeng/styleclass";
 export class SidebarComponent {
   @ViewChild('drawerRef') drawerRef!: Drawer;
 
-  closeCallback(e: any):void {
-    this.drawerRef.close(e);
-  }
+  visible = false;
 
-  visible: boolean = false;
+
+
 
 }

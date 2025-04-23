@@ -1,1 +1,29 @@
-<p>list-transaction works!</p>
+
+<div class="card">
+  <p-table [value]="transactions" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+      <tr>
+        <th>Id transaction</th>
+        <th>amount</th>
+        <th>currency</th>
+        <th>country</th>
+        <th>Date transaction</th>
+        <th>type Transaction</th>
+        <th>Status transaction</th>
+
+      </tr>
+    </ng-template>
+    <ng-template #body let-transaction>
+      <tr>
+        <td>{{ transaction.transactionId }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.currency }}</td>
+        <td>{{ transaction.country }}</td>
+        <td>{{ transaction.transactionDate }}</td>
+        <td>{{ transaction.typeTransaction }}</td>
+        <td>{{ transaction.transactionStatus }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
