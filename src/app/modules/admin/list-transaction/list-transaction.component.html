@@ -1,20 +1,50 @@
-
 <div class="card">
-  <p-table [value]="transactions" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template #header>
+  <p-table #dt
+           [value]="transactions"
+           [tableStyle]="{ 'min-width': '50rem' }"
+           [paginator]="true"
+           [rows]="5"
+           [rowsPerPageOptions]="[5, 10, 20]"
+           showGridlines
+           stripedRows
+           [globalFilterFields]="['transactionId', 'country']">
+           selectionMode="single"
+           [(selection)]="selectedTransaction"
+  >
+    <!-- Barre de recherche -->
+    <ng-template #caption>
+      <div class="flex justify-between">
+        <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+        <p-iconField iconPosition="left">
+          <p-inputIcon>
+            <i class="pi pi-search"></i>
+          </p-inputIcon>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Global Search"
+          />
+        </p-iconField>
+      </div>
+    </ng-template>
+
+    <!-- En-têtes -->
+    <ng-template pTemplate="header">
       <tr>
         <th>Id transaction</th>
-        <th>amount</th>
-        <th>currency</th>
-        <th>country</th>
-        <th>Date transaction</th>
-        <th>type Transaction</th>
-        <th>Status transaction</th>
-
+        <th>Montant</th>
+        <th>Devise</th>
+        <th>Pays</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Statut</th>
       </tr>
     </ng-template>
-    <ng-template #body let-transaction>
-      <tr>
+
+    <!-- Corps de tableau -->
+    <ng-template pTemplate="body" let-transaction>
+      <tr [pSelectableRow]="transaction">
         <td>{{ transaction.transactionId }}</td>
         <td>{{ transaction.amount }}</td>
         <td>{{ transaction.currency }}</td>
@@ -26,4 +56,3 @@
     </ng-template>
   </p-table>
 </div>
-
