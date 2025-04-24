@@ -9,8 +9,8 @@ import {Client, IMessage, Stomp} from "@stomp/stompjs";
 })
 export class WebSocketServiceService {
   private stompClient!: Client;
+  //émettra les alertes de fraude dès qu’on les reçoit
   private fraudAlertSubject = new Subject<any>();
-
   public fraudAlerts$ = this.fraudAlertSubject.asObservable();
 
   constructor() {
@@ -18,13 +18,13 @@ export class WebSocketServiceService {
   }
 
   connect() {
-    const socket = new SockJS('http://localhost:8099/ws'); // même URL que ton endpoint WebSocket côté backend
+    const socket = new SockJS('http://localhost:8099/ws');
     this.stompClient = Stomp.over(socket);
     this.stompClient.reconnectDelay = 5000;
 
     this.stompClient.onConnect = () => {
       console.log(' WebSocket connecté');
-
+     // s’abonne au canal /topic/fraud-alerts.
       this.stompClient.subscribe('/topic/fraud-alerts', (message: IMessage) => {
         const data = JSON.parse(message.body);
         console.log(' Alerte de fraude reçue :', data);

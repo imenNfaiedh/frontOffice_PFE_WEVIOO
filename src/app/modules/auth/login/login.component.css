@@ -8,6 +8,8 @@
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  background-color: #f3f5f8;
+
 }
 
 .background-top {
@@ -15,24 +17,46 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 60%;
-  background-image: url('C:/Users/Lenovo/Desktop/frontOffice/frontOffice_pfeV1/src/assets/img/login5.webp');
+  height: 66vh; /* plus grand pour couvrir davantage */
+  background-image: url('C:/Users/Lenovo/Desktop/frontOffice/frontOffice_pfeV1/src/assets/img/finaly.avif');
   background-size: cover;
   background-position: center;
-  clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
-  z-index: -1;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  z-index: 0;
+
+}
+body {
+  background-color: #f3f5f8;
+  margin: 0;
+  padding: 0;
 }
 
-/* Arrière-plan inférieur */
-.background-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  background-color: #f5f7fa;
-  z-index: -1;
-}
+/*!* Partie supérieure : pentagone vers le bas *!*/
+/*.background-top {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 50%;*/
+/*  background-image: url('C:/Users/Lenovo/Desktop/frontOffice/frontOffice_pfeV1/src/assets/img/finaly.avif');*/
+/*  background-size: cover;*/
+/*  background-position: center;*/
+/*  clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);*/
+/*  z-index: -1;*/
+/*  background-color: #f3f5f8;*/
+/*}*/
+
+/*!* Partie inférieure : pentagone inversé (vers le haut) *!*/
+/*.background-bottom {*/
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 50%;*/
+/*  background-color: #f3f5f8;*/
+/*  clip-path: polygon(0 100%, 100% 100%, 100% 0%, 0% 0, 0 0%);*/
+/*  z-index: -1;*/
+/*}*/
 
 /* Cadre blanc */
 .card {
@@ -104,85 +128,4 @@
 }
 
 
-/*!* Arrière-plan global *!*/
-/*.h1{*/
 
-/*}*/
-/*.login-container {*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  height: 100vh;*/
-/*  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);*/
-/*  overflow: hidden;*/
-/*}*/
-
-/*!* Cadre blanc *!*/
-/*.card {*/
-/*  background-color: white;*/
-/*  padding: 2.5rem;*/
-/*  border-radius: 15px;*/
-/*  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);*/
-/*  width: 100%;*/
-/*  max-width: 450px;*/
-/*  text-align: center;*/
-/*}*/
-
-
-
-/*.title {*/
-/*  font-size: 1.5rem;*/
-/*  font-weight: 600;*/
-/*  color: #373e9a;*/
-/*  margin-bottom: 1.5rem;*/
-/*}*/
-
-/*!* Style des groupes de formulaires *!*/
-/*.form-group {*/
-/*  margin-bottom: 1.5rem;*/
-/*}*/
-
-/*!* Style des labels *!*/
-/*.form-group label {*/
-/*  display: block;*/
-/*  margin-bottom: 0.5rem;*/
-/*  font-weight: 500;*/
-/*  color: #262525;*/
-/*  text-align: left;*/
-/*  font-size: 0.9rem;*/
-/*}*/
-
-/*!* Style des champs de saisie *!*/
-/*.form-group input {*/
-/*  width: 100%;*/
-/*  padding: 0.8rem;*/
-/*  border: 1px solid #d1d5db;*/
-/*  border-radius: 8px;*/
-/*  font-size: 1rem;*/
-/*  transition: border-color 0.3s ease;*/
-/*}*/
-
-/*.form-group input:focus {*/
-/*  border-color: #289a59;*/
-/*  box-shadow: 0 0 5px rgba(40, 154, 89, 0.3);*/
-/*  outline: none;*/
-/*}*/
-
-/*!* Style du bouton *!*/
-/*.btn-block {*/
-/*  width: 100%;*/
-/*  padding: 1rem;*/
-/*  font-size: 1rem;*/
-/*  background-color: #0ab29b;*/
-/*  color: white;*/
-/*  border: none;*/
-/*  border-radius: 8px;*/
-/*  cursor: pointer;*/
-/*  transition: background-color 0.3s ease;*/
-/*}*/
-
-/*.btn-block:hover {*/
-/*  background-color: #207d4a;*/
-
-
-/*}*/
