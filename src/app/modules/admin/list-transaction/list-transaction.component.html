@@ -1,20 +1,23 @@
 <div class="card">
   <p-table #dt
            [value]="transactions"
-           [tableStyle]="{ 'min-width': '50rem' }"
+           [tableStyle]="{ 'min-width': '10rem' }"
            [paginator]="true"
            [rows]="5"
            [rowsPerPageOptions]="[5, 10, 20]"
            showGridlines
            stripedRows
-           [globalFilterFields]="['transactionId', 'country']">
+           [globalFilterFields]="['transactionId', 'country']"
            selectionMode="single"
-           [(selection)]="selectedTransaction"
-  >
+           [(selection)]="selectedTransaction">
+
     <!-- Barre de recherche -->
     <ng-template #caption>
       <div class="flex justify-between">
-        <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+        <p-button icon="pi pi-filter-slash"
+                  label="Annuler recherche"
+                  severity="success"
+                  (click)="clear(dt)" />
         <p-iconField iconPosition="left">
           <p-inputIcon>
             <i class="pi pi-search"></i>
@@ -22,8 +25,9 @@
           <input
             pInputText
             type="text"
+            [(ngModel)]="searchValue"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Global Search"
+            placeholder="Recherche globale"
           />
         </p-iconField>
       </div>
@@ -42,7 +46,7 @@
       </tr>
     </ng-template>
 
-    <!-- Corps de tableau -->
+    <!-- Corps -->
     <ng-template pTemplate="body" let-transaction>
       <tr [pSelectableRow]="transaction">
         <td>{{ transaction.transactionId }}</td>
