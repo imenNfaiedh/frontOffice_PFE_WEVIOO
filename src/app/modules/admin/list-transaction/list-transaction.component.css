@@ -1,8 +1,65 @@
+/*:host :Représente le composant Angular lui-même.
+::ng-deep Permet de "casser l'encapsulation CSS" d'Angular.*/
+
+:host ::ng-deep .p-datatable-thead > tr > th {
+  background-color: #f1f4f7;
+  color: #848699;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+
+}
+
+
+
+/* ✅ Style pour la ligne sélectionnée dans la table */
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr.p-datatable-row-selected {
-  background-color: black !important;
+  background-color: #405188 !important;
   color: white !important;
 }
 
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr.p-datatable-row-selected:hover {
-  background-color: #1a1a1a !important;
+  background-color: #405188 !important;
+}
+
+/* ✅ Pagination : page sélectionnée (carré et couleur bleue) */
+:host ::ng-deep .custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page.p-paginator-page-selected {
+  background-color: #405188 !important;
+  color: white !important;
+  border-radius: 0px !important; /* carré */
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ✅ Pagination : au survol (hover) */
+:host ::ng-deep .custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page:hover {
+  background-color: #405188 !important;
+  color: white !important;
+  border-radius: 0px !important; /* carré */
+}
+
+/* ✅ Pagination : focus et active */
+:host ::ng-deep .custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page:focus,
+:host ::ng-deep .custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page:active {
+  background-color: #405188 !important;
+  color: white !important;
+  box-shadow: none !important;
+  border-radius: 0px !important; /* carré */
+}
+
+/* ✅ (OPTIONNEL) Style global pour forcer sur tout le projet si besoin */
+.p-paginator .p-paginator-page.p-highlight {
+  background-color: #405188 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+/* Supprimer la double flèche à gauche (page précédente, début) */
+.p-paginator .p-paginator-first {
+  display: none !important;
+}
+
+/* Supprimer la double flèche à droite (page suivante, fin) */
+.p-paginator .p-paginator-last {
+  display: none !important;
 }

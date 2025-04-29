@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit{
             this.authService.storeToken(response.access_token);
             console.log('Login successful, token stored.');
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-              this.router.navigate(['/', 'admin', 'list-transaction']);
+              this.router.navigate(['/', 'admin', 'dashboard']);
            });
            console.log("vers list transaction")
 

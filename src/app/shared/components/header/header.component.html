@@ -12,23 +12,28 @@
   <ng-template #end>
     <div class="flex items-center gap-4 relative">
 
-      <!-- 🔔 Cloche de notification -->
-      <button class="p-button p-button-text p-button-rounded relative"
-              (click)="toggleDropdown()">
-        <i class="pi pi-bell text-lg"></i>
-        <span *ngIf="notifications.length" class="badge">{{ notifications.length }}</span>
+      <!-- 🔔 Bouton de notification -->
+      <button class="notification-button bell-wrapper" (click)="toggleDropdown()">
+        <i class="pi pi-bell text-xl"></i>
+        <span *ngIf="notifications.length " class="notification-badge">
+    {{ notifications.length }}
+  </span>
       </button>
 
-      <!-- 🔽 Dropdown de notifications -->
+      <!-- 📝 Dropdown avec les notifications -->
       <div *ngIf="showDropdown" class="notification-dropdown">
-        <div *ngFor="let alert of notifications" class="notification-item">
-          <strong>{{ alert.firstName }}</strong> - {{ alert.reason }}<br>
-          <small>{{ alert.amount }} $ ({{ alert.country }})</small>
+        <div *ngIf="notifications.length; else noNotif">
+          <div *ngFor="let alert of notifications" class="notification-item">
+            <strong>{{ alert.firstName }}</strong> - {{ alert.reason }}<br>
+            <small>{{ alert.amount }} $ ({{ alert.country }})</small>
+          </div>
         </div>
+        <ng-template #noNotif>
+          <div class="no-notifications">Aucune notification</div>
+        </ng-template>
       </div>
-
       <!-- Autres éléments -->
-      <p-button label="Share" severity="contrast" size="small" />
+
       <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                 [style]="{ width: '32px', height: '32px' }" />
     </div>

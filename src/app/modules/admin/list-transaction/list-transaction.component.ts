@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import { TransactionService } from "../../../core/services/transaction.service";
 import { CommonModule } from "@angular/common";
 import { Table, TableModule } from "primeng/table";
@@ -14,7 +14,8 @@ import { InputText } from "primeng/inputtext";
   standalone: true,
   imports: [TableModule, CommonModule, IconField, InputIcon, FormsModule, Button, InputText],
   templateUrl: './list-transaction.component.html',
-  styleUrls: ['./list-transaction.component.css']
+  styleUrls: ['./list-transaction.component.css'],
+
 })
 export class ListTransactionComponent implements OnInit {
   transactions: Transaction[] = [];
@@ -34,12 +35,7 @@ export class ListTransactionComponent implements OnInit {
     });
   }
 
-  // Cette méthode peut être utilisée si tu veux effectuer une logique supplémentaire lors de la recherche
-  onSearch() {
-    // Le tableau sera automatiquement filtré grâce au globalFilter
-  }
 
-  // Réinitialiser la valeur de recherche et les filtres du tableau
   clear(dt: Table) {
     this.searchValue = '';  // Réinitialiser la valeur de recherche
     dt.clear();  // Réinitialise tous les filtres

@@ -1,22 +1,18 @@
-<div [ngClass]="collapsed ? 'sidenav-collapsed' : ''" class="sidenav">
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
   <div class="logo-container">
-    <button (click)="toggleCollapse()" *ngIf="!collapsed" class="logo">
-      <span>  <i class="pi pi-list"></i></span>
-    </button>
+    <div class="logo-content">
+      <button *ngIf="!collapsed" class="logo" (click)="toggleCollapse()">
+        <i class="pi pi-list"></i>
+      </button>
 
-    <img *ngIf="collapsed" alt=""
-         class="img-log"
-         height="68px"
-         src="assets/images/pgd_logo.svg"
-         width="48px"
-    />
-    <h6 *ngIf="collapsed">{{ "fraud detection" }}</h6>
-    <button
-      (click)="closeSidenav()"
-      *ngIf="collapsed"
-      class="btn-close"
-    > <i class="pi pi-times"></i>
-      <span></span></button>
+      <img *ngIf="collapsed" src="assets/img/logo_detection_fraud-removebg-preview.png"
+           class="logo-img" alt="Logo">
+      <h6 *ngIf="collapsed" class="logo-title"></h6>
+    </div>
+
+    <button *ngIf="collapsed" class="btn-close" (click)="closeSidenav()">
+      <i class="pi pi-times"></i>
+    </button>
   </div>
   <ul class="sidenav-nav">
     <li *ngFor="let item of navItems" class="sidenav-nav-item">

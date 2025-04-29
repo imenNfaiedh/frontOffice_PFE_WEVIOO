@@ -1,31 +1,46 @@
-.badge {
+.notification-button {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notification-badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: -6px;
+  right: -6px;
   background-color: red;
   color: white;
   border-radius: 50%;
-  font-size: 0.7rem;
+  font-size: 12px;
   padding: 2px 6px;
-  line-height: 1;
 }
 
 .notification-dropdown {
   position: absolute;
   top: 40px;
-  right: 90px;
+  right: 0;
+  width: 300px;
+  max-height: 300px;
   background: white;
   border: 1px solid #ccc;
-  width: 280px;
-  max-height: 300px;
-  overflow-y: auto;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1000;
-  border-radius: 6px;
+  overflow-y: auto;
 }
 
 .notification-item {
-  padding: 10px;
-  border-bottom: 1px solid #f1f1f1;
-  font-size: 0.85rem;
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+  font-size: 14px;
 }
+
+.no-notifications {
+  text-align: center;
+  color: gray;
+  font-style: italic;
+}
+
+

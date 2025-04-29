@@ -1,12 +1,12 @@
 <div class="card">
-  <p-table #dt
+  <p-table #dt  class="custom-pagination-style"
            [value]="transactions"
            [tableStyle]="{ 'min-width': '10rem' }"
            [paginator]="true"
            [rows]="5"
            [rowsPerPageOptions]="[5, 10, 20]"
            showGridlines
-           stripedRows
+
            [globalFilterFields]="['transactionId', 'country']"
            selectionMode="single"
            [(selection)]="selectedTransaction">
@@ -16,10 +16,12 @@
       <div class="flex justify-between">
         <p-button icon="pi pi-filter-slash"
                   label="Annuler recherche"
-                  severity="success"
-                  (click)="clear(dt)" />
+                  severity="contrast"
+                  variant="outlined"
+                  (click)="clear(dt)"
+                  size="small"/>
         <p-iconField iconPosition="left">
-          <p-inputIcon>
+          <p-inputIcon >
             <i class="pi pi-search"></i>
           </p-inputIcon>
           <input
@@ -34,15 +36,15 @@
     </ng-template>
 
     <!-- En-têtes -->
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Id transaction</th>
-        <th>Montant</th>
-        <th>Devise</th>
-        <th>Pays</th>
-        <th>Date</th>
-        <th>Type</th>
-        <th>Statut</th>
+    <ng-template pTemplate="header" >
+      <tr class="custom-header">
+        <th class="header-cell">Id transaction</th>
+        <th class="header-cell">Montant</th>
+        <th class="header-cell">Devise</th>
+        <th class="header-cell">Pays</th>
+        <th class="header-cell">Date</th>
+        <th class="header-cell">Type</th>
+        <th class="header-cell">Statut</th>
       </tr>
     </ng-template>
 

@@ -33,15 +33,16 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
 export class SidebarComponent implements  OnInit{
   @Output() private readonly toggleSideNav = new EventEmitter<SideNavToggle>();
 
-  public collapsed = false;
-  public screenWidth = 0;
-  public readonly navItems = NAV_BAR_ITEMS;
+  public collapsed = false; //sidebar est repliée
+  public screenWidth = 0; // largeur de l’écran
+  public readonly navItems = NAV_BAR_ITEMS; //liste des liens de navigation
 
   ngOnInit(): void {
     this.updateScreenWidth();
     this.handleScreenResize();
   }
 
+  //Écoute du redimensionnement d’écran
   @HostListener('window:resize')
   private onResize(): void {
     this.updateScreenWidth();
@@ -77,7 +78,7 @@ export class SidebarComponent implements  OnInit{
   private isMobileView(): boolean {
     return this.screenWidth <= MOBILE_BREAKPOINT;
   }
-
+  //Envoie l’état de la sidebar vers un composant parent (via @Output()).
   private emitSideNavState(): void {
     this.toggleSideNav.emit({
       collapsed: this.collapsed,
