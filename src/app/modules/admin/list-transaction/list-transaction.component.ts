@@ -8,11 +8,14 @@ import { InputIcon } from "primeng/inputicon";
 import { FormsModule } from "@angular/forms";
 import { Button } from "primeng/button";
 import { InputText } from "primeng/inputtext";
+import {PopupComponent} from "../../../shared/popup/popup.component";
+import {AddTransactionComponent} from "../add-transaction/add-transaction.component";
 
 @Component({
   selector: 'app-list-transaction',
   standalone: true,
-  imports: [TableModule, CommonModule, IconField, InputIcon, FormsModule, Button, InputText],
+  imports: [TableModule, CommonModule, IconField, InputIcon, FormsModule, Button, InputText
+  , PopupComponent, AddTransactionComponent],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
 
@@ -22,6 +25,8 @@ export class ListTransactionComponent implements OnInit {
   selectedTransaction!: Transaction;
   searchValue: string = '';  // Valeur de la recherche
   @ViewChild('dt') table!: Table; // Référence au tableau PrimeNG
+
+  isModelOpen = false;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -35,9 +40,19 @@ export class ListTransactionComponent implements OnInit {
     });
   }
 
-
   clear(dt: Table) {
     this.searchValue = '';  // Réinitialiser la valeur de recherche
     dt.clear();  // Réinitialise tous les filtres
   }
+
+  //ouvrir popup
+  openModel() {
+    this.isModelOpen = true;
+  }
+//fermer popup
+  closeModel() {
+    this.isModelOpen = false;
+    this.getAllTransaction();
+  }
+
 }

@@ -1,0 +1,17 @@
+@if (isOpen) {
+  <!-- Overlay Background -->
+  <div class="top-0 left-0 w-screen h-screen fixed bg-gray-900/60 z-30"></div>
+
+  <!-- Popup Container -->
+  <div class="top-0 left-0 w-screen h-screen fixed flex justify-center items-center z-40">
+    <div class="bg-white rounded-lg p-6 w-1/3 relative shadow-lg">
+      <!-- Close Button -->
+      <button (click)="onCloseModel()" class="absolute top-2 right-2 text-red-600 text-2xl font-bold hover:text-red-800">
+        ×
+      </button>
+
+      <!-- Content projected inside -->
+      <ng-content></ng-content>
+    </div>
+  </div>
+}

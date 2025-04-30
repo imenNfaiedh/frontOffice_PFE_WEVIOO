@@ -1,15 +1,23 @@
+
+<div class="flex justify-between items-center mb-6">
+  <h4 class="font-bold text-2xl"></h4>
+  <button type="button" (click)="openModel()"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full px-6 py-3 text-center mb-2 ">Add
+    Transaction</button>
+</div>
+
 <div class="card">
-  <p-table #dt  class="custom-pagination-style"
+  <p-table #dt  class="custom-pagination-style "
            [value]="transactions"
            [tableStyle]="{ 'min-width': '10rem' }"
            [paginator]="true"
            [rows]="5"
            [rowsPerPageOptions]="[5, 10, 20]"
            showGridlines
-
            [globalFilterFields]="['transactionId', 'country']"
            selectionMode="single"
-           [(selection)]="selectedTransaction">
+           [(selection)]="selectedTransaction"
+          >
 
     <!-- Barre de recherche -->
     <ng-template #caption>
@@ -62,3 +70,9 @@
     </ng-template>
   </p-table>
 </div>
+
+<!-- Popup d'ajout de transaction -->
+<!-- Popup -->
+<app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()">
+  <app-add-transaction (formSubmitted)="closeModel()" (cancel)="closeModel()"></app-add-transaction>
+</app-popup>

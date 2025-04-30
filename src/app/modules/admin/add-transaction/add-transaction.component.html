@@ -1,0 +1,14 @@
+<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ajouter Transaction </h5>
+<form [formGroup]="transactionForm" class="w-full" (ngSubmit)="onSubmit()" novalidate>
+  <div class="mb-5">
+    <label for="devise" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+    <input type="text" id="devise" class="form-control" placeholder="devise" formControlName="devise">
+    @if (transactionForm.get('name')?.hasError('required') && transactionForm.get('name')?.touched) {
+      <div class="form-error">Name is required</div>
+    }
+  </div>
+  <button type="submit"
+          class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Valider</button>
+  <button type="button"
+          class="text-white  ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center" (click)="onCancel()">Annuler</button>
+</form>

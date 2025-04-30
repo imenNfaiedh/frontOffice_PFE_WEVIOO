@@ -9,6 +9,12 @@
   font-weight: bold;
 
 }
+:host ::ng-deep .p-datatable-sm .p-datatable-tbody > tr {
+  background-color: #ffdddd; /* Test visuel */
+  font-size: 0.75rem;
+  height: 30px;
+}
+
 
 
 
