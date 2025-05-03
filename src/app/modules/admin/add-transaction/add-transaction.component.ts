@@ -5,11 +5,15 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {TypeTransaction} from "../../../shared/models/typeTransaction.enum";
 import {TransactionStatus} from "../../../shared/models/transactionStatus.enum";
 import {TransactionService} from "../../../core/services/transaction.service";
+import {InputText} from "primeng/inputtext";
+import {CommonModule} from "@angular/common";
+import { DropdownModule } from 'primeng/dropdown';
+
 
 @Component({
   selector: 'app-add-transaction',
   standalone: true,
-  imports: [DialogModule, Button, ReactiveFormsModule],
+  imports: [DialogModule, Button, ReactiveFormsModule, InputText,CommonModule,DropdownModule],
   templateUrl: './add-transaction.component.html',
   styleUrl: './add-transaction.component.css'
 })
@@ -17,19 +21,30 @@ export class AddTransactionComponent  {
   transactionForm:FormGroup;
   @Output() formSubmitted = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
+
+
+  transactionStatuses: TransactionStatus[]| undefined;
   constructor(private fb : FormBuilder,
               private transactionService : TransactionService) {
     this.transactionForm = this.fb.group(
       {
-        devise : new  FormControl('',[Validators.required]),
         amount: new  FormControl('',[Validators.required]),
-        currency: new  FormControl('',[Validators.required ,Validators.email],),
+        currency: new  FormControl('',[Validators.required ]),
         country: new  FormControl('',[Validators.required]),
         transactionDate: new  FormControl('',[Validators.required]),
         typeTransaction: new  FormControl('',[Validators.required]),
-        transactionStatus: new  FormControl('',[Validators.required]),
+        // transactionStatus: new  FormControl('',[Validators.required]),
       })
+
   }
+  typeTransactions = [
+    { name: "PAYMENT" },
+    { name: "WITHDRAWAL" },
+    { name: "TRANSFER" }
+
+  ];
+
+
 
 
   onSubmit() {
@@ -42,8 +57,6 @@ export class AddTransactionComponent  {
           console.error("Erreur lors de l'ajout :", err);
         }
       });
-    } else {
-      this.transactionForm.markAllAsTouched();
     }
   }
 

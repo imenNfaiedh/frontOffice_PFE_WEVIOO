@@ -1,14 +1,52 @@
-<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ajouter Transaction </h5>
+<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ajouter Transaction</h5>
 <form [formGroup]="transactionForm" class="w-full" (ngSubmit)="onSubmit()" novalidate>
+
+
+
   <div class="mb-5">
-    <label for="devise" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-    <input type="text" id="devise" class="form-control" placeholder="devise" formControlName="devise">
-    @if (transactionForm.get('name')?.hasError('required') && transactionForm.get('name')?.touched) {
-      <div class="form-error">Name is required</div>
-    }
+    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
+    <input  pInputText type="text" id="amount" class="form-control" formControlName="amount" placeholder="Montant">
   </div>
+
+  <div class="mb-5">
+    <label for="currency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Devise</label>
+    <input  pInputText type="text" id="currency" class="form-control" formControlName="currency" placeholder="Devise">
+  </div>
+
+  <div class="mb-5">
+    <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pays</label>
+    <input pInputText type="text" id="country" class="form-control" formControlName="country" placeholder="Pays">
+  </div>
+
+  <div class="mb-5">
+    <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de Transaction</label>
+    <input pInputText type="date" id="transactionDate" class="form-control" formControlName="transactionDate">
+  </div>
+
+  <div class="mb-5">
+    <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Transaction</label>
+    <p-dropdown  id="typeTransaction" formControlName="typeTransaction" [options]="typeTransactions"
+                 optionLabel="name"
+                 placeholder="Select a type" class="w-full md:w-56" />
+
+  </div>
+
+
+<!--  <div class="mb-5">-->
+<!--    <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut de Transaction</label>-->
+<!--    <p-dropdown  id="transactionStatus" formControlName="typeTransaction" [options]="transactionStatuses"  placeholder="Select a type" class="w-full md:w-56" />-->
+
+<!--  </div>-->
+
   <button type="submit"
-          class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Valider</button>
+
+          class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">
+    Valider
+  </button>
+
   <button type="button"
-          class="text-white  ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center" (click)="onCancel()">Annuler</button>
+          class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center"
+          (click)="onCancel()">
+    Annuler
+  </button>
 </form>
