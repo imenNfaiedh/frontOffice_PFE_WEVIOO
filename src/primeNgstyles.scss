@@ -1,0 +1,54 @@
+
+//entete table
+.custom-header  .header-cell{
+ background-color: #f1f4f7;
+  color: #848699;
+  text-align: center;
+  vertical-align: middle;
+ font-weight: bold;
+}
+
+/*Styles pour la ligne normale */
+ .p-datatable-tbody > tr {
+ font-size: 1rem;
+ height: 30px;
+}
+
+/* Ligne sélectionnée */
+.p-datatable .p-datatable-tbody > tr.p-datatable-row-selected {
+ background-color: #405188 !important;
+  color: white !important;
+}
+/* Ligne sélectionnée au survol */
+ .p-datatable .p-datatable-tbody > tr.p-datatable-row-selected:hover {
+  background-color: #405188 !important;
+}
+
+/* Pagination personnalisée */
+.custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page.p-paginator-page-selected {
+  background-color: #405188 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page:hover {
+  background-color: #405188 !important;
+  color: white !important;
+  border-radius: 0px !important;
+}
+
+.custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page:focus,
+.custom-pagination-style .p-paginator .p-paginator-pages .p-paginator-page:active {
+  background-color: #405188 !important;
+  color: white !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+
+.custom-pagination-style .p-paginator .p-paginator-first,
+.custom-pagination-style .p-paginator .p-paginator-last {
+  display: none !important;
+}
+

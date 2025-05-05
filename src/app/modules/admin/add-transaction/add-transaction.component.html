@@ -1,11 +1,9 @@
 <h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ajouter Transaction</h5>
 <form [formGroup]="transactionForm" class="w-full" (ngSubmit)="onSubmit()" novalidate>
 
-
-
   <div class="mb-5">
     <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
-    <input  pInputText type="text" id="amount" class="form-control" formControlName="amount" placeholder="Montant">
+    <input  pInputText type="text" id="amount" class="form-control select" formControlName="amount" placeholder="Montant">
   </div>
 
   <div class="mb-5">
@@ -20,7 +18,7 @@
 
   <div class="mb-5">
     <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de Transaction</label>
-    <input pInputText type="date" id="transactionDate" class="form-control" formControlName="transactionDate">
+    <input pInputText type="date" id="transactionDate" class="form-control select" formControlName="transactionDate">
   </div>
 
   <div class="mb-5">

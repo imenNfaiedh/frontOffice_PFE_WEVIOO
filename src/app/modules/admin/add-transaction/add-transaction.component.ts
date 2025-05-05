@@ -8,12 +8,13 @@ import {TransactionService} from "../../../core/services/transaction.service";
 import {InputText} from "primeng/inputtext";
 import {CommonModule} from "@angular/common";
 import { DropdownModule } from 'primeng/dropdown';
+import { StyleClassModule } from 'primeng/styleclass';
 
 
 @Component({
   selector: 'app-add-transaction',
   standalone: true,
-  imports: [DialogModule, Button, ReactiveFormsModule, InputText,CommonModule,DropdownModule],
+  imports: [DialogModule, Button, ReactiveFormsModule, InputText, CommonModule, DropdownModule, StyleClassModule],
   templateUrl: './add-transaction.component.html',
   styleUrl: './add-transaction.component.css'
 })

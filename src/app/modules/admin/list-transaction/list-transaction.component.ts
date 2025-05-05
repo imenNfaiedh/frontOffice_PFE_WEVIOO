@@ -10,19 +10,21 @@ import { Button } from "primeng/button";
 import { InputText } from "primeng/inputtext";
 import {PopupComponent} from "../../../shared/popup/popup.component";
 import {AddTransactionComponent} from "../add-transaction/add-transaction.component";
+import {StyleClassModule} from "primeng/styleclass";
 
 @Component({
   selector: 'app-list-transaction',
   standalone: true,
   imports: [TableModule, CommonModule, IconField, InputIcon, FormsModule, Button, InputText
-  , PopupComponent, AddTransactionComponent],
+  , PopupComponent, AddTransactionComponent,StyleClassModule],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
 
 })
 export class ListTransactionComponent implements OnInit {
   transactions: Transaction[] = [];
-  selectedTransaction!: Transaction;
+  selectedTransaction: any;
+  //selectedTransaction!: Transaction;
   searchValue: string = '';  // Valeur de la recherche
   @ViewChild('dt') table!: Table; // Référence au tableau PrimeNG
 
