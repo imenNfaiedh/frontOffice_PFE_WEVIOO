@@ -9,12 +9,13 @@ import {InputText} from "primeng/inputtext";
 import {CommonModule} from "@angular/common";
 import { DropdownModule } from 'primeng/dropdown';
 import { StyleClassModule } from 'primeng/styleclass';
+import {CardModule} from "primeng/card";
 
 
 @Component({
   selector: 'app-add-transaction',
   standalone: true,
-  imports: [DialogModule, Button, ReactiveFormsModule, InputText, CommonModule, DropdownModule, StyleClassModule],
+  imports: [DialogModule, Button, ReactiveFormsModule, InputText, CommonModule, DropdownModule, StyleClassModule,CardModule],
   templateUrl: './add-transaction.component.html',
   styleUrl: './add-transaction.component.css'
 })

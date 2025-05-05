@@ -1,79 +1,76 @@
+<!-- Carte contenant le tableau -->
+<div class="card-container">
+  <div class="flex justify-between items-center gap-4 mb-6">
+    <h4 class=" text-2xl custom-title">Liste des transactions</h4>
+    <button type="button" (click)="openModel()" class="custom-button">
+      + Ajouter Transaction
+    </button>
+  </div>
 
-<div class="flex justify-between items-center mb-6">
-  <h4 class="font-bold text-2xl"></h4>
-  <button type="button" (click)="openModel()"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-full px-6 py-3 text-center mb-2 ">Add
-    Transaction</button>
+  <hr class="separator-line  my-1" />
+  <!-- Barre de recherche et filtre -->
+  <div class="search-container mb-4">
+    <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
+             [value]="transactions"
+             [tableStyle]="{ 'min-width': '10rem' }"
+             [paginator]="true"
+             [rows]="5"
+             [rowsPerPageOptions]="[5, 10, 20]"
+             [globalFilterFields]="['transactionId', 'country']"
+             selectionMode="single"
+             [(selection)]="selectedTransaction">
+
+      <ng-template #caption>
+        <div class="flex justify-between">
+          <p-button icon="pi pi-filter-slash"
+                    label="Annuler recherche"
+                    severity="contrast"
+                    variant="outlined"
+                    (click)="clear(dt)"
+                    />
+          <p-iconField iconPosition="left">
+            <p-inputIcon>
+              <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="searchValue"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+              placeholder="Rechercher"
+            />
+          </p-iconField>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr class="custom-header">
+          <th class="header-cell">Id transaction</th>
+          <th class="header-cell">Montant</th>
+          <th class="header-cell">Devise</th>
+          <th class="header-cell">Pays</th>
+          <th class="header-cell">Date</th>
+          <th class="header-cell">Type</th>
+          <th class="header-cell">Statut</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-transaction>
+        <tr [pSelectableRow]="transaction">
+          <td>{{ transaction.transactionId }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.currency }}</td>
+          <td>{{ transaction.country }}</td>
+          <td>{{ transaction.transactionDate }}</td>
+          <td>{{ transaction.typeTransaction }}</td>
+          <td>{{ transaction.transactionStatus }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Popup d'ajout de transaction -->
+  <app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()">
+    <app-add-transaction (formSubmitted)="closeModel()" (cancel)="closeModel()"></app-add-transaction>
+  </app-popup>
 </div>
-
-<div class="card">
-  <p-table #dt  class="custom-pagination-style custom-datatable-sm p-datatable-sm"
-           [value]="transactions"
-           [tableStyle]="{ 'min-width': '10rem' }"
-           [paginator]="true"
-           [rows]="5"
-           [rowsPerPageOptions]="[5, 10, 20]"
-           showGridlines
-           [globalFilterFields]="['transactionId', 'country']"
-           selectionMode="single"
-           [(selection)]="selectedTransaction"
-          >
-
-    <!-- Barre de recherche -->
-    <ng-template #caption>
-      <div class="flex justify-between">
-        <p-button icon="pi pi-filter-slash"
-                  label="Annuler recherche"
-                  severity="contrast"
-                  variant="outlined"
-                  (click)="clear(dt)"
-                  size="small"/>
-        <p-iconField iconPosition="left">
-          <p-inputIcon >
-            <i class="pi pi-search"></i>
-          </p-inputIcon>
-          <input
-            pInputText
-            type="text"
-            [(ngModel)]="searchValue"
-            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Recherche globale"
-          />
-        </p-iconField>
-      </div>
-    </ng-template>
-
-    <!-- En-têtes -->
-    <ng-template pTemplate="header" >
-      <tr class="custom-header">
-        <th class="header-cell">Id transaction</th>
-        <th class="header-cell">Montant</th>
-        <th class="header-cell">Devise</th>
-        <th class="header-cell">Pays</th>
-        <th class="header-cell">Date</th>
-        <th class="header-cell">Type</th>
-        <th class="header-cell">Statut</th>
-      </tr>
-    </ng-template>
-
-    <!-- Corps -->
-    <ng-template pTemplate="body" let-transaction
-    >
-      <tr [pSelectableRow]="transaction">
-        <td>{{ transaction.transactionId }}</td>
-        <td>{{ transaction.amount }}</td>
-        <td>{{ transaction.currency }}</td>
-        <td>{{ transaction.country }}</td>
-        <td>{{ transaction.transactionDate }}</td>
-        <td>{{ transaction.typeTransaction }}</td>
-        <td>{{ transaction.transactionStatus }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
-
-<!-- Popup d'ajout de transaction -->
-<!-- Popup -->
-<app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()">
-  <app-add-transaction (formSubmitted)="closeModel()" (cancel)="closeModel()"></app-add-transaction>
-</app-popup>

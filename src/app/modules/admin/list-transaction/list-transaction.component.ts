@@ -24,7 +24,6 @@ import {StyleClassModule} from "primeng/styleclass";
 export class ListTransactionComponent implements OnInit {
   transactions: Transaction[] = [];
   selectedTransaction: any;
-  //selectedTransaction!: Transaction;
   searchValue: string = '';  // Valeur de la recherche
   @ViewChild('dt') table!: Table; // Référence au tableau PrimeNG
 
