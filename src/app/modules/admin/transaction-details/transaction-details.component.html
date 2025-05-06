@@ -1,0 +1,21 @@
+<div class="popup-overlay">
+  <div class="popup-backdrop">
+    <div class="popup">
+      <h3>Détails de la transaction</h3>
+    <button (click)="closePopup()" class="close-btn">✖</button>
+
+
+    <div *ngIf="transaction">
+      <p><strong>ID :</strong> {{ transaction.transactionId }}</p>
+      <p><strong>Montant :</strong> {{ transaction.amount }}</p>
+      <p><strong>Devise :</strong> {{ transaction.currency }}</p>
+      <p><strong>Pays :</strong> {{ transaction.country }}</p>
+      <p><strong>Date :</strong> {{ transaction.transactionDate }}</p>
+      <p><strong>Type :</strong> {{ transaction.typeTransaction }}</p>
+      <p><strong>Statut :</strong> {{ transaction.transactionStatus }}</p>
+    </div>
+  </div>
+</div>
+</div>
+
+

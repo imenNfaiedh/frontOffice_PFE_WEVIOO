@@ -6,17 +6,19 @@ import { Transaction } from "../../../shared/models/transaction";
 import { IconField } from "primeng/iconfield";
 import { InputIcon } from "primeng/inputicon";
 import { FormsModule } from "@angular/forms";
-import { Button } from "primeng/button";
+import {Button, ButtonModule} from "primeng/button";
 import { InputText } from "primeng/inputtext";
 import {PopupComponent} from "../../../shared/popup/popup.component";
 import {AddTransactionComponent} from "../add-transaction/add-transaction.component";
 import {StyleClassModule} from "primeng/styleclass";
+import {SplitButtonModule} from "primeng/splitbutton";
+import {TransactionDetailsComponent} from "../transaction-details/transaction-details.component";
 
 @Component({
   selector: 'app-list-transaction',
   standalone: true,
   imports: [TableModule, CommonModule, IconField, InputIcon, FormsModule, Button, InputText
-  , PopupComponent, AddTransactionComponent,StyleClassModule],
+    , PopupComponent, AddTransactionComponent, StyleClassModule, SplitButtonModule, ButtonModule, TransactionDetailsComponent],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
 
@@ -26,8 +28,11 @@ export class ListTransactionComponent implements OnInit {
   selectedTransaction: any;
   searchValue: string = '';  // Valeur de la recherche
   @ViewChild('dt') table!: Table; // Référence au tableau PrimeNG
-
   isModelOpen = false;
+
+  //view transaction
+  showDetailsPopup: boolean = false;
+  selectedTransactionDetails!: Transaction;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -54,6 +59,28 @@ export class ListTransactionComponent implements OnInit {
   closeModel() {
     this.isModelOpen = false;
     this.getAllTransaction();
+  }
+  viewDetails(id: number) {
+      this.transactionService.getTransactionById(id).subscribe({
+        next: (data) => {
+          this.selectedTransactionDetails = data;
+          this.showDetailsPopup = true;
+        },
+        error: (err) => {
+          console.error("Erreur lors du chargement des détails", err);
+        }
+      });
+    }
+
+
+  editTransaction(transaction: Transaction) {
+    console.log('Modifier :', transaction);
+
+  }
+
+  deleteTransaction(transaction: Transaction) {
+    console.log('Supprimer :', transaction);
+
   }
 
 }

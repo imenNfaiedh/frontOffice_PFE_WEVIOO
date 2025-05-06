@@ -1,0 +1,67 @@
+/* Fond sombre semi-transparent sur toute la page */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Boîte du popup centrée */
+.popup {
+  background-color: #fff;
+  padding: 30px 25px 20px 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Bouton de fermeture en haut à droite */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+}
+.close-btn:hover {
+  color: #000;
+}
+
+/* Animation d’apparition fluide */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive sur petit écran */
+@media (max-width: 600px) {
+  .popup {
+    margin: 0 10px;
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+/*@keyframes fadeIn {*/
+/*  from { opacity: 0; transform: translate(-50%, -60%); }*/
+/*  to { opacity: 1; transform: translate(-50%, -50%); }*/
+/*}*/

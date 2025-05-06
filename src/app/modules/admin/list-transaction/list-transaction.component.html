@@ -22,12 +22,7 @@
 
       <ng-template #caption>
         <div class="flex justify-between">
-          <p-button icon="pi pi-filter-slash"
-                    label="Annuler recherche"
-                    severity="contrast"
-                    variant="outlined"
-                    (click)="clear(dt)"
-                    />
+          <p-button icon="pi pi-filter-slash" label="Annuler recherche" severity="contrast" variant="outlined" (click)="clear(dt)"/>
           <p-iconField iconPosition="left">
             <p-inputIcon>
               <i class="pi pi-search"></i>
@@ -52,6 +47,7 @@
           <th class="header-cell">Date</th>
           <th class="header-cell">Type</th>
           <th class="header-cell">Statut</th>
+          <th class="header-cell">Action</th>
         </tr>
       </ng-template>
 
@@ -64,13 +60,36 @@
           <td>{{ transaction.transactionDate }}</td>
           <td>{{ transaction.typeTransaction }}</td>
           <td>{{ transaction.transactionStatus }}</td>
+          <td>
+
+
+            <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
+                    (click)="viewDetails(transaction.transactionId)" title="Voir les détails"></button>
+
+
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-warning"
+              (click)="editTransaction(transaction)" title="Modifier"></button>
+
+
+            <button pButton type="button" icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="deleteTransaction(transaction)" title="Supprimer"></button>
+          </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 
   <!-- Popup d'ajout de transaction -->
-  <app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()">
+  <app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()" [popupTitle]="'Ajouter une transaction'">
     <app-add-transaction (formSubmitted)="closeModel()" (cancel)="closeModel()"></app-add-transaction>
   </app-popup>
 </div>
+
+<!-- Popup des détails de la transaction -->
+<app-transaction-details
+  *ngIf="showDetailsPopup"
+  [transaction]="selectedTransactionDetails"
+  (close)="showDetailsPopup = false">
+</app-transaction-details>
+

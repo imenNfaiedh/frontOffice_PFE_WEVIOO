@@ -1,31 +1,31 @@
-<h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Ajouter Transaction</h5>
+
 <form [formGroup]="transactionForm" class="w-full" (ngSubmit)="onSubmit()" novalidate>
 
   <div class="mb-5">
     <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
-    <input  pInputText type="text" id="amount" class="form-control select" formControlName="amount" placeholder="Montant">
+    <input  pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant">
   </div>
 
   <div class="mb-5">
     <label for="currency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Devise</label>
-    <input  pInputText type="text" id="currency" class="form-control" formControlName="currency" placeholder="Devise">
+    <input  pInputText type="text" id="currency" class="form-control w-full" formControlName="currency" placeholder="Devise">
   </div>
 
   <div class="mb-5">
     <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pays</label>
-    <input pInputText type="text" id="country" class="form-control" formControlName="country" placeholder="Pays">
+    <input pInputText type="text" id="country" class="form-control w-full" formControlName="country" placeholder="Pays">
   </div>
 
   <div class="mb-5">
     <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de Transaction</label>
-    <input pInputText type="date" id="transactionDate" class="form-control select" formControlName="transactionDate">
+    <input pInputText type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate">
   </div>
 
   <div class="mb-5">
     <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Transaction</label>
     <p-dropdown  id="typeTransaction" formControlName="typeTransaction" [options]="typeTransactions"
                  optionLabel="name"
-                 placeholder="Select a type" class="w-full md:w-56" />
+                 placeholder="Select a type" class="form-control w-full " />
 
   </div>
 
@@ -36,15 +36,9 @@
 
 <!--  </div>-->
 
-  <button type="submit"
+  <div class="button-group">
+    <button type="submit" class="btn-valider">Valider</button>
+    <button type="button" class="btn-cancel" (click)="onCancel()">Annuler</button>
+  </div>
 
-          class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">
-    Valider
-  </button>
-
-  <button type="button"
-          class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center"
-          (click)="onCancel()">
-    Annuler
-  </button>
 </form>
