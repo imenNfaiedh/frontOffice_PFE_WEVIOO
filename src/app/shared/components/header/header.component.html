@@ -1,5 +1,6 @@
  <div [ngClass]="getBodyClass()" class="header">
 <p-toolbar>
+  <!-- Zone de gauche (start) du p-toolbar-->
   <ng-template #start>
     <div class="flex items-center gap-2">
       <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
@@ -9,26 +10,45 @@
       </p-iconfield>
     </div>
   </ng-template>
-
+  <!--Zone de droite (end)-->
   <ng-template #end>
     <div class="flex items-center gap-4 relative">
+      <!-- BOUTON DE NOTIFICATION -->
+      <div class="notification-wrapper" (click)="toggleDropdown($event)" aria-label="Voir les notifications">
+        <i class="pi pi-bell "></i>
+        <span class="notification-badge" *ngIf="unreadCount > 0">
+  {{ unreadCount }}
+</span>
 
-      <!-- 🔔 Bouton de notification -->
-      <button class="notification-button bell-wrapper" (click)="toggleDropdown()">
-        <i class="pi pi-bell text-xl"></i>
-        <span *ngIf="notifications.length " class="notification-badge">
-    {{ notifications.length }}
-  </span>
-      </button>
+      </div>
 
-      <!-- 📝 Dropdown avec les notifications -->
-      <div *ngIf="showDropdown" class="notification-dropdown">
-        <div *ngIf="notifications.length; else noNotif">
-          <div *ngFor="let alert of notifications" class="notification-item">
-            <strong>{{ alert.firstName }}</strong> - {{ alert.reason }}<br>
-            <small>{{ alert.amount }} $ ({{ alert.country }})</small>
-          </div>
+      <!-- DROPDOWN (deroulant) DE NOTIFICATIONS -->
+      <div *ngIf="showDropdown"  @dropdownAnimation class="notification-popup">
+        <div class="popup-header">
+          <span>Notifications</span>
+          <span class="badge-new">{{ notifications.length }} Nouveau</span>
         </div>
+
+        <ng-container *ngIf="notifications.length > 0; else noNotif">
+          <div *ngFor="let alert of notifications.slice(0, 3); let i = index"
+               class="popup-item"
+               (click)="markAsRead(i)"
+               [ngClass]="{'read': alert.isRead}">
+            <div class="icon-circle warning-icon">
+              <i class="pi pi-exclamation-triangle"></i>
+            </div>
+            <div class="popup-text">
+              <div class="message">
+                <strong>Fraude suspectée</strong> Pour <strong>{{ alert.firstName }}</strong><br>
+                <span class="fraude-reason">Raison : {{ alert.reason }}</span><br>
+                <small class="fraude-details">Montant : {{ alert.amount }} $ — Pays : {{ alert.country }}</small>
+              </div>
+              <div class="time"> À l'instant {{ alert.date }}</div>
+            </div>
+          </div>
+
+        </ng-container>
+
         <ng-template #noNotif>
           <div class="no-notifications">Aucune notification</div>
         </ng-template>
