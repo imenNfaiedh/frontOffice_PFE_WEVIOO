@@ -1,0 +1,62 @@
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.stat-card {
+  flex: 1 1 calc(20% - 1rem);
+  background-color: #f4f4f4;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  position: relative;
+  transition: transform 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .value {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+/* Couleurs personnalisées pour chaque card*/
+   .users {
+     background: linear-gradient(135deg, #4caf50, #81c784);
+   }
+
+.banks {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.accounts {
+  background: linear-gradient(135deg, #ff9800, #ffb74d);
+}
+
+.transactions {
+  background: linear-gradient(135deg, #9c27b0, #ce93d8);
+}
+
+.reclamations {
+  background: linear-gradient(135deg, #f44336, #ef9a9a);
+}

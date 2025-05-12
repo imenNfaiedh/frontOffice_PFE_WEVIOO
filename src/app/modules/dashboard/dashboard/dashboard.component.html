@@ -1,1 +1,25 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="stat-card users">
+    <i class="pi pi-users icon"></i>
+    <span class="title">Users</span>
+    <span class="value">{{ counts.users }}</span>
+  </div>
+
+  <div class="stat-card banks">
+    <i class="pi pi-building icon"></i>
+    <span class="title">Banks</span>
+    <span class="value">{{ counts.banks }}</span>
+  </div>
+
+  <div class="stat-card accounts">
+    <i class="pi pi-credit-card icon"></i>
+    <span class="title">Accounts</span>
+    <span class="value">{{ counts.accounts }}</span>
+  </div>
+
+  <div class="stat-card transactions">
+    <i class="pi pi-wallet icon"></i>
+    <span class="title">Transactions</span>
+    <span class="value">{{ counts.transactions }}</span>
+  </div>
+</div>
