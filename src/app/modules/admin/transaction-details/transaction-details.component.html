@@ -1,21 +1,37 @@
-<div class="popup-overlay">
-  <div class="popup-backdrop">
-    <div class="popup">
-      <h3>Détails de la transaction</h3>
-    <button (click)="closePopup()" class="close-btn">✖</button>
+<div class="popup-overlay" *ngIf="transaction">
+  <div class="popup">
+    <!-- Header stylisé -->
+    <div class="popup-header">
+      <h3 >Détails de la transaction</h3>
+      <button (click)="closePopup()" class="text-gray-500 text-xl font-bold hover:text-red-600">×</button>
+    </div>
 
-
-    <div *ngIf="transaction">
-      <p><strong>ID :</strong> {{ transaction.transactionId }}</p>
-      <p><strong>Montant :</strong> {{ transaction.amount }}</p>
-      <p><strong>Devise :</strong> {{ transaction.currency }}</p>
-      <p><strong>Pays :</strong> {{ transaction.country }}</p>
-      <p><strong>Date :</strong> {{ transaction.transactionDate }}</p>
-      <p><strong>Type :</strong> {{ transaction.typeTransaction }}</p>
-      <p><strong>Statut :</strong> {{ transaction.transactionStatus }}</p>
+    <!-- Contenu principal -->
+    <div class="popup-content">
+      <div class="detail-row">
+        <span class="label"><i class="pi pi-hashtag"></i> ID :</span>
+        <span class="value">{{ transaction.transactionId }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label"><i class="pi pi-money-bill"></i> Montant :</span>
+        <span class="value">{{ transaction.amount }} {{ transaction.currency }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label"><i class="pi pi-globe"></i> Pays :</span>
+        <span class="value">{{ transaction.country }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label"><i class="pi pi-calendar"></i> Date :</span>
+        <span class="value">{{ transaction.transactionDate }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label"><i class="pi pi-tag"></i> Type :</span>
+        <span class="value">{{ transaction.typeTransaction }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label"><i class="pi pi-check-circle"></i> Statut :</span>
+        <span class="value">{{ transaction.transactionStatus }}</span>
+      </div>
     </div>
   </div>
 </div>
-</div>
-
-

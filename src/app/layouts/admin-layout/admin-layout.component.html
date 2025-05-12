@@ -1,5 +1,7 @@
 <app-sidebar (toggleSideNav)="onToggleSideNav($event)"></app-sidebar>
 <app-header
+  [collapsed]="isSideNavCollapsed"
+  [screenWidth]="screenWidth"
 ></app-header>
 <div style=" min-height: 80%">
   <app-body

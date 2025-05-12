@@ -57,19 +57,21 @@
           <td>{{ transaction.amount }}</td>
           <td>{{ transaction.currency }}</td>
           <td>{{ transaction.country }}</td>
-          <td>{{ transaction.transactionDate }}</td>
+          <td>{{ transaction.transactionDate   | date: 'dd/MM/yyyy' }}</td>
           <td>{{ transaction.typeTransaction }}</td>
-          <td>{{ transaction.transactionStatus }}</td>
+          <!--<td><p-tag value="VALID" severity="success" icon="pi pi-check"></p-tag></td>-->
+          <td>  <p-tag
+            [value]="transaction.transactionStatus"
+            [severity]="getSeverity(transaction.transactionStatus)"
+            [icon]="getIcon(transaction.transactionStatus)">
+          </p-tag></td>
+
           <td>
-
-
             <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
                     (click)="viewDetails(transaction.transactionId)" title="Voir les détails"></button>
 
-
             <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-warning"
               (click)="editTransaction(transaction)" title="Modifier"></button>
-
 
             <button pButton type="button" icon="pi pi-trash"
               class="p-button-rounded p-button-text p-button-danger"

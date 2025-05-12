@@ -13,12 +13,15 @@ import {AddTransactionComponent} from "../add-transaction/add-transaction.compon
 import {StyleClassModule} from "primeng/styleclass";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {TransactionDetailsComponent} from "../transaction-details/transaction-details.component";
+import {Tag} from "primeng/tag";
 
 @Component({
   selector: 'app-list-transaction',
   standalone: true,
-  imports: [TableModule, CommonModule, IconField, InputIcon, FormsModule, Button, InputText
-    , PopupComponent, AddTransactionComponent, StyleClassModule, SplitButtonModule, ButtonModule, TransactionDetailsComponent],
+  imports: [TableModule, CommonModule, IconField, InputIcon,
+    FormsModule, Button, InputText, PopupComponent,
+    AddTransactionComponent, StyleClassModule,
+    SplitButtonModule, ButtonModule, TransactionDetailsComponent, Tag],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
 
@@ -43,6 +46,7 @@ export class ListTransactionComponent implements OnInit {
   getAllTransaction(): void {
     this.transactionService.getAllTransaction().subscribe((data) => {
       this.transactions = data;
+      console.log(this.transactions);
     });
   }
 
@@ -82,5 +86,38 @@ export class ListTransactionComponent implements OnInit {
     console.log('Supprimer :', transaction);
 
   }
+
+/******tag******////
+getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
+
+  switch (status) {
+    case 'VALID':
+      return 'success';
+
+    case 'SUSPICIOUS':
+      return 'warn';
+
+    case 'BLOCKED':
+      return 'danger';
+
+    default:
+      return undefined;
+
+  }
+}
+
+  getIcon(status: string): string {
+
+    switch (status) {
+      case 'VALID':
+        return 'pi pi-check';
+      case 'SUSPICIOUS':
+        return 'pi pi-exclamation-triangle';
+      case 'BLOCKED':
+        return 'pi pi-ban';
+      default:
+        return '';
+    }}
+  /******tag******////
 
 }
