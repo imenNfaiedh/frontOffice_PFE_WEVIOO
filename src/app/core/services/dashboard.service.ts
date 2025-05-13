@@ -8,11 +8,15 @@ import {Observable} from "rxjs";
 export class DashboardService {
 
   baseUrl = "http://localhost:8085"
+  apiUrl = 'http://localhost:8085/api/dashboard';
 
   constructor(private http: HttpClient) {}
+  getStats(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/stats`);
+  }
 
   getUserCount(): Observable<number> {
-    return this.http.get<number>(`${this.baseUrl}/users/count`);
+    return this.http.get<number>(`${this.baseUrl}/userss/count`);
   }
 
   getBankCount(): Observable<number> {

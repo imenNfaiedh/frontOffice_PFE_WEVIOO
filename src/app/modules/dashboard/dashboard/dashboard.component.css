@@ -60,3 +60,9 @@
 .reclamations {
   background: linear-gradient(135deg, #f44336, #ef9a9a);
 }
+
+.chart-container {
+  width: 300px;
+  height: 300px;
+  margin: 2%  auto; /* Centrage horizontal */
+}
