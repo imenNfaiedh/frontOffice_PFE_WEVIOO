@@ -24,21 +24,27 @@
   <div class="mb-5">
     <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Transaction</label>
     <p-dropdown  id="typeTransaction" formControlName="typeTransaction" [options]="typeTransactions"
-                 optionLabel="name"
-                 placeholder="Select a type" class="form-control w-full " />
-
+                 optionLabel="label" optionValue="name"
+                 placeholder="choisir le type" class="form-control w-full " />
   </div>
 
-
-<!--  <div class="mb-5">-->
-<!--    <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut de Transaction</label>-->
-<!--    <p-dropdown  id="transactionStatus" formControlName="typeTransaction" [options]="transactionStatuses"  placeholder="Select a type" class="w-full md:w-56" />-->
-
-<!--  </div>-->
+  <div class="mb-5">
+    <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut de Transaction</label>
+    <p-dropdown  id="transactionStatus" formControlName="transactionStatus" [options]="transactionStatuss"
+                 optionLabel="label" optionValue="name"
+                 placeholder="Select a status" class="w-full " />
+  </div>
+  <div class="mb-5">
+    <label for="bankAccountId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">bankAccountId</label>
+    <input pInputText type="text" id="bankAccountId" class="form-control w-full" formControlName="bankAccountId">
+  </div>
 
   <div class="button-group">
     <button type="submit" class="btn-valider">Valider</button>
     <button type="button" class="btn-cancel" (click)="onCancel()">Annuler</button>
   </div>
+
+
+
 
 </form>

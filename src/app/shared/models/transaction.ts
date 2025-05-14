@@ -9,6 +9,7 @@ export class Transaction {
   transactionDate?:Date;
   typeTransaction?:TypeTransaction ;
   transactionStatus?: TransactionStatus ;
+  bankAccountId?:number;
 
 }
 

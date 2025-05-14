@@ -15,7 +15,9 @@ import {CardModule} from "primeng/card";
 @Component({
   selector: 'app-add-transaction',
   standalone: true,
-  imports: [DialogModule, Button, ReactiveFormsModule, InputText, CommonModule, DropdownModule, StyleClassModule,CardModule],
+  imports: [DialogModule, Button, ReactiveFormsModule,
+    InputText, CommonModule, DropdownModule,
+    StyleClassModule,CardModule],
   templateUrl: './add-transaction.component.html',
   styleUrl: './add-transaction.component.css'
 })
@@ -25,7 +27,7 @@ export class AddTransactionComponent  {
   @Output() cancel = new EventEmitter<void>();
 
 
-  transactionStatuses: TransactionStatus[]| undefined;
+  //transactionStatuses: TransactionStatus[]| undefined;
   constructor(private fb : FormBuilder,
               private transactionService : TransactionService) {
     this.transactionForm = this.fb.group(
@@ -35,15 +37,20 @@ export class AddTransactionComponent  {
         country: new  FormControl('',[Validators.required]),
         transactionDate: new  FormControl('',[Validators.required]),
         typeTransaction: new  FormControl('',[Validators.required]),
-        // transactionStatus: new  FormControl('',[Validators.required]),
+        transactionStatus: new  FormControl('',[Validators.required]),
+        bankAccountId: new  FormControl('',[Validators.required]),
       })
 
   }
   typeTransactions = [
-    { name: "PAYMENT" },
-    { name: "WITHDRAWAL" },
-    { name: "TRANSFER" }
+    { name: "PAYMENT", label: "Payment" },
+    { name: "WITHDRAWAL", label: "Retrait" },
+    { name: "TRANSFER", label: "Transférer" }
+  ];
 
+  transactionStatuss = [
+    { name: "VALID", label: "Validée" },
+    { name: "SUSPICIOUS", label: "Suspectée" }
   ];
 
 
@@ -52,8 +59,10 @@ export class AddTransactionComponent  {
   onSubmit() {
     if (this.transactionForm.valid) {
       this.transactionService.createTransaction(this.transactionForm.value).subscribe({
+
         next: () => {
-          this.formSubmitted.emit();  //  Ferme la popup une fois soumission réussie
+          this.formSubmitted.emit();
+          console.log("add trasaction success");//  Ferme la popup une fois soumission réussie
         },
         error: (err) => {
           console.error("Erreur lors de l'ajout :", err);
