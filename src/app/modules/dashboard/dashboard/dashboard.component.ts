@@ -13,7 +13,7 @@ import {DashboardService} from "../../../core/services/dashboard.service";
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent   {
+export class DashboardComponent  implements OnInit {
 
   counts: any = {};
 

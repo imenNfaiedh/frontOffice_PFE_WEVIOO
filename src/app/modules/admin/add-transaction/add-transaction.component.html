@@ -1,43 +1,71 @@
 
-<form [formGroup]="transactionForm" class="w-full" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="transactionForm" class="w-full space-y-6" (ngSubmit)="onSubmit()" novalidate>
 
-  <div class="mb-5">
-    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
-    <input  pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant">
+  <!-- Grille principale -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+
+    <div>
+      <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Montant</label>
+      <input pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant">
+    </div>
+
+    <div>
+      <label for="currency" class="block mb-2 text-sm font-medium text-gray-900">Devise</label>
+      <input pInputText type="text" id="currency" class="form-control w-full" formControlName="currency" placeholder="Devise">
+    </div>
+
+    <div>
+      <label for="country" class="block mb-2 text-sm font-medium text-gray-900">Pays</label>
+      <input pInputText type="text" id="country" class="form-control w-full" formControlName="country" placeholder="Pays">
+    </div>
+
+    <div>
+      <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900">Date de Transaction</label>
+      <input pInputText type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate">
+    </div>
+
+    <div>
+      <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900">Type de Transaction</label>
+      <p-dropdown id="typeTransaction" formControlName="typeTransaction"
+                  [options]="typeTransactions" optionLabel="label" optionValue="name"
+                  placeholder="Choisir le type" class="form-control w-full" />
+    </div>
+
+    <div>
+      <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900">Statut</label>
+      <p-dropdown id="transactionStatus" formControlName="transactionStatus"
+                  [options]="transactionStatuss" optionLabel="label" optionValue="name"
+                  placeholder="Choisir le statut" class="form-control w-full" />
+    </div>
+
+<!--    <div>-->
+<!--      <label for="bankAccountId" class="block mb-2 text-sm font-medium text-gray-900">ID Compte Bancaire</label>-->
+<!--      <input pInputText type="text" id="bankAccountId" class="form-control w-full" formControlName="bankAccountId">-->
+<!--    </div>-->
   </div>
 
-  <div class="mb-5">
-    <label for="currency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Devise</label>
-    <input  pInputText type="text" id="currency" class="form-control w-full" formControlName="currency" placeholder="Devise">
-  </div>
+  <!-- Dropdown utilisateurs -->
+ <div><label for="beneficiary">Bénéficiaire</label></div>
+  <p-dropdown
+    id="beneficiary"
+    [options]="users"
+    optionLabel="fullName"
+    optionValue="userId"
+    formControlName="beneficiary"
+    (onChange)="onUserSelected()"
+    placeholder="Sélectionner un utilisateur">
+  </p-dropdown>
 
-  <div class="mb-5">
-    <label for="country" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pays</label>
-    <input pInputText type="text" id="country" class="form-control w-full" formControlName="country" placeholder="Pays">
-  </div>
-
-  <div class="mb-5">
-    <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de Transaction</label>
-    <input pInputText type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate">
-  </div>
-
-  <div class="mb-5">
-    <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type de Transaction</label>
-    <p-dropdown  id="typeTransaction" formControlName="typeTransaction" [options]="typeTransactions"
-                 optionLabel="label" optionValue="name"
-                 placeholder="choisir le type" class="form-control w-full " />
-  </div>
-
-  <div class="mb-5">
-    <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut de Transaction</label>
-    <p-dropdown  id="transactionStatus" formControlName="transactionStatus" [options]="transactionStatuss"
-                 optionLabel="label" optionValue="name"
-                 placeholder="Select a status" class="w-full " />
-  </div>
-  <div class="mb-5">
-    <label for="bankAccountId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">bankAccountId</label>
-    <input pInputText type="text" id="bankAccountId" class="form-control w-full" formControlName="bankAccountId">
-  </div>
+  <!-- Dropdown comptes bancaires -->
+  <div><label for="bankAccountId">Compte Bancaire</label></div>
+  <p-dropdown
+    id="bankAccountId"
+    [options]="bankAccounts"
+    optionLabel="display"
+    optionValue="bankAccountId"
+    formControlName="bankAccountId"
+    placeholder="Sélectionner un compte">
+  </p-dropdown>
 
   <div class="button-group">
     <button type="submit" class="btn-valider">Valider</button>
