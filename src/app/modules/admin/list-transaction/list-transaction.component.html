@@ -40,7 +40,7 @@
 
       <ng-template pTemplate="header">
         <tr class="custom-header">
-          <th class="header-cell">Id transaction</th>
+          <th class="header-cell">Réf transaction</th>
           <th class="header-cell">Montant</th>
           <th class="header-cell">Devise</th>
           <th class="header-cell">Pays</th>
@@ -53,7 +53,7 @@
 
       <ng-template pTemplate="body" let-transaction>
         <tr [pSelectableRow]="transaction">
-          <td>{{ transaction.transactionId }}</td>
+          <td>#00TN{{ transaction.transactionId }}</td>
           <td>{{ transaction.amount }}</td>
           <td>{{ transaction.currency }}</td>
           <td>{{ transaction.country }}</td>
@@ -70,8 +70,8 @@
             <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
                     (click)="viewDetails(transaction.transactionId)" title="Voir les détails"></button>
 
-            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-warning"
-              (click)="editTransaction(transaction)" title="Modifier"></button>
+<!--            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-warning"-->
+<!--              (click)="editTransaction(transaction)" title="Modifier"></button>-->
 
             <button pButton type="button" icon="pi pi-trash"
               class="p-button-rounded p-button-text p-button-danger"

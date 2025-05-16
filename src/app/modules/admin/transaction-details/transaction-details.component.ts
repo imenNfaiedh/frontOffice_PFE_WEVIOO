@@ -17,6 +17,8 @@ export class TransactionDetailsComponent {
   closePopup() {
     this.close.emit();
   }
+
+
 }
 
 

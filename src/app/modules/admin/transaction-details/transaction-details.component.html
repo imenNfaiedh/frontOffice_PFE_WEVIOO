@@ -9,8 +9,8 @@
     <!-- Contenu principal -->
     <div class="popup-content">
       <div class="detail-row">
-        <span class="label"><i class="pi pi-hashtag"></i> ID :</span>
-        <span class="value">{{ transaction.transactionId }}</span>
+        <span class="label"><i class="pi pi-hashtag"></i> Réf transaction:</span>
+        <span class="value">#00TN{{ transaction.transactionId }}</span>
       </div>
       <div class="detail-row">
         <span class="label"><i class="pi pi-money-bill"></i> Montant :</span>
@@ -22,7 +22,7 @@
       </div>
       <div class="detail-row">
         <span class="label"><i class="pi pi-calendar"></i> Date :</span>
-        <span class="value">{{ transaction.transactionDate }}</span>
+        <span class="value">{{ transaction.transactionDate | date: 'dd/MM/yyyy' }} </span>
       </div>
       <div class="detail-row">
         <span class="label"><i class="pi pi-tag"></i> Type :</span>

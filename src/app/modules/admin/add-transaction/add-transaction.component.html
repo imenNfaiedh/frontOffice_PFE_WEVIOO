@@ -1,78 +1,97 @@
-
 <form [formGroup]="transactionForm" class="w-full space-y-6" (ngSubmit)="onSubmit()" novalidate>
-
-  <!-- Grille principale -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-
+    <!-- Champs de base -->
     <div>
       <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Montant</label>
-      <input pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant">
+      <input pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant"
+             [class.input-error]="f['amount'].invalid && (f['amount'].touched || f['amount'].dirty)">
+      <div *ngIf="f['amount'].invalid && (f['amount'].touched || f['amount'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['amount'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
+
     </div>
 
     <div>
       <label for="currency" class="block mb-2 text-sm font-medium text-gray-900">Devise</label>
-      <input pInputText type="text" id="currency" class="form-control w-full" formControlName="currency" placeholder="Devise">
+      <input pInputText type="text" id="currency" class="form-control w-full" formControlName="currency" placeholder="Devise"
+      [class.input-error]="f['currency'].invalid && (f['currency'].touched || f['currency'].dirty)">
+      <div *ngIf="f['currency'].invalid && (f['currency'].touched || f['currency'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['currency'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
     </div>
 
     <div>
       <label for="country" class="block mb-2 text-sm font-medium text-gray-900">Pays</label>
-      <input pInputText type="text" id="country" class="form-control w-full" formControlName="country" placeholder="Pays">
+      <input pInputText type="text" id="country" class="form-control w-full" formControlName="country" placeholder="Pays"
+             [class.input-error]="f['country'].invalid && (f['country'].touched || f['country'].dirty)">
+      <div *ngIf="f['country'].invalid && (f['country'].touched || f['country'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['country'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
     </div>
 
     <div>
       <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900">Date de Transaction</label>
-      <input pInputText type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate">
-    </div>
-
-    <div>
-      <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900">Type de Transaction</label>
-      <p-dropdown id="typeTransaction" formControlName="typeTransaction"
-                  [options]="typeTransactions" optionLabel="label" optionValue="name"
-                  placeholder="Choisir le type" class="form-control w-full" />
-    </div>
-
-    <div>
-      <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900">Statut</label>
-      <p-dropdown id="transactionStatus" formControlName="transactionStatus"
-                  [options]="transactionStatuss" optionLabel="label" optionValue="name"
-                  placeholder="Choisir le statut" class="form-control w-full" />
+      <input pInputText type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate"
+             [class.input-error]="f['transactionDate'].invalid && (f['transactionDate'].touched || f['transactionDate'].dirty)">
+      <div *ngIf="f['transactionDate'].invalid && (f['transactionDate'].touched || f['transactionDate'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['transactionDate'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
     </div>
 
 <!--    <div>-->
-<!--      <label for="bankAccountId" class="block mb-2 text-sm font-medium text-gray-900">ID Compte Bancaire</label>-->
-<!--      <input pInputText type="text" id="bankAccountId" class="form-control w-full" formControlName="bankAccountId">-->
+<!--      <label for="typeTransaction" class="block mb-2 text-sm font-medium text-gray-900">Type de Transaction</label>-->
+<!--      <p-dropdown id="typeTransaction" formControlName="typeTransaction"-->
+<!--                  [options]="typeTransactions" optionLabel="label" optionValue="name"-->
+<!--                  placeholder="Choisir le type" class="form-control w-full"></p-dropdown>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--      <label for="transactionStatus" class="block mb-2 text-sm font-medium text-gray-900">Statut</label>-->
+<!--      <p-dropdown id="transactionStatus" formControlName="transactionStatus"-->
+<!--                  [options]="transactionStatuss" optionLabel="label" optionValue="name"-->
+<!--                  placeholder="Choisir le statut" class="form-control w-full"></p-dropdown>-->
 <!--    </div>-->
   </div>
 
-  <!-- Dropdown utilisateurs -->
- <div><label for="beneficiary">Bénéficiaire</label></div>
-  <p-dropdown
-    id="beneficiary"
-    [options]="users"
-    optionLabel="fullName"
-    optionValue="userId"
-    formControlName="beneficiary"
-    (onChange)="onUserSelected()"
-    placeholder="Sélectionner un utilisateur">
-  </p-dropdown>
+  <!-- Dropdown Bénéficiaire -->
+  <div>
+    <label for="beneficiary" class="block mb-2 text-sm font-medium text-gray-900">Bénéficiaire</label>
+    <p-dropdown id="beneficiary"
+                [options]="users"
+                optionLabel="fullName"
+                optionValue="userId"
+                formControlName="beneficiary"
+                (onChange)="onUserSelected()"
+                placeholder="Sélectionner un utilisateur"
+                class="form-control w-full"
+                [ngClass]="{'input-error': f['beneficiary'].invalid && (f['beneficiary'].touched || f['beneficiary'].dirty)}">
 
-  <!-- Dropdown comptes bancaires -->
-  <div><label for="bankAccountId">Compte Bancaire</label></div>
-  <p-dropdown
-    id="bankAccountId"
-    [options]="bankAccounts"
-    optionLabel="display"
-    optionValue="bankAccountId"
-    formControlName="bankAccountId"
-    placeholder="Sélectionner un compte">
-  </p-dropdown>
-
-  <div class="button-group">
-    <button type="submit" class="btn-valider">Valider</button>
-    <button type="button" class="btn-cancel" (click)="onCancel()">Annuler</button>
+    </p-dropdown>
+    <div *ngIf="f['beneficiary'].invalid && (f['beneficiary'].touched || f['beneficiary'].dirty)" class="text-red-500 text-sm">
+      <div *ngIf="f['beneficiary'].errors?.['required']">Champ Obligatoire *</div>
+    </div>
   </div>
 
+  <!-- Dropdown Compte Bancaire -->
+  <div>
+    <label for="bankAccountId" class="block mb-2 text-sm font-medium text-gray-900">Compte Bancaire</label>
+    <p-dropdown id="bankAccountId"
+                [options]="bankAccounts"
+                optionLabel="display"
+                optionValue="bankAccountId"
+                formControlName="bankAccountId"
+                placeholder="Sélectionner un compte"
+                class="form-control w-full"
+                [ngClass]="{'input-error': f['bankAccountId'].invalid && (f['bankAccountId'].touched || f['bankAccountId'].dirty)}">
+    </p-dropdown>
+    <div *ngIf="f['bankAccountId'].invalid && (f['bankAccountId'].touched || f['bankAccountId'].dirty)" class="text-red-500 text-sm">
+      <div *ngIf="f['bankAccountId'].errors?.['required']">Champ Obligatoire *</div>
+    </div>
+  </div>
 
-
-
+  <!-- Boutons Valider/Annuler -->
+  <div class="button-group flex justify-end gap-4">
+    <button type="submit" class="btn-valider bg-green-500 text-white px-4 py-2 rounded">Valider</button>
+    <button type="button" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded" (click)="onCancel()">Annuler</button>
+  </div>
 </form>
