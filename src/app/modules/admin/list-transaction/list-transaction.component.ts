@@ -44,9 +44,9 @@ export class ListTransactionComponent implements OnInit {
   }
 
   getAllTransaction(): void {
-    this.transactionService.getAllTransaction().subscribe((data) => {
+    this.transactionService.getMyTransaction().subscribe((data) => {
       this.transactions = data;
-      console.log(this.transactions);
+      console.log("transaction By userr");
     });
   }
 

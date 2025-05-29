@@ -15,12 +15,18 @@ export class TransactionService {
   getAllTransaction(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.apiUrl);
   }
+
+  getMyTransaction():Observable<Transaction[]>
+  {
+    return this.http.get<Transaction[]>(this.apiUrl+'/my-transactions');
+  }
   getTransactionById(id:number): Observable<any>{
     return  this.http.get<any>(this.apiUrl+'/' + id);
 
   }
 
   createTransaction(transaction: Transaction): Observable<Transaction> {
+    console.log('URL utilisée pour POST :', this.apiUrl);
     return this.http.post<Transaction>(this.apiUrl, transaction,
       {
         headers: new HttpHeaders({

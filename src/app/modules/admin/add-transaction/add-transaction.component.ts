@@ -121,6 +121,9 @@ export class AddTransactionComponent implements OnInit {
 
   onCancel(): void {
     this.cancel.emit();
-  }
+    this.transactionForm.markAsPristine();
+    this.transactionForm.markAsUntouched();}
 
 }
+
+

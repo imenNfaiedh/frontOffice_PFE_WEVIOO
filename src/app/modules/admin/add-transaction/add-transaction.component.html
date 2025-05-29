@@ -3,7 +3,7 @@
     <!-- Champs de base -->
     <div>
       <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Montant</label>
-      <input pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant"
+      <input  pInputText type="text" id="amount" class="form-control w-full" formControlName="amount" placeholder="Montant"
              [class.input-error]="f['amount'].invalid && (f['amount'].touched || f['amount'].dirty)">
       <div *ngIf="f['amount'].invalid && (f['amount'].touched || f['amount'].dirty)" class="text-red-500 text-sm">
         <div *ngIf="f['amount'].errors?.['required']">Champ Obligatoire *</div>
