@@ -1,0 +1,33 @@
+<!--<div *ngIf="loading">Loading accounts...</div>-->
+
+<!--<div *ngIf="!loading && accounts.length === 0">-->
+<!--  No bank accounts found.-->
+<!--</div>-->
+
+<!--<div class="card-container" *ngIf="accounts.length > 0">-->
+<!--  <p-card *ngFor="let account of accounts" styleClass="mb-3" header="Bank Account Info">-->
+<!--    <div><strong>Account Number:</strong> {{ account.accountNumber }}</div>-->
+<!--    <div><strong>Opening Date:</strong> {{ account.openingDate |  date: 'dd/MM/yyyy' }}</div>-->
+<!--    <div><strong>Balance:</strong> {{ account.balance  }} DT</div>-->
+
+<!--  &lt;!&ndash;<div><strong>Blocked:</strong> {{ account.isBlocked ? 'Yes' : 'No' }}</div>&ndash;&gt;-->
+<!--    <div><strong>Type:</strong> {{ account.typeBankAccount }}</div>-->
+<!--  </p-card>-->
+<!--</div>-->
+<div class="card-container">
+  <div class="bank-card" *ngFor="let account of accounts">
+    <div class="card-content">
+      <div class="card-header">
+        <div class="account-details">
+         <div>Compte {{ account.typeBankAccount }}</div>
+          <div>{{ account.accountNumber }}</div>
+        </div>
+        <i class="pi pi-wallet" style="font-size: 2rem"></i>
+      </div>
+      <div>{{account.userFirstName}} {{account.userLastName}}</div>
+      <div class="account-balance"> {{ account.balance | number:'1.2-2' }}DT</div>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+/* Conteneur principal des cartes bancaires : */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: start;
+}
+
+/* Style de chaque carte bancaire individuelle : */
+.bank-card {
+  width: 400px;
+  border-radius: 20px;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Effet au survol de la carte  */
+.bank-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* En-tête de la carte :*/
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.5rem;
+}
+
+/* Style de l'icône portefeuille (classe PrimeIcons pi-wallet) : */
+.pi-wallet {
+  font-size: 2.4rem;
+  color: #a6c8ff;
+  opacity: 0.85;
+  transition: color 0.3s ease;
+}
+
+/* Changement de couleur de l'icône portefeuille au survol de la carte */
+.bank-card:hover .pi-wallet {
+  color: #ffffff;
+}
+
+/* Détails du compte (numéro et type) : */
+.account-details {
+  margin-top: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+/* Nom du titulaire du compte : */
+.account-holder {
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0.8;
+  color: #cce0ff;
+}
+
+/* Solde du compte :*/
+.account-balance {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 1.2rem;
+  letter-spacing: 0.05em;
+  color: #f0f9ff;
+}
+
+/* Responsive design pour petits écrans (moins de 360px de large) :*/
+
+@media (max-width: 360px) {
+  .bank-card {
+    width: 100%;
+  }
+}
