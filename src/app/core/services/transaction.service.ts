@@ -26,7 +26,6 @@ export class TransactionService {
   }
 
   createTransaction(transaction: Transaction): Observable<Transaction> {
-    console.log('URL utilisée pour POST :', this.apiUrl);
     return this.http.post<Transaction>(this.apiUrl, transaction,
       {
         headers: new HttpHeaders({

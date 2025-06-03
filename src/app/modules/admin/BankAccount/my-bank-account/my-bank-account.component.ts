@@ -18,6 +18,8 @@ import {StyleClassModule} from "primeng/styleclass";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {TransactionDetailsComponent} from "../../transaction-details/transaction-details.component";
 import {Table, TableModule} from "primeng/table";
+import {MessageService} from "primeng/api";
+import {ClaimService} from "../../../../core/services/claim.service";
 
 
 @Component({
@@ -41,7 +43,9 @@ export class MyBankAccountComponent implements OnInit{
 
 
   constructor(private bankAccountService: BankAccountService,
-              private  transactionService : TransactionService) {}
+              private  transactionService : TransactionService,
+              private claimService: ClaimService,
+              private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -71,6 +75,14 @@ export class MyBankAccountComponent implements OnInit{
         )
         .slice(0, 4);
     });
+  }
+
+  openReclamation(accountNumber: string): void {
+    // Ici tu peux faire une redirection, ou ouvrir un popup
+    console.log('Réclamation envoyée pour le compte :', accountNumber);
+
+    // Exemple : redirection vers une page "réclamation"
+    // this.router.navigate(['/reclamation', accountNumber]);
   }
 
 

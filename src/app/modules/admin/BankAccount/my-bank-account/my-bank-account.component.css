@@ -1,92 +1,152 @@
-/* Conteneur principal des cartes bancaires : */
+
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: start;
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  gap: 1rem; /* Réduit */
+  margin-bottom: 1.5rem;
 }
-.transactions-table-wrapper {
-  /* Optionnel : tu peux ajouter un padding si tu veux */
-  padding-top: 1rem;
+/*Style individuel de chaque carte bancaire*/
+.bank-card {
+  border-radius: 16px; /* Un peu moins arrondi */
+  overflow: hidden;
+  position: relative;
+  width: 88%;
+  box-sizing: border-box;
 }
 
-/* Style de chaque carte bancaire individuelle : */
-.bank-card {
-  width: 400px;
-  border-radius: 20px;
-  padding: 1.5rem;
+.card-main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem; /* Moins d’espace entre les deux parties */
+  width: 100%;
+}
+
+.card-content {
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  font-family: 'Segoe UI', sans-serif;
+  border-radius: 16px;
+  padding: 1rem; /* Ancien 2rem → réduit */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
 }
 
-/* Effet au survol de la carte  */
-.bank-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
-}
-
-/* En-tête de la carte :*/
 .card-header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+}
+
+.account-type {
   font-size: 0.9rem;
-  opacity: 0.85;
-  font-weight: 600;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  padding-bottom: 0.5rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
 }
 
-/* Style de l'icône portefeuille (classe PrimeIcons pi-wallet) : */
+.account-number {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Icône portefeuille stylée */
 .pi-wallet {
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   color: #a6c8ff;
-  opacity: 0.85;
   transition: color 0.3s ease;
+  z-index: 1;
 }
 
-/* Changement de couleur de l'icône portefeuille au survol de la carte */
-.bank-card:hover .pi-wallet {
+.card-content:hover .pi-wallet {
   color: #ffffff;
 }
-
-/* Détails du compte (numéro et type) : */
-.account-details {
-  margin-top: 1rem;
+.user-name {
   font-size: 1rem;
-  letter-spacing: 0.5px;
-  opacity: 0.95;
   font-weight: 500;
+  margin-bottom: 0.8rem;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
 }
 
-/* Nom du titulaire du compte : */
-.account-holder {
-  margin-top: 0.8rem;
-  font-size: 1rem;
-  font-style: italic;
-  opacity: 0.8;
-  color: #cce0ff;
-}
-
-/* Solde du compte :*/
 .account-balance {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-top: 1.2rem;
-  letter-spacing: 0.05em;
-  color: #f0f9ff;
+
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: auto;
+    letter-spacing: 0.05em;
+    color: #f0f9ff;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+    position: relative;
+    z-index: 2;
 }
 
-/* Responsive design pour petits écrans (moins de 360px de large) :*/
+.alert-card {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 6px;
+  padding: 0.8rem;
+  color: #856404;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-@media (max-width: 360px) {
-  .bank-card {
-    width: 100%;
+.custom-card-header {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.custom-card-body {
+  margin-bottom: 0.5rem;
+}
+
+.alert-message {
+  font-size: 0.9rem;
+}
+
+.custom-card-footer {
+  text-align: right;
+}
+
+
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card-main-content {
+    grid-template-columns: 1fr;
+  }
+
+  .card-content {
+    padding: 0.8rem;
+  }
+
+  .account-balance {
+    font-size: 1.4rem;
+  }
+
+  .account-type,
+  .account-number {
+    font-size: 0.8rem;
   }
 }

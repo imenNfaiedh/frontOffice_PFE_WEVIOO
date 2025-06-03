@@ -1,19 +1,50 @@
 <div class="card-container">
   <div class="bank-card" *ngFor="let account of accounts">
-    <div class="card-content">
-      <div class="card-header">
-        <div class="account-details">
-          <div>Compte {{ account.typeBankAccount }}</div>
-          <div>{{ account.accountNumber | formatAccountNumber }}</div>
+    <div class="card-main-content">
+      <!-- Informations principales -->
+      <div class="card-content">
+        <div class="card-header">
+          <div class="account-details">
+            <div class="account-type">Compte {{ account.typeBankAccount }}</div>
+            <div class="account-number">{{ account.accountNumber | formatAccountNumber }}</div>
+          </div>
+          <i class="pi pi-wallet"></i>
         </div>
-        <i class="pi pi-wallet" style="font-size: 2rem"></i>
+
+        <div class="user-name">{{ account.userFirstName }} {{ account.userLastName }}</div>
+        <div class="account-balance">{{ account.balance | number:'1.2-2' }} DT</div>
       </div>
-      <div>{{account.userFirstName}} {{account.userLastName}}</div>
-      <div class="account-balance">{{ account.balance | number:'1.2-2' }}DT</div>
+
+      <!-- Bloc d'alerte personnalisée -->
+      <div class="alert-card" *ngIf="account.isBlocked">
+        <div class="custom-card-warning">
+          <!-- Header -->
+          <div class="custom-card-header">
+            <i class="pi pi-exclamation-triangle" style="color: red; font-size: 1.5rem;"></i>
+            <span class="ml-2">Alerte de sécurité</span>
+          </div>
+
+          <!-- Body -->
+          <div class="custom-card-body">
+            <div class="alert-message">
+              Ce compte a été <strong>bloqué</strong> en raison de <strong>transactions suspectes</strong>.
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="custom-card-footer flex justify-content-end">
+            <button pButton type="button" label="Faire une réclamation" icon="pi pi-envelope"
+                    class="p-button-danger"
+                    (click)="openReclamation">
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Tableau des transactions -->
 <div class="transactions-table-wrapper">
   <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
            [value]="recentTransactions"
