@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { Button } from 'primeng/button';
@@ -13,6 +13,7 @@ import { TransactionService } from '../../../core/services/transaction.service';
 import { UserService } from '../../../core/services/user.service';
 import { User } from '../../../shared/models/user';
 import { BankAccount } from '../../../shared/models/bankAccount';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-add-transaction',
@@ -28,6 +29,7 @@ export class AddTransactionComponent implements OnInit {
 
   @Output() formSubmitted = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
+
 
   transactionForm: FormGroup;
 
@@ -51,7 +53,10 @@ export class AddTransactionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    // private messageService : MessageService
+
+
   ) {
     this.transactionForm = this.fb.group({
       amount: ['', Validators.required],
@@ -64,6 +69,13 @@ export class AddTransactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.messageService.add({
+    //   severity: 'success',
+    //   summary: 'Test de Toast',
+    //   detail: 'Voici un message de test',
+    //   life: 4000
+    // });
+
     this.loadUsers();
   }
 

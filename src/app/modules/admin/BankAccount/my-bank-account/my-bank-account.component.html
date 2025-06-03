@@ -1,33 +1,53 @@
-<!--<div *ngIf="loading">Loading accounts...</div>-->
-
-<!--<div *ngIf="!loading && accounts.length === 0">-->
-<!--  No bank accounts found.-->
-<!--</div>-->
-
-<!--<div class="card-container" *ngIf="accounts.length > 0">-->
-<!--  <p-card *ngFor="let account of accounts" styleClass="mb-3" header="Bank Account Info">-->
-<!--    <div><strong>Account Number:</strong> {{ account.accountNumber }}</div>-->
-<!--    <div><strong>Opening Date:</strong> {{ account.openingDate |  date: 'dd/MM/yyyy' }}</div>-->
-<!--    <div><strong>Balance:</strong> {{ account.balance  }} DT</div>-->
-
-<!--  &lt;!&ndash;<div><strong>Blocked:</strong> {{ account.isBlocked ? 'Yes' : 'No' }}</div>&ndash;&gt;-->
-<!--    <div><strong>Type:</strong> {{ account.typeBankAccount }}</div>-->
-<!--  </p-card>-->
-<!--</div>-->
 <div class="card-container">
   <div class="bank-card" *ngFor="let account of accounts">
     <div class="card-content">
       <div class="card-header">
         <div class="account-details">
-         <div>Compte {{ account.typeBankAccount }}</div>
-          <div>{{ account.accountNumber }}</div>
+          <div>Compte {{ account.typeBankAccount }}</div>
+          <div>{{ account.accountNumber | formatAccountNumber }}</div>
         </div>
         <i class="pi pi-wallet" style="font-size: 2rem"></i>
       </div>
       <div>{{account.userFirstName}} {{account.userLastName}}</div>
-      <div class="account-balance"> {{ account.balance | number:'1.2-2' }}DT</div>
-
-
+      <div class="account-balance">{{ account.balance | number:'1.2-2' }}DT</div>
     </div>
   </div>
+</div>
+
+<div class="transactions-table-wrapper">
+  <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
+           [value]="recentTransactions"
+           [tableStyle]="{ 'min-width': '10rem' }">
+
+    <ng-template pTemplate="header">
+      <tr class="custom-header">
+        <th class="header-cell">Réf transaction</th>
+        <th class="header-cell">Montant</th>
+        <th class="header-cell">Devise</th>
+        <th class="header-cell">Pays</th>
+        <th class="header-cell">Date</th>
+        <th class="header-cell">Type</th>
+        <th class="header-cell">Statut</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-transaction>
+      <tr>
+        <td>#00TN{{ transaction.transactionId }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.currency }}</td>
+        <td>{{ transaction.country }}</td>
+        <td>{{ transaction.transactionDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ transaction.typeTransaction }}</td>
+        <td>
+          <p-tag
+            [value]="transaction.transactionStatus"
+            [severity]="getSeverity(transaction.transactionStatus)"
+            [icon]="getIcon(transaction.transactionStatus)">
+          </p-tag>
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
 </div>

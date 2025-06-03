@@ -10,12 +10,16 @@ import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import {catchError, Observable, throwError} from 'rxjs';
+import {MessageService} from "primeng/api";
 
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
+  const messageService = inject(MessageService);
+
+
 
   const token = authService.getToken();
   console.log('Requête interceptée :', req);
@@ -41,15 +45,29 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Ensuite, on continue la requête ET on gère les erreurs
   return next(modifiedReq).pipe(
-    catchError((error) => {
-      if (error instanceof HttpErrorResponse) {
-        if (error.status === 401) {
-          console.error('401 - Non autorisé. Redirection vers login.');
-          router.navigate(['auth/login']);
-        } else {
-          console.error('Erreur HTTP :', error.message);
-        }
+    catchError((error: HttpErrorResponse) => {
+      console.error('Contenu brut de error.error :', error.error);
+      let errorMessage = 'Une erreur est survenue.';
+
+      if (typeof error.error === 'string'&& error.error.trim() !== '') {
+        errorMessage = error.error;
+      } else if (error.error?.message) {
+        errorMessage = error.error.message;
       }
+      console.log('Message à afficher dans le toast:', errorMessage);
+
+      // PrimeNG toast
+      messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: errorMessage,
+        life: 5000
+      });
+
+      if (error.status === 401) {
+        router.navigate(['auth/login']);
+      }
+
       return throwError(() => error);
     })
   );

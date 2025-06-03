@@ -118,3 +118,7 @@
   border: 1px solid #f87171 !important; /* rouge Tailwind */
   box-shadow: none !important; /* désactive le vert PrimeNG */
 }
+
+::ng-deep .p-toast-message {
+  color: black !important;
+}

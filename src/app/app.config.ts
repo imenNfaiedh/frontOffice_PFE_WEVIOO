@@ -8,6 +8,7 @@ import Aura from '@primeng/themes/aura';
 import {authInterceptor} from "./core/interceptors/auth.interceptor";
 import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
 import { LOCALE_ID } from '@angular/core';
+import {MessageService} from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
@@ -19,7 +20,8 @@ export const appConfig: ApplicationConfig = {
         preset: Aura
       }
     }),
-    { provide: LOCALE_ID, useValue: 'fr-FR' }
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
+    MessageService,
   ]
 };
 

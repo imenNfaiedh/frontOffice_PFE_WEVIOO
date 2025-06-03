@@ -10,3 +10,4 @@ bootstrapApplication(AppComponent, appConfig)
 
 
 registerLocaleData(localeFr);
+

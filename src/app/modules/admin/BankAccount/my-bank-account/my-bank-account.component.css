@@ -4,6 +4,11 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: start;
+  margin-bottom: 2rem;
+}
+.transactions-table-wrapper {
+  /* Optionnel : tu peux ajouter un padding si tu veux */
+  padding-top: 1rem;
 }
 
 /* Style de chaque carte bancaire individuelle : */
