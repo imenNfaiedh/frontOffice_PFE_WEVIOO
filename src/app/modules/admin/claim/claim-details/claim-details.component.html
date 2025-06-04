@@ -1,0 +1,47 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <!-- Header stylisé -->
+    <div class="popup-header" style="background-color: #cce0ff; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0;">Détails de la réclamation</h3>
+      <button (click)="closePopup()" aria-label="Fermer" style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="popup-content" style="padding: 20px;">
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-hashtag" style="margin-right: 5px;"></i> Réf transaction:
+        </span>
+        <span class="value" style="flex: 1;">#00TN{{ claim.id }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-tag" style="margin-right: 5px;"></i> Sujet:
+        </span>
+        <span class="value" style="flex: 1;">{{ claim.subject }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-comment" style="margin-right: 5px;"></i> Message:
+        </span>
+        <span class="value" style="flex: 1;">{{ claim.message }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-calendar" style="margin-right: 5px;"></i> Date Réclamation:
+        </span>
+        <span class="value" style="flex: 1;">{{ claim.dateReclamation | date: 'dd/MM/yyyy' }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-info-circle" style="margin-right: 5px;"></i> Statut:
+        </span>
+        <span class="value" style="flex: 1;">{{ claim.status }}</span>
+      </div>
+    </div>
+  </div>
+</div>

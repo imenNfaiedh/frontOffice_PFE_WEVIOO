@@ -5,6 +5,7 @@ import {AdminLayoutComponent} from "../../layouts/admin-layout/admin-layout.comp
 import {DashboardComponent} from "../dashboard/dashboard/dashboard.component";
 import {ListBankAccountComponent} from "./BankAccount/list-bank-account/list-bank-account.component";
 import {MyBankAccountComponent} from "./BankAccount/my-bank-account/my-bank-account.component";
+import {ListClaimComponent} from "./claim/list-claim/list-claim.component";
 
 
 const routes: Routes = [
@@ -18,7 +19,11 @@ const routes: Routes = [
       { path: 'information-compteBancaire', component: MyBankAccountComponent },
 
 
-      ]}
+      { path: 'list-reclamation' , component: ListClaimComponent},
+
+
+
+    ]}
 ];
 
 @NgModule({

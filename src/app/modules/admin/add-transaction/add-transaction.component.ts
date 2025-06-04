@@ -32,23 +32,9 @@ export class AddTransactionComponent implements OnInit {
 
 
   transactionForm: FormGroup;
-
   users: User[] = [];
   bankAccounts: BankAccount[] = [];
 
-  // Dropdown options (typeTransaction & transactionStatus) - peut être réactivé si besoin
-  /*
-  typeTransactions = [
-    { name: 'PAYMENT', label: 'Payment' },
-    { name: 'WITHDRAWAL', label: 'Retrait' },
-    { name: 'TRANSFER', label: 'Transférer' }
-  ];
-
-  transactionStatuses = [
-    { name: 'VALID', label: 'Validée' },
-    { name: 'SUSPICIOUS', label: 'Suspectée' }
-  ];
-  */
 
   constructor(
     private fb: FormBuilder,
@@ -57,7 +43,8 @@ export class AddTransactionComponent implements OnInit {
     // private messageService : MessageService
 
 
-  ) {
+  )
+  {
     this.transactionForm = this.fb.group({
       amount: ['', Validators.required],
       currency: ['', Validators.required],
@@ -69,13 +56,6 @@ export class AddTransactionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.messageService.add({
-    //   severity: 'success',
-    //   summary: 'Test de Toast',
-    //   detail: 'Voici un message de test',
-    //   life: 4000
-    // });
-
     this.loadUsers();
   }
 

@@ -1,36 +1,82 @@
-<div class="popup-overlay" *ngIf="transaction">
-  <div class="popup">
+<div class="popup-overlay" *ngIf="transaction" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+">
+  <div class="popup" style="
+    background-color: #fff;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  ">
     <!-- Header stylisé -->
-    <div class="popup-header">
-      <h3 >Détails de la transaction</h3>
-      <button (click)="closePopup()" class="text-gray-500 text-xl font-bold hover:text-red-600">×</button>
+    <div class="popup-header" style="
+      background-color: #cce0ff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    ">
+      <h3 style="margin: 0;">Détails de la transaction</h3>
+      <button (click)="closePopup()" aria-label="Fermer" style="
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      ">×</button>
     </div>
 
     <!-- Contenu principal -->
-    <div class="popup-content">
-      <div class="detail-row">
-        <span class="label"><i class="pi pi-hashtag"></i> Réf transaction:</span>
-        <span class="value">#00TN{{ transaction.transactionId }}</span>
+    <div class="popup-content" style="padding: 20px;">
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-hashtag" style="margin-right: 5px;"></i> Réf transaction:
+        </span>
+        <span class="value" style="flex: 1;">#00TN{{ transaction.transactionId }}</span>
       </div>
-      <div class="detail-row">
-        <span class="label"><i class="pi pi-money-bill"></i> Montant :</span>
-        <span class="value">{{ transaction.amount }} {{ transaction.currency }}</span>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-money-bill" style="margin-right: 5px;"></i> Montant:
+        </span>
+        <span class="value" style="flex: 1;">{{ transaction.amount }} {{ transaction.currency }}</span>
       </div>
-      <div class="detail-row">
-        <span class="label"><i class="pi pi-globe"></i> Pays :</span>
-        <span class="value">{{ transaction.country }}</span>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-globe" style="margin-right: 5px;"></i> Pays:
+        </span>
+        <span class="value" style="flex: 1;">{{ transaction.country }}</span>
       </div>
-      <div class="detail-row">
-        <span class="label"><i class="pi pi-calendar"></i> Date :</span>
-        <span class="value">{{ transaction.transactionDate | date: 'dd/MM/yyyy' }} </span>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-calendar" style="margin-right: 5px;"></i> Date:
+        </span>
+        <span class="value" style="flex: 1;">{{ transaction.transactionDate | date: 'dd/MM/yyyy' }}</span>
       </div>
-      <div class="detail-row">
-        <span class="label"><i class="pi pi-tag"></i> Type :</span>
-        <span class="value">{{ transaction.typeTransaction }}</span>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-tag" style="margin-right: 5px;"></i> Type:
+        </span>
+        <span class="value" style="flex: 1;">{{ transaction.typeTransaction }}</span>
       </div>
-      <div class="detail-row">
-        <span class="label"><i class="pi pi-check-circle"></i> Statut :</span>
-        <span class="value">{{ transaction.transactionStatus }}</span>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-check-circle" style="margin-right: 5px;"></i> Statut:
+        </span>
+        <span class="value" style="flex: 1;">{{ transaction.transactionStatus }}</span>
       </div>
     </div>
   </div>

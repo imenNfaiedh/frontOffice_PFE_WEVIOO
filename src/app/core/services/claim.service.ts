@@ -12,10 +12,18 @@ export class ClaimService {
   constructor(private http: HttpClient) { }
 
   createClaim (claim:Claim ) : Observable<Claim>{
-    return this.http.post<Claim>(this.apiUrl, Claim ,{
+    return this.http.post<Claim>(this.apiUrl, claim ,{
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   });
 }
+
+getClaimForCurrentUser() : Observable<Claim[]>{
+    return this.http.get<Claim[]>(this.apiUrl+'/myClaim')
+}
+
+  getClaimById(id:number) : Observable<Claim>{
+    return this.http.get<Claim>(`${this.apiUrl}/${id}`)
+  }
 }
