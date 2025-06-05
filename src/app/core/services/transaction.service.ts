@@ -33,4 +33,8 @@ export class TransactionService {
         })
       });
   }
+  deleteTransaction(id:number){
+    return this.http.delete(`${this.apiUrl}/${id}`)
+  }
+
 }

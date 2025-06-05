@@ -14,6 +14,8 @@ import {ClaimDetailsComponent} from "../claim-details/claim-details.component";
 import {AddTransactionComponent} from "../../add-transaction/add-transaction.component";
 import {PopupComponent} from "../../../../shared/popup/popup.component";
 import {AddClaimComponent} from "../add-claim/add-claim.component";
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-list-claim',
@@ -54,7 +56,6 @@ export class ListClaimComponent implements OnInit {
     this.getMyClaim();
   }
 
-
   getMyClaim(): void {
     this.claimService.getClaimForCurrentUser().subscribe((data)=>
     { this.claims =data})
@@ -81,10 +82,41 @@ export class ListClaimComponent implements OnInit {
 
   }
 
-  deleteClaim(transaction: Transaction) {
-    console.log('Supprimer :', transaction);
-
+  deleteClaim(id: number) {
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: 'Cette action est irréversible !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.claimService.deleteClaim(id).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Supprimé !',
+              text: 'La réclamation a été supprimée avec succès.',
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            this.getMyClaim(); // Recharge la liste
+          },
+          error: (err) => {
+            Swal.fire({
+              title: 'Erreur !',
+              text: "Une erreur s'est produite lors de la suppression.",
+              icon: 'error',
+            });
+          },
+        });
+      }
+    });
   }
+
   clear(dt: Table) {
     this.searchValue = '';  // Réinitialiser la valeur de recherche
     dt.clear();  // Réinitialise tous les filtres
@@ -92,7 +124,6 @@ export class ListClaimComponent implements OnInit {
 
   /******tag******////
   getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
-
     switch (status) {
       case 'TRAITEE':
         return 'success';
@@ -105,9 +136,7 @@ export class ListClaimComponent implements OnInit {
 
     }
   }
-
   getIcon(status?: string): string {
-
     switch (status) {
       case 'TRAITEE':
         return 'pi pi-check';
@@ -117,7 +146,6 @@ export class ListClaimComponent implements OnInit {
       default:
         return '';
     }}
-
   formatStatus(status?: string): string {
     switch (status) {
       case 'TRAITEE':

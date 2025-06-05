@@ -26,4 +26,8 @@ getClaimForCurrentUser() : Observable<Claim[]>{
   getClaimById(id:number) : Observable<Claim>{
     return this.http.get<Claim>(`${this.apiUrl}/${id}`)
   }
+
+  deleteClaim(id:number) {
+   return  this.http.delete(`${this.apiUrl}/${id}`)
+  }
 }

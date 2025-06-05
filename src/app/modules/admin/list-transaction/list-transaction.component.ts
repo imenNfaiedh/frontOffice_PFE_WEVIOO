@@ -14,6 +14,7 @@ import {StyleClassModule} from "primeng/styleclass";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {TransactionDetailsComponent} from "../transaction-details/transaction-details.component";
 import {Tag} from "primeng/tag";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-list-transaction',
@@ -82,9 +83,39 @@ export class ListTransactionComponent implements OnInit {
 
   }
 
-  deleteTransaction(transaction: Transaction) {
-    console.log('Supprimer :', transaction);
-
+  deleteTransaction(id: number) {
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: 'Cette action est irréversible !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.transactionService.deleteTransaction(id).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Supprimé !',
+              text: 'La transaction a été supprimée avec succès.',
+              icon: 'success',
+              timer: 2000,
+              showConfirmButton: false,
+            });
+            this.getAllTransaction(); // Recharge la liste
+          },
+          error: (err) => {
+            Swal.fire({
+              title: 'Erreur !',
+              text: "Une erreur s'est produite lors de la suppression.",
+              icon: 'error',
+            });
+          },
+        });
+      }
+    });
   }
 
 /******tag******////
