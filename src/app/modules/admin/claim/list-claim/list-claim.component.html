@@ -59,9 +59,9 @@
 
 
           <td>  <p-tag
-            [value]="claim.status"
-            [severity]="getSeverity(claim.status)"
-            [icon]="getIcon(claim.status)">
+            [value]="formatStatus(claim.status?.toString())"
+            [severity]="getSeverity(claim.status?.toString())"
+            [icon]="getIcon(claim.status?.toString())">
           </p-tag></td>
           <td>
             <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"

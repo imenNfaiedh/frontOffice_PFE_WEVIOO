@@ -76,7 +76,11 @@
         <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
           <i class="pi pi-check-circle" style="margin-right: 5px;"></i> Statut:
         </span>
-        <span class="value" style="flex: 1;">{{ transaction.transactionStatus }}</span>
+        <span class="value" style="flex: 1;"><p-tag
+          [value]="formatStatus(transaction.transactionStatus?.toString())"
+          [severity]="getSeverity(transaction.transactionStatus?.toString())"
+          [icon]="getIcon(transaction.transactionStatus?.toString())">
+          </p-tag></span>
       </div>
     </div>
   </div>

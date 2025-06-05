@@ -1,32 +1,33 @@
 <form [formGroup]="claimForm" class="w-full space-y-6" (ngSubmit)="onSubmit()" novalidate>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-    <!-- Champs de base -->
-    <div>
-      <label for="subject" class="block mb-2 text-sm font-medium text-gray-900">Sujet </label>
-      <input  pInputText type="text" id="subject" class="form-control w-full" formControlName="subject" placeholder="Sujet de la réclamation"
-              [class.input-error]="f['subject'].invalid && (f['subject'].touched || f['subject'].dirty)">
+
+    <!-- Sujet -->
+    <div class="md:col-span-2">
+      <label for="subject" class="block mb-2 text-sm font-medium text-gray-900">Sujet</label>
+      <input pInputText type="text" id="subject" class="form-control w-full" formControlName="subject" placeholder="Sujet de la réclamation"
+             [class.input-error]="f['subject'].invalid && (f['subject'].touched || f['subject'].dirty)">
       <div *ngIf="f['subject'].invalid && (f['subject'].touched || f['subject'].dirty)" class="text-red-500 text-sm">
         <div *ngIf="f['subject'].errors?.['required']">Champ Obligatoire *</div>
       </div>
-      <div>
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Message</label>
-        <textarea pInputText id="message" rows="4" class="form-control w-full"
-                  formControlName="message"
-                  placeholder="Détail de la réclamation"
-                  [class.input-error]="f['message'].invalid && (f['message'].touched || f['message'].dirty)">
-  </textarea>
-        <div *ngIf="f['message'].invalid && (f['message'].touched || f['message'].dirty)" class="text-red-500 text-sm">
-          <div *ngIf="f['message'].errors?.['required']">Champ Obligatoire *</div>
-        </div>
-      </div>
-
-      <!-- Boutons Valider/Annuler -->
-      <div class="button-group flex justify-end gap-4">
-        <button type="submit" class="btn-valider bg-green-500 text-white px-4 py-2 rounded">Valider</button>
-        <button type="button" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded" (click)="onCancel()">Annuler</button>
-      </div>
-
-
     </div>
+
+    <!-- Message -->
+    <div class="md:col-span-2">
+      <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Message</label>
+      <textarea pInputText id="message" rows="4" class="form-control w-full"
+                formControlName="message"
+                placeholder="Détail de la réclamation"
+                [class.input-error]="f['message'].invalid && (f['message'].touched || f['message'].dirty)"></textarea>
+      <div *ngIf="f['message'].invalid && (f['message'].touched || f['message'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['message'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="md:col-span-2 flex justify-end gap-4">
+      <button type="submit" class="btn-valider bg-green-500 text-white px-4 py-2 rounded">Valider</button>
+      <button type="button" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded" (click)="onCancel()">Annuler</button>
+    </div>
+
   </div>
 </form>

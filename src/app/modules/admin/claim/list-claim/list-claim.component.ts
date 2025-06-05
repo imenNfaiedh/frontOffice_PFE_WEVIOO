@@ -91,7 +91,7 @@ export class ListClaimComponent implements OnInit {
   }
 
   /******tag******////
-  getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
+  getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
 
     switch (status) {
       case 'TRAITEE':
@@ -106,7 +106,7 @@ export class ListClaimComponent implements OnInit {
     }
   }
 
-  getIcon(status: string): string {
+  getIcon(status?: string): string {
 
     switch (status) {
       case 'TRAITEE':
@@ -117,6 +117,17 @@ export class ListClaimComponent implements OnInit {
       default:
         return '';
     }}
+
+  formatStatus(status?: string): string {
+    switch (status) {
+      case 'TRAITEE':
+        return 'Traitée';
+      case 'EN_ATTENTE':
+        return 'En attente';
+      default:
+        return 'Inconnu';
+    }
+  }
   /******tag******////
 
 }

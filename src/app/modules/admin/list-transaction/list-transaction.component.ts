@@ -88,7 +88,7 @@ export class ListTransactionComponent implements OnInit {
   }
 
 /******tag******////
-getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
+getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
 
   switch (status) {
     case 'VALID':
@@ -106,8 +106,7 @@ getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary
   }
 }
 
-  getIcon(status: string): string {
-
+  getIcon(status?: string): string {
     switch (status) {
       case 'VALID':
         return 'pi pi-check';
@@ -118,6 +117,20 @@ getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary
       default:
         return '';
     }}
+
+  formatStatus(status?: string): string {
+    switch (status) {
+      case 'VALID':
+        return 'Validée';
+      case 'SUSPICIOUS':
+        return ' Suspecte';
+      case 'BLOCKED':
+        return 'Bloquée';
+
+      default:
+        return 'Inconnu';
+    }
+  }
   /******tag******////
 
 }

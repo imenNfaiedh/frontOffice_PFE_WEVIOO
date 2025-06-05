@@ -40,7 +40,13 @@
         <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
           <i class="pi pi-info-circle" style="margin-right: 5px;"></i> Statut:
         </span>
-        <span class="value" style="flex: 1;">{{ claim.status }}</span>
+        <span class="value" style="flex: 1;">
+        <p-tag
+          [value]="formatStatus(claim.status?.toString())"
+          [severity]="getSeverity(claim.status?.toString())"
+          [icon]="getIcon(claim.status?.toString())">
+        </p-tag>
+          </span>
       </div>
     </div>
   </div>

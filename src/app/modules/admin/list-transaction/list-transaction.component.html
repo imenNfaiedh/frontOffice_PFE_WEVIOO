@@ -61,9 +61,9 @@
           <td>{{ transaction.typeTransaction }}</td>
           <!--<td><p-tag value="VALID" severity="success" icon="pi pi-check"></p-tag></td>-->
           <td>  <p-tag
-            [value]="transaction.transactionStatus"
-            [severity]="getSeverity(transaction.transactionStatus)"
-            [icon]="getIcon(transaction.transactionStatus)">
+            [value]="formatStatus(transaction.transactionStatus?.toString())"
+            [severity]="getSeverity(transaction.transactionStatus?.toString())"
+            [icon]="getIcon(transaction.transactionStatus?.toString())">
           </p-tag></td>
 
           <td>
