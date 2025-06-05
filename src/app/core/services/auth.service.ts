@@ -39,7 +39,7 @@ export class AuthService {
     return this.http.post(this.userUrl, user, { headers });
 }
  //pour sauvegarder user du keyclaok en BD
-  getCurrentUser(): Observable<any> {
+   getCurrentUser(): Observable<any> {
     const token = this.getToken();
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

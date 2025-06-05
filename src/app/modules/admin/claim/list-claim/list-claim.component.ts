@@ -11,6 +11,9 @@ import {CommonModule} from "@angular/common";
 import {Tag} from "primeng/tag";
 import {Transaction} from "../../../../shared/models/transaction";
 import {ClaimDetailsComponent} from "../claim-details/claim-details.component";
+import {AddTransactionComponent} from "../../add-transaction/add-transaction.component";
+import {PopupComponent} from "../../../../shared/popup/popup.component";
+import {AddClaimComponent} from "../add-claim/add-claim.component";
 
 @Component({
   selector: 'app-list-claim',
@@ -26,7 +29,10 @@ import {ClaimDetailsComponent} from "../claim-details/claim-details.component";
     FormsModule,
     Tag,
     ButtonDirective,
-    ClaimDetailsComponent
+    ClaimDetailsComponent,
+    AddTransactionComponent,
+    PopupComponent,
+    AddClaimComponent
   ],
   templateUrl: './list-claim.component.html',
   styleUrl: './list-claim.component.css'
@@ -39,6 +45,8 @@ export class ListClaimComponent implements OnInit {
   //view claim
   showDetailsPopup : boolean=false;
   selectedClaimDetails!:Claim;
+  //add
+  isModelOpen = false;
   constructor(private claimService: ClaimService,) {
   }
 
@@ -64,6 +72,15 @@ export class ListClaimComponent implements OnInit {
     });
   }
 
+  openModel() {
+    this.isModelOpen = true;
+  }
+//fermer popup
+  closeModel() {
+    this.isModelOpen = false;
+
+  }
+
   deleteClaim(transaction: Transaction) {
     console.log('Supprimer :', transaction);
 
@@ -77,14 +94,11 @@ export class ListClaimComponent implements OnInit {
   getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
 
     switch (status) {
-      case 'VALID':
+      case 'TRAITEE':
         return 'success';
 
-      case 'SUSPICIOUS':
+      case 'EN_ATTENTE':
         return 'warn';
-
-      case 'BLOCKED':
-        return 'danger';
 
       default:
         return undefined;
@@ -95,12 +109,11 @@ export class ListClaimComponent implements OnInit {
   getIcon(status: string): string {
 
     switch (status) {
-      case 'VALID':
+      case 'TRAITEE':
         return 'pi pi-check';
-      case 'SUSPICIOUS':
+      case 'EN_ATTENTE':
         return 'pi pi-exclamation-triangle';
-      case 'BLOCKED':
-        return 'pi pi-ban';
+
       default:
         return '';
     }}
