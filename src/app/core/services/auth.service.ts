@@ -44,7 +44,6 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-
-    return this.http.get("http://localhost:8090/users/me", { headers });
+    return this.http.get("http://localhost:8085/userss/me", { headers });
   }
 }

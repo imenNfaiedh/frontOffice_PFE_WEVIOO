@@ -41,37 +41,43 @@ export class LoginComponent implements OnInit{
     });
   }
 
-  onSubmit() : void{
+  onSubmit() : void {
     if (this.loginForm.invalid) {
       this.errorMessage = 'Veuillez remplir tous les champs.';
       return;
     }
-    const loginData ={
+    const loginData = {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     };
     this.authService.login(loginData.username, loginData.password).subscribe(
-        (response) => {
-          if (response && response.access_token) {
-            this.authService.storeToken(response.access_token);
-            console.log('Login successful, token stored.');
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-              this.router.navigate(['/', 'admin', 'dashboard']);
-           });
-           console.log("vers list transaction")
+      (response) => {
+        if (response && response.access_token) {
+          this.authService.storeToken(response.access_token);
+          console.log('Login successful, token stored.');
 
-
-
-          } else {
-            this.errorMessage = 'Identifiants incorrects.';
-          }
-        },
-        error => {
-          console.error('Login failed:', error);
+          // ⚠️ Appel pour enregistrer le user en base
+          this.authService.getCurrentUser().subscribe(
+            (user) => {
+              console.log('Utilisateur enregistré:', user);
+              this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+                this.router.navigate(['/', 'admin', 'dashboard']);
+              });
+            },
+            error => {
+              console.error('Erreur lors de la récupération de l’utilisateur:', error);
+            }
+          );
+        } else {
+          this.errorMessage = 'Identifiants incorrects.';
         }
+      },
+      error => {
+        console.error('Login failed:', error);
+      }
     );
   }
 
 
 
-}
+  }
