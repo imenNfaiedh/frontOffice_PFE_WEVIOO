@@ -21,6 +21,7 @@ import {Table, TableModule} from "primeng/table";
 import {MessageService} from "primeng/api";
 import {ClaimService} from "../../../../core/services/claim.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../../../../core/services/auth.service";
 
 
 @Component({
@@ -37,19 +38,24 @@ import {Router} from "@angular/router";
 export class MyBankAccountComponent implements OnInit{
 
   accounts : BankAccount[] =[]
+  selectedAccount : any;
+  searchValue: string = '';  // Valeur de la recherche
   loading : boolean = false
   recentTransactions: Transaction[] = [];
   transactions: Transaction[] = [];
 
 
 
+
   constructor(private bankAccountService: BankAccountService,
               private  transactionService : TransactionService,
-              private claimService: ClaimService,
-              private messageService: MessageService,
-              private router: Router) {}
+              public authService: AuthService,
+              private router: Router,
+            ) {}
 
   ngOnInit(): void {
+    const roles = this.authService.getRoleFromToken();
+    if (roles?.includes('CUSTOMER')) {
     this.loading = true;
     this.loadTransactions();
     this.bankAccountService.getMyAccount().subscribe({
@@ -61,14 +67,22 @@ export class MyBankAccountComponent implements OnInit{
         console.error('Error loading accounts', err);
         this.loading = false;
       }
-    });
+    });}
+    else if (roles?.includes('ADMIN') || roles?.includes('BANKER')) {
+      this.getAllAccount();
+    }
+
+
   }
 
+  getAllAccount(): void {
+    this.bankAccountService.getAllAccount().subscribe((data: BankAccount[])=>
+    this.accounts=data)
+  }
+  // les 4 dernier transactions
   loadTransactions(): void {
     this.transactionService.getMyTransaction().subscribe((data: Transaction[]) => {
       this.transactions = data;
-
-
       this.recentTransactions = [...this.transactions]
         .filter(tx => tx.transactionDate) // Évite les undefined
         .sort((a, b) =>
@@ -82,11 +96,13 @@ export class MyBankAccountComponent implements OnInit{
   openReclamation(): void {
     this.router.navigate(['/admin/list-reclamation']);
   }
-
+  clear(dt: Table) {
+    this.searchValue = '';  // Réinitialiser la valeur de recherche
+    dt.clear();  // Réinitialise tous les filtres
+  }
 
   /******tag******////
-  getSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
-
+  getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
     switch (status) {
       case 'VALID':
         return 'success';
@@ -115,6 +131,19 @@ export class MyBankAccountComponent implements OnInit{
       default:
         return '';
     }}
+  formatStatus(status?: string): string {
+    switch (status) {
+      case 'VALID':
+        return 'Validée';
+      case 'SUSPICIOUS':
+        return ' Suspecte';
+      case 'BLOCKED':
+        return 'Bloquée';
+
+      default:
+        return 'Inconnu';
+    }
+  }
   /******tag******////
 }
 

@@ -15,6 +15,10 @@ export class BankAccountService {
   {
     return this.http.get<BankAccount[]>(this.apiUrl+'/myBankAccounts');
   }
+  getAllAccount():Observable<BankAccount[]>
+  {
+    return this.http.get<BankAccount[]>(this.apiUrl)
+  }
 
   // getAccountsByUserId(userId: number): Observable<any[]> {
   //   return this.http.get<any[]>(`/api/bank-accounts/by-user/${userId}`);

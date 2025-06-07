@@ -1,3 +1,4 @@
+<div *ngIf="authService.hasRole('CUSTOMER')">
 <div class="card-container">
   <div class="bank-card" *ngFor="let account of accounts">
     <div class="card-main-content">
@@ -72,9 +73,9 @@
         <td>{{ transaction.typeTransaction }}</td>
         <td>
           <p-tag
-            [value]="transaction.transactionStatus"
-            [severity]="getSeverity(transaction.transactionStatus)"
-            [icon]="getIcon(transaction.transactionStatus)">
+            [value]="formatStatus(transaction.transactionStatus?.toString())"
+            [severity]="getSeverity(transaction.transactionStatus?.toString())"
+            [icon]="getIcon(transaction.transactionStatus?.toString())">
           </p-tag>
         </td>
       </tr>
@@ -82,3 +83,84 @@
 
   </p-table>
 </div>
+</div>
+<div *ngIf="authService.hasRole('ADMIN' || 'BANKER')">
+
+  <div class="flex justify-between items-center gap-4 mb-6">
+    <h4 class=" text-2xl custom-title">Liste des Comptes Bancaires </h4>
+    <button type="button"    class="custom-button">
+      + Ajouter Compte Bancaire
+    </button>
+  </div>
+
+  <hr class="separator-line  my-1" />
+
+  <!-- Barre de recherche et filtre -->
+  <div class="search-container mb-4">
+    <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
+             [value]="accounts"
+             [tableStyle]="{ 'min-width': '10rem' }"
+             [paginator]="true"
+             [rows]="5"
+             [rowsPerPageOptions]="[5, 10, 20]"
+             [globalFilterFields]="['subject', 'message']"
+             selectionMode="single"
+             [(selection)]="selectedAccount">
+      <ng-template #caption>
+        <div class="flex justify-between">
+          <p-button icon="pi pi-filter-slash" label="Annuler recherche"
+                    severity="contrast" variant="outlined" (click)="clear(dt)"/>
+          <p-iconField iconPosition="left">
+            <p-inputIcon>
+              <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="searchValue"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+              placeholder="Rechercher"
+            />
+          </p-iconField>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr class="custom-header">
+          <th class="header-cell">Réf Compte Bancaire </th>
+          <th class="header-cell">Numéro Compte</th>
+          <th class="header-cell">Type Compte Bancaire  </th>
+          <th class="header-cell">Montant </th>
+          <th class="header-cell">Date d'overture</th>
+          <th class="header-cell">Titulaire</th>
+          <th class="header-cell">Statut</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-account>
+        <tr [pSelectableRow]="account">
+          <td>#00TN{{ account.bankAccountId }}</td>
+          <td>{{ account.accountNumber }}</td>
+          <td>{{ account.typeBankAccount }}</td>
+          <td>{{ account.balance }}</td>
+          <td>{{ account.openingDate | date: 'dd/MM/yyyy'}}</td>
+          <td>{{ account.userFirstName }} {{ account.userLastName }}<td>
+
+
+          <td>  <p-tag
+            [value]="formatStatus(account.isBlocked?.toString())"
+            [severity]="getSeverity(account.isBlocked?.toString())"
+            [icon]="getIcon(account.isBlocked?.toString())">
+          </p-tag></td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+
+
+
+
+
+
