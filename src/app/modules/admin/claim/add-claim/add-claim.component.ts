@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {ClaimService} from "../../../../core/services/claim.service";
 import {InputText} from "primeng/inputtext";
 import {NgIf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-claim',
@@ -18,12 +19,13 @@ import {NgIf} from "@angular/common";
 export class AddClaimComponent implements OnInit {
 
   claimForm: FormGroup;
-  @Output() formSubmitted = new EventEmitter<void>();
+  @Output() formSubmitted = new EventEmitter<void>();//événement envoyé quand on valide le formulaire.
   @Output() cancel = new EventEmitter<void>();
 
 
   constructor(private fb : FormBuilder,
-              private claimService: ClaimService,) {
+              private claimService: ClaimService,
+              private router : Router) {
     this.claimForm=this.fb.group({
       subject:['',Validators.required],
       message:['',Validators.required],
@@ -35,22 +37,28 @@ export class AddClaimComponent implements OnInit {
 
   get f() {return this.claimForm.controls;}
 
-  onSubmit():void {
-    if (this.claimForm.invalid){
+  onSubmit(): void {
+    if (this.claimForm.invalid) {
       this.claimForm.markAllAsTouched();
       return;
     }
 
     this.claimService.createClaim(this.claimForm.value).subscribe({
-      next:()=> {
+      next: () => {
         this.formSubmitted.emit();
-        console.log('reclamation ajoute avec success');
+        console.log('Réclamation ajoutée avec succès');
+
+        // Redirection avec "refresh" de la page
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/admin/list-reclamation']);
+        });
       },
-      error:(err)=> {
-        console.log('erreur lors du creation du reclamation ')
+      error: (err) => {
+        console.log('Erreur lors de la création de la réclamation');
       }
     });
   }
+
 
   onCancel(): void {
     this.cancel.emit();

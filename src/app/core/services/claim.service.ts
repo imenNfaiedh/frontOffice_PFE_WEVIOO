@@ -19,12 +19,16 @@ export class ClaimService {
   });
 }
 
-getClaimForCurrentUser() : Observable<Claim[]>{
+ getClaimForCurrentUser() : Observable<Claim[]>{
     return this.http.get<Claim[]>(this.apiUrl+'/myClaim')
 }
 
   getClaimById(id:number) : Observable<Claim>{
     return this.http.get<Claim>(`${this.apiUrl}/${id}`)
+  }
+
+  getPendingClaim(): Observable<Claim[]>{
+    return this.http.get<Claim[]>(this.apiUrl+'/pending')
   }
 
   deleteClaim(id:number) {

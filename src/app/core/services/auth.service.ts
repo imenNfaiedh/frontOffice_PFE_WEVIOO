@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import { jwtDecode } from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +10,7 @@ import {Observable} from "rxjs";
 export class AuthService {
   private tokenUrl = "http://localhost:8080/realms/spring-micro-main/protocol/openid-connect/token";
   private userUrl = "http://localhost:8090/users"
+
 
   constructor( private http: HttpClient) { }
 
@@ -45,5 +48,34 @@ export class AuthService {
       'Authorization': `Bearer ${token}`
     });
     return this.http.get("http://localhost:8085/userss/me", { headers });
+  }
+
+  getRoleFromToken(): string[] | null {
+    const token = this.getToken();
+    if (!token) {
+      return null;
+    }
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.realm_access?.roles || null;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+  // Vérifie si l'utilisateur possède un rôle spécifique
+  hasRole(roleToCheck: string): boolean {
+    const roles = this.getRoleFromToken();
+    return roles ? roles.includes(roleToCheck) : false;
+  }
+
+  // Vérifie si l'utilisateur est connecté
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+  // Déconnexion
+  logout(): void {
+    localStorage.removeItem('token');
+    // Redirection éventuelle vers la page de login
   }
 }

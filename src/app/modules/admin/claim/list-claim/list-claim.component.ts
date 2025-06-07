@@ -15,6 +15,7 @@ import {AddTransactionComponent} from "../../add-transaction/add-transaction.com
 import {PopupComponent} from "../../../../shared/popup/popup.component";
 import {AddClaimComponent} from "../add-claim/add-claim.component";
 import Swal from 'sweetalert2';
+import {AuthService} from "../../../../core/services/auth.service";
 
 
 @Component({
@@ -49,16 +50,29 @@ export class ListClaimComponent implements OnInit {
   selectedClaimDetails!:Claim;
   //add
   isModelOpen = false;
-  constructor(private claimService: ClaimService,) {
+
+  constructor(private claimService: ClaimService,
+              public authService: AuthService) {
   }
 
   ngOnInit() {
-    this.getMyClaim();
+    const roles = this.authService.getRoleFromToken();
+
+    if (roles?.includes('CUSTOMER')) {
+      this.getMyClaim();
+    } else if (roles?.includes('ADMIN') || roles?.includes('BANKER')) {
+      this.getPendingClaim();
+    }
   }
 
   getMyClaim(): void {
     this.claimService.getClaimForCurrentUser().subscribe((data)=>
     { this.claims =data})
+  }
+
+  getPendingClaim(): void{
+    this.claimService.getPendingClaim().subscribe((data)=>
+    {this.claims=data})
   }
 
   viewDetails(id: number) {
