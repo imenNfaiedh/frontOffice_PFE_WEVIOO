@@ -64,11 +64,15 @@
             [icon]="getIcon(claim.status?.toString())">
           </p-tag></td>
           <td>
+            <button pButton type="button" icon="pi pi-pencil"
+                    class="p-button-rounded p-button-text p-button-success"
+                    (click)="editClaim(claim.id)" title="modifier"></button>
             <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
                     (click)="viewDetails(claim.id)" title="Voir les détails"></button>
             <button pButton type="button" icon="pi pi-trash"
                     class="p-button-rounded p-button-text p-button-danger"
                     (click)="deleteClaim(claim.id)" title="Supprimer"></button>
+
           </td>
         </tr>
       </ng-template>
@@ -77,8 +81,9 @@
 </div>
 
 <!-- Popup d'ajout de transaction -->
-<app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()" [popupTitle]="'Ajouter une réclamation'">
-  <app-add-claim (formSubmitted)="closeModel()" (cancel)="closeModel()"></app-add-claim>
+<app-popup [isOpen]="isModelOpen" (closeModel)="closeModel()" [popupTitle]="isTreatMode ? 'Traiter une réclamation' : 'Ajouter une réclamation'">
+  <app-add-claim *ngIf="!isTreatMode" (formSubmitted)="closeModel()" (cancel)="closeModel()"></app-add-claim>
+  <app-traiter-reclamation *ngIf="isTreatMode" [claimId]="selectedClaim" (formSubmitted)="closeModel()" (cancel)="closeModel()"> </app-traiter-reclamation>
 </app-popup>
 
 

@@ -1,0 +1,25 @@
+<form [formGroup]="respondClaimForm" class="w-full space-y-6" (ngSubmit)="onSubmit()" novalidate>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+
+
+
+    <!-- Message -->
+    <div class="md:col-span-2">
+      <label for="responseAdmin" class="block mb-2 text-sm font-medium text-gray-900">Message</label>
+      <textarea pInputText id="responseAdmin" rows="4" class="form-control w-full"
+                formControlName="responseAdmin"
+                placeholder="repondre à la reclamation"
+                [class.input-error]="f['responseAdmin'].invalid && (f['responseAdmin'].touched || f['responseAdmin'].dirty)"></textarea>
+      <div *ngIf="f['responseAdmin'].invalid && (f['responseAdmin'].touched || f['responseAdmin'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['responseAdmin'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="md:col-span-2 flex justify-end gap-4">
+      <button type="submit" class="btn-valider bg-green-500 text-white px-4 py-2 rounded">Valider</button>
+      <button type="button" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded" (click)="onCancel()">Annuler</button>
+    </div>
+
+  </div>
+</form>

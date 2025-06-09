@@ -16,6 +16,7 @@ import {PopupComponent} from "../../../../shared/popup/popup.component";
 import {AddClaimComponent} from "../add-claim/add-claim.component";
 import Swal from 'sweetalert2';
 import {AuthService} from "../../../../core/services/auth.service";
+import {TraiterReclamationComponent} from "../traiter-reclamation/traiter-reclamation.component";
 
 
 @Component({
@@ -35,7 +36,8 @@ import {AuthService} from "../../../../core/services/auth.service";
     ClaimDetailsComponent,
     AddTransactionComponent,
     PopupComponent,
-    AddClaimComponent
+    AddClaimComponent,
+    TraiterReclamationComponent
   ],
   templateUrl: './list-claim.component.html',
   styleUrl: './list-claim.component.css'
@@ -50,6 +52,8 @@ export class ListClaimComponent implements OnInit {
   selectedClaimDetails!:Claim;
   //add
   isModelOpen = false;
+
+  isTreatMode = false;
 
   constructor(private claimService: ClaimService,
               public authService: AuthService) {
@@ -131,6 +135,11 @@ export class ListClaimComponent implements OnInit {
     });
   }
 
+  editClaim(id: number) {
+    this.selectedClaim = id;
+    this.isTreatMode = true;
+    this.isModelOpen = true;
+  }
   clear(dt: Table) {
     this.searchValue = '';  // Réinitialiser la valeur de recherche
     dt.clear();  // Réinitialise tous les filtres

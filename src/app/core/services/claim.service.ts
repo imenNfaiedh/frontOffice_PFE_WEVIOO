@@ -34,4 +34,14 @@ export class ClaimService {
   deleteClaim(id:number) {
    return  this.http.delete(`${this.apiUrl}/${id}`)
   }
+
+
+  // claim.service.ts
+  respondToClaim(claimId: number, responseAdmin: string): Observable<Claim> {
+    return this.http.put<Claim>(`${this.apiUrl}/respond/${claimId}`, {
+      responseAdmin
+    });
+  }
+
+
 }

@@ -1,3 +1,4 @@
+<div *ngIf="authService.hasRole('ADMIN') || authService.hasRole('BANKER')">
 <div class="dashboard-container">
   <div class="stat-card users">
     <i class="pi pi-users icon"></i>
@@ -27,4 +28,8 @@
 <!-- Diagramme -->
 <div class="chart-container">
   <p-chart type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
+</div>
+  <!-- Réclamations -->
+
+
 </div>

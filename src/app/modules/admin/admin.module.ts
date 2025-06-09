@@ -16,6 +16,7 @@ import {AddClaimComponent} from "./claim/add-claim/add-claim.component";
     AdminRoutingModule,
     ToastModule,
 
+
   ]
 
 

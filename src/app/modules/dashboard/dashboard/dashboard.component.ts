@@ -5,40 +5,52 @@ import {CommonModule} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DashboardService} from "../../../core/services/dashboard.service";
+import {AuthService} from "../../../core/services/auth.service";
+import {ClaimService} from "../../../core/services/claim.service";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ChartModule, CardModule,CommonModule],
+  imports: [ChartModule, CardModule,CommonModule,
+    ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent  implements OnInit {
 
   counts: any = {};
-
   chartData: any;
   chartOptions: any;
-  constructor(private dashboardService : DashboardService) {
+
+
+
+
+  constructor(private dashboardService : DashboardService,
+              public authService :AuthService,
+              private  claimService:ClaimService) {
   }
 
   ngOnInit() {
-    this.loadCounts();
-    this.loadDashboardStats();
-    this.chartOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom'
-        },
-        tooltip: {
-          enabled: true
+    const roles = this.authService.getRoleFromToken();
+    if (roles?.includes('ADMIN') || roles?.includes('BANKER')) {
+      this.loadCounts();
+      this.loadDashboardStats();
+
+
+      this.chartOptions = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          tooltip: {
+            enabled: true
+          }
         }
-      }
-    };
-
-
+      };
+    }
   }
+
   // pour les card
   loadCounts() {
     this.dashboardService.getUserCount().subscribe(data => this.counts.users = data);
@@ -50,6 +62,7 @@ export class DashboardComponent  implements OnInit {
   loadDashboardStats() {
     this.dashboardService.getStats().subscribe(data => {
       this.counts = data;
+
 
       this.chartData = {
         labels: ['Users', 'Banks', 'Accounts', 'Transactions'],
@@ -69,5 +82,10 @@ export class DashboardComponent  implements OnInit {
       };
     });
   }
+
+
+
+
+
 
 }

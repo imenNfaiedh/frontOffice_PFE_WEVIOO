@@ -29,4 +29,9 @@ export class DashboardService {
 
   getTransactionCount(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}/transactions/count`);
-  }}
+  }
+
+  getClaimStatus(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/claimStatus`);
+  }
+}
