@@ -101,47 +101,61 @@ export class MyBankAccountComponent implements OnInit{
     dt.clear();  // Réinitialise tous les filtres
   }
 
+  //bloque débloque un compte bancaire
+  toggleBlock(account: BankAccount) {
+  if (account.bankAccountId == null) {
+    console.error('ID du compte bancaire manquant');
+    return;
+  }
+  this.bankAccountService.toggleBlockStatus(account.bankAccountId).subscribe({
+    next: (msg) => {
+      account.isBlocked = !account.isBlocked; // Met à jour l’état local
+    },
+    error: (err) => {
+      console.error('Erreur lors du changement de statut', err);
+    }
+  });
+}
+
   /******tag******////
-  getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
+  // Pour les comptes bancaires
+  formatAccountStatus(isBlocked?: boolean): string {
+    return isBlocked ? 'Bloqué' : 'Actif';
+  }
+
+  getAccountSeverity(isBlocked?: boolean): 'success' | 'danger' {
+    return isBlocked ? 'danger' : 'success';
+  }
+
+  getAccountIcon(isBlocked?: boolean): string {
+    return isBlocked ? 'pi pi-ban' : 'pi pi-check';
+  }
+
+// Pour les transactions (laisse l'existant tel quel)
+  formatStatus(status?: string): string {
     switch (status) {
-      case 'VALID':
-        return 'success';
-
-      case 'SUSPICIOUS':
-        return 'warn';
-
-      case 'BLOCKED':
-        return 'danger';
-
-      default:
-        return undefined;
-
+      case 'VALID': return 'Validée';
+      case 'SUSPICIOUS': return 'Suspecte';
+      case 'BLOCKED': return 'Bloquée';
+      default: return 'Inconnu';
     }
   }
 
-  getIcon(status: string): string {
-
+  getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | undefined {
     switch (status) {
-      case 'VALID':
-        return 'pi pi-check';
-      case 'SUSPICIOUS':
-        return 'pi pi-exclamation-triangle';
-      case 'BLOCKED':
-        return 'pi pi-ban';
-      default:
-        return '';
-    }}
-  formatStatus(status?: string): string {
-    switch (status) {
-      case 'VALID':
-        return 'Validée';
-      case 'SUSPICIOUS':
-        return ' Suspecte';
-      case 'BLOCKED':
-        return 'Bloquée';
+      case 'VALID': return 'success';
+      case 'SUSPICIOUS': return 'warn';
+      case 'BLOCKED': return 'danger';
+      default: return undefined;
+    }
+  }
 
-      default:
-        return 'Inconnu';
+  getIcon(status?: string): string {
+    switch (status) {
+      case 'VALID': return 'pi pi-check';
+      case 'SUSPICIOUS': return 'pi pi-exclamation-triangle';
+      case 'BLOCKED': return 'pi pi-ban';
+      default: return '';
     }
   }
   /******tag******////

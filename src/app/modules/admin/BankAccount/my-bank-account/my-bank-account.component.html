@@ -84,7 +84,7 @@
   </p-table>
 </div>
 </div>
-<div *ngIf="authService.hasRole('ADMIN' || 'BANKER')">
+<div *ngIf="authService.hasRole('ADMIN' )||authService.hasRole( 'BANKER')">
 
   <div class="flex justify-between items-center gap-4 mb-6">
     <h4 class=" text-2xl custom-title">Liste des Comptes Bancaires </h4>
@@ -103,7 +103,7 @@
              [paginator]="true"
              [rows]="5"
              [rowsPerPageOptions]="[5, 10, 20]"
-             [globalFilterFields]="['userFirstName', 'userLastName','typeBankAccount','openingDate']"
+             [globalFilterFields]="['userFirstName', 'userLastName','typeBankAccount','openingDate,accountNumber']"
              selectionMode="single"
              [(selection)]="selectedAccount">
       <ng-template #caption>
@@ -127,30 +127,47 @@
       <ng-template pTemplate="header">
         <tr class="custom-header">
           <th class="header-cell">Réf Compte Bancaire </th>
+          <th class="header-cell">Titulaire</th>
           <th class="header-cell">Numéro Compte</th>
           <th class="header-cell">Type Compte Bancaire  </th>
           <th class="header-cell">Montant </th>
           <th class="header-cell">Date d'overture</th>
-          <th class="header-cell">Titulaire</th>
           <th class="header-cell">Statut</th>
+          <th class="header-cell">Action</th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-account>
         <tr [pSelectableRow]="account">
           <td>#00TN{{ account.bankAccountId }}</td>
+          <td>{{ account.userFirstName }} {{ account.userLastName }}</td>
           <td>{{ account.accountNumber }}</td>
           <td>{{ account.typeBankAccount }}</td>
           <td>{{ account.balance }}</td>
           <td>{{ account.openingDate | date: 'dd/MM/yyyy'}}</td>
-          <td>{{ account.userFirstName }} {{ account.userLastName }}<td>
+          <td>
+            <p-tag
+              [value]="formatAccountStatus(account.isBlocked)"
+              [severity]="getAccountSeverity(account.isBlocked)"
+              [icon]="getAccountIcon(account.isBlocked)">
+            </p-tag>
+          </td>
 
-
-          <td>  <p-tag
-            [value]="formatStatus(account.isBlocked?.toString())"
-            [severity]="getSeverity(account.isBlocked?.toString())"
-            [icon]="getIcon(account.isBlocked?.toString())">
-          </p-tag></td>
+          <td>
+             <button pButton type="button"
+          [icon]="account.isBlocked ? 'pi pi-lock-open' : 'pi pi-lock'"
+          [class.p-button-success]="account.isBlocked"
+          [class.p-button-warning]="!account.isBlocked"
+          class="p-button-rounded p-button-text"
+          [title]="account.isBlocked ? 'Débloquer' : 'Bloquer'"
+          (click)="toggleBlock(account)">
+  </button>
+            <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
+                     title="Voir les détails"></button>
+            <button pButton type="button" icon="pi pi-trash"
+                    class="p-button-rounded p-button-text p-button-danger"
+                    title="Supprimer"></button>
+          </td>
 
         </tr>
       </ng-template>

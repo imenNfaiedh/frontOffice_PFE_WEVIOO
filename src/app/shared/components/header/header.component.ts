@@ -14,6 +14,7 @@ import {APP_CONSTANTS} from "../../../core/utils/constants";
 
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {ReclamationWebSocketService} from "../../../core/services/reclamation-web-socket.service";
 
 @Component({
   selector: 'app-header',
@@ -40,6 +41,8 @@ export class HeaderComponent implements OnInit ,OnDestroy {
   showDropdown = false;               // Affiche ou non le menu déroulant
   subscription!: Subscription;        // Pour gérer l’abonnement WebSocket
   unreadCount: number = 0;           // Nombre de notifications non lues
+  reclamationSubscription!: Subscription;  // Abonnement pour les réclamations
+
 
   //open and close navbar : Gestion du responsive
   protected readonly APP_CONSTANTS = APP_CONSTANTS;
@@ -49,11 +52,13 @@ export class HeaderComponent implements OnInit ,OnDestroy {
     { width: 0, class: 'header-md-screen' },
   ];
 
+
   @Input() collapsed: boolean = false;  // Navigation repliée
   @Input() screenWidth: number = 0;     // Largeur de l'écran
   //open and close navbar
 
-  constructor(private webSocketService: WebSocketServiceService) {
+  constructor(private webSocketService: WebSocketServiceService,
+              private reclamationService: ReclamationWebSocketService) {
   }
 
   //open and close navbar
@@ -70,6 +75,26 @@ export class HeaderComponent implements OnInit ,OnDestroy {
     const savedNotifications = localStorage.getItem('notifications');
     if (savedNotifications) {
       this.notifications = JSON.parse(savedNotifications);
+      this.updateUnreadCount();
+
+      // Abonnement aux réclamations traitées
+      this.reclamationSubscription = this.reclamationService.reclamations$.subscribe(reclamation => {
+        const notification = {
+          title: 'Réclamation traitée',
+          message: `Votre réclamation #${reclamation.id} a été traitée.`,
+          isRead: false,
+          timestamp: new Date().toISOString()
+        };
+        this.notifications.unshift(notification);
+
+        // Ne garder que les 3 dernières notifications
+        if (this.notifications.length > 3) {
+          this.notifications = this.notifications.slice(0, 3);
+        }
+
+        localStorage.setItem('notifications', JSON.stringify(this.notifications));
+        this.updateUnreadCount();
+      });
     }
 
     this.updateUnreadCount(); // Met à jour le badge

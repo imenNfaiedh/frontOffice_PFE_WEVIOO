@@ -20,6 +20,10 @@ export class BankAccountService {
     return this.http.get<BankAccount[]>(this.apiUrl)
   }
 
+  toggleBlockStatus(accountId: number) {
+  return this.http.put<string>(`${this.apiUrl}/toggle-block/${accountId}`, {});
+}
+
   // getAccountsByUserId(userId: number): Observable<any[]> {
   //   return this.http.get<any[]>(`/api/bank-accounts/by-user/${userId}`);
   // }
