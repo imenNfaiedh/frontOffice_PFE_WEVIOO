@@ -15,6 +15,7 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {TransactionDetailsComponent} from "../transaction-details/transaction-details.component";
 import {Tag} from "primeng/tag";
 import Swal from "sweetalert2";
+import { CapitalizePipe } from "../../../shared/pipe/capitalize.pipe";
 
 @Component({
   selector: 'app-list-transaction',
@@ -22,7 +23,7 @@ import Swal from "sweetalert2";
   imports: [TableModule, CommonModule, IconField, InputIcon,
     FormsModule, Button, InputText, PopupComponent,
     AddTransactionComponent, StyleClassModule,
-    SplitButtonModule, ButtonModule, TransactionDetailsComponent, Tag],
+    SplitButtonModule, ButtonModule, TransactionDetailsComponent, Tag, CapitalizePipe],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
 

@@ -23,16 +23,17 @@ import {ClaimService} from "../../../../core/services/claim.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../core/services/auth.service";
 import { CarouselModule } from 'primeng/carousel';
+import { ViewAccountComponent } from "../view-account/view-account.component";
+import Swal from 'sweetalert2';
 
 
 @Component({
   selector: 'app-my-bank-account',
   standalone: true,
   imports: [CardModule, DatePipe, CommonModule, FormatAccountNumberPipe, Tag,
-    IconField, InputIcon,FormsModule,CarouselModule,
-
+    IconField, InputIcon, FormsModule, CarouselModule,
     StyleClassModule,
-    SplitButtonModule, ButtonModule, TransactionDetailsComponent, InputText, ReactiveFormsModule, TableModule,],
+    SplitButtonModule, ButtonModule, InputText, ReactiveFormsModule, TableModule, ViewAccountComponent],
   templateUrl: './my-bank-account.component.html',
   styleUrl: './my-bank-account.component.css'
 })
@@ -44,6 +45,10 @@ export class MyBankAccountComponent implements OnInit{
   loading : boolean = false
   recentTransactions: Transaction[] = [];
   transactions: Transaction[] = [];
+
+  //view account
+  showDetailAccount: boolean = false;
+  selectedAccountForDetail: BankAccount | null = null;
 
 
 
@@ -93,6 +98,19 @@ export class MyBankAccountComponent implements OnInit{
         .slice(0, 4);
     });
   }
+  viewDetails(id: number) {
+    this.bankAccountService.getAccountById(id).subscribe({
+      next: (data) => {
+        this.selectedAccountForDetail = data;
+        this.showDetailAccount = true;
+      },
+      error: (err) => {
+        console.error("Erreur lors du chargement des détails", err);
+      }
+    });
+  }
+
+  
 
   openReclamation(): void {
     this.router.navigate(['/admin/list-reclamation']);

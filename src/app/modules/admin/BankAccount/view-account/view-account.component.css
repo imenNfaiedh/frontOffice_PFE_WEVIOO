@@ -1,0 +1,149 @@
+.detail-row .label {
+  width: 260px;           /* plus large */
+  padding-right: 18px;    /* espace entre label et valeur */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.detail-row .value {
+  flex: 1;
+  margin-left: 5px;       /* espace à gauche de la valeur */
+  word-break: break-word; /* évite le débordement */
+}
+
+/* Overlay semi-transparent */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Boîte du popup */
+.popup {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease-in-out;
+  transform-origin: center;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Header du popup */
+.popup-header {
+  background: #bddafd;
+  color: #0e0e0e;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.popup-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Bouton de fermeture */
+.popup-header button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.popup-header button:hover {
+  color: #e53935;
+  transform: rotate(90deg);
+}
+
+/* Contenu */
+.popup-content {
+  padding: 20px;
+}
+
+/* Lignes de détail */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  transition: background 0.3s;
+
+}
+
+
+.value {
+
+}
+
+.detail-row:hover {
+  background-color: #f5f8ff;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+/*.detail-row .label {*/
+/*  color: #555;*/
+/*  font-weight: 500;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 8px;*/
+/*}*/
+
+/*.detail-row .value {*/
+/*  color: #333;*/
+/*  font-weight: 600;*/
+/*  text-align: right;*/
+/*}*/
+
+/* Icônes PrimeIcons */
+.pi {
+  font-size: 1rem;
+  color: #405188;
+}
+
+/* Animation d’apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .popup {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .detail-row .label,
+  .detail-row .value {
+    font-size: 0.9rem;
+  }
+}

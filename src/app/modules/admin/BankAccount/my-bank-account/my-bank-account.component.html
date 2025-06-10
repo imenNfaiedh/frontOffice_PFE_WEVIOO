@@ -157,7 +157,7 @@
           <th class="header-cell">Titulaire</th>
           <th class="header-cell">Numéro Compte</th>
           <th class="header-cell">Type Compte Bancaire  </th>
-          <th class="header-cell">Montant </th>
+          <th class="header-cell">Solde </th>
           <th class="header-cell">Date d'overture</th>
           <th class="header-cell">Statut</th>
           <th class="header-cell">Action</th>
@@ -177,7 +177,7 @@
           </td>
     
  
-          <td>{{ account.balance }}</td>
+          <td>{{ account.balance | number: '1.2-2'}} DT</td>
           <td>{{ account.openingDate | date: 'dd/MM/yyyy'}}</td>
           <td>
             <p-tag
@@ -196,17 +196,29 @@
           [title]="account.isBlocked ? 'Débloquer' : 'Bloquer'"
           (click)="toggleBlock(account)">
   </button>
-            <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"
-                     title="Voir les détails"></button>
-            <button pButton type="button" icon="pi pi-trash"
-                    class="p-button-rounded p-button-text p-button-danger"
-                    title="Supprimer"></button>
+            <button pButton type="button" icon="pi pi-eye"
+        class="p-button-rounded p-button-text p-button-info"
+        title="Voir les détails"
+        (click)="viewDetails(account.bankAccountId)">
+</button>
+            
           </td>
 
         </tr>
       </ng-template>
     </p-table>
   </div>
+
+
+  <!-- Popup des détails de la transaction -->
+<app-view-account
+  *ngIf="showDetailAccount"
+  [account]="selectedAccountForDetail!"
+  (close)="showDetailAccount = false">
+</app-view-account>
+
+
+
 </div>
 
 

@@ -15,6 +15,9 @@ export class BankAccountService {
   {
     return this.http.get<BankAccount[]>(this.apiUrl+'/myBankAccounts');
   }
+  getAccountById(id: number): Observable<BankAccount> {
+  return this.http.get<BankAccount>(`${this.apiUrl}/${id}`);
+}
   getAllAccount():Observable<BankAccount[]>
   {
     return this.http.get<BankAccount[]>(this.apiUrl)
@@ -23,6 +26,9 @@ export class BankAccountService {
   toggleBlockStatus(accountId: number) {
   return this.http.put<string>(`${this.apiUrl}/toggle-block/${accountId}`, {});
 }
+ deleteAccount(id:number) {
+   return  this.http.delete(`${this.apiUrl}/${id}`)
+  }
 
   // getAccountsByUserId(userId: number): Observable<any[]> {
   //   return this.http.get<any[]>(`/api/bank-accounts/by-user/${userId}`);
