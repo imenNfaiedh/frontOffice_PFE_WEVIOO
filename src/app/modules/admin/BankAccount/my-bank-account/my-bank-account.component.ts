@@ -22,13 +22,14 @@ import {MessageService} from "primeng/api";
 import {ClaimService} from "../../../../core/services/claim.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../core/services/auth.service";
+import { CarouselModule } from 'primeng/carousel';
 
 
 @Component({
   selector: 'app-my-bank-account',
   standalone: true,
   imports: [CardModule, DatePipe, CommonModule, FormatAccountNumberPipe, Tag,
-    IconField, InputIcon,FormsModule,
+    IconField, InputIcon,FormsModule,CarouselModule,
 
     StyleClassModule,
     SplitButtonModule, ButtonModule, TransactionDetailsComponent, InputText, ReactiveFormsModule, TableModule,],
@@ -131,7 +132,7 @@ export class MyBankAccountComponent implements OnInit{
     return isBlocked ? 'pi pi-ban' : 'pi pi-check';
   }
 
-// Pour les transactions (laisse l'existant tel quel)
+// Pour les transactions 
   formatStatus(status?: string): string {
     switch (status) {
       case 'VALID': return 'Validée';
@@ -159,5 +160,27 @@ export class MyBankAccountComponent implements OnInit{
     }
   }
   /******tag******////
+
+  ///tag pour typ compte bancaire///
+
+  getTypeBankAccountLabel(type?: string): string {
+  switch (type) {
+    case 'COURANT': return 'Courant';
+    case 'EPARGNE': return 'Épargne';
+    case 'JOIN': return 'Joint';
+    case 'DEVISE': return 'Devise';
+    default: return type ?? '';
+  }
+}
+
+getTypeBankAccountSeverity(type?: string): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined {
+  switch (type) {
+    case 'COURANT': return 'info';
+    case 'EPARGNE': return 'success';
+    case 'JOIN': return 'warn';
+    case 'DEVISE': return 'danger';
+    default: return 'secondary';
+  }
+}
 }
 

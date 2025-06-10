@@ -1,49 +1,76 @@
 <div *ngIf="authService.hasRole('CUSTOMER')">
-<div class="card-container">
-  <div class="bank-card" *ngFor="let account of accounts">
-    <div class="card-main-content">
-      <!-- Informations principales -->
-      <div class="card-content">
+<p-carousel
+  [value]="accounts"
+  [numVisible]="1"
+  [numScroll]="1"
+  [circular]="true"
+  [showIndicators]="accounts.length > 1"
+  [showNavigators]="accounts.length > 1"
+   styleClass="custom-carousel"
+  contentClass="carousel-content"
+  styleClass="custom-carousel horizontal-carousel"
+>
+  <ng-template pTemplate="item" let-account>
+    <div class="card-carousel-container">
+      <!-- Carte bancaire -->
+      <div class="bank-card">
+        <div class="card-bg"></div>
+        <div class="chip"></div>
         <div class="card-header">
           <div class="account-details">
-            <div class="account-type">Compte {{ account.typeBankAccount }}</div>
-            <div class="account-number">{{ account.accountNumber | formatAccountNumber }}</div>
-          </div>
-          <i class="pi pi-wallet"></i>
-        </div>
-
-        <div class="user-name">{{ account.userFirstName }} {{ account.userLastName }}</div>
-        <div class="account-balance">{{ account.balance | number:'1.2-2' }} DT</div>
-      </div>
-
-      <!-- Bloc d'alerte personnalisée -->
-      <div class="alert-card" *ngIf="account.isBlocked">
-        <div class="custom-card-warning">
-          <!-- Header -->
-          <div class="custom-card-header">
-            <i class="pi pi-exclamation-triangle" style="color: red; font-size: 1.5rem;"></i>
-            <span class="ml-2">Alerte de sécurité</span>
-          </div>
-
-          <!-- Body -->
-          <div class="custom-card-body">
-            <div class="alert-message">
-              Ce compte a été <strong>bloqué</strong> en raison de <strong>transactions suspectes</strong>.
+           <div class="bank-card" [ngClass]="account.typeBankAccount?.toLowerCase()">
+  COMPTE {{account.typeBankAccount}}
+</div>
+            <div class="account-number">
+              {{ account.accountNumber | formatAccountNumber }}
             </div>
           </div>
+         
+        </div>
 
-          <!-- Footer -->
+        <div class="user-name">
+          {{ account.userFirstName }} {{ account.userLastName }}
+        </div>
+        <div class="account-balance">
+          {{ account.balance | number: '1.2-2' }} DT
+        </div>
+
+        <!-- Logo Visa -->
+        <div class="visa-logo">VISA</div>
+      </div>
+
+      <!-- Alerte si le compte est bloqué -->
+      <div *ngIf="account.isBlocked" class="alert-card">
+        <div class="custom-card-warning">
+          <div class="custom-card-header">
+            <i
+              class="pi pi-exclamation-triangle"
+              style="color: red; font-size: 1.5rem"
+            ></i>
+            <span class="ml-2">Alerte de sécurité</span>
+          </div>
+          <div class="custom-card-body">
+            <div class="alert-message">
+              Ce compte a été <strong>bloqué</strong> en raison de
+              <strong>transactions suspectes</strong>.
+            </div>
+          </div>
           <div class="custom-card-footer flex justify-content-end">
-            <button pButton type="button" label="Faire une réclamation" icon="pi pi-envelope"
-                    class="p-button-danger"
-                    (click)="openReclamation()">
-            </button>
+            <button
+              pButton
+              type="button"
+              label="Faire une réclamation"
+              icon="pi pi-envelope"
+              class="p-button-danger"
+              (click)="openReclamation()"
+            ></button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </ng-template>
+</p-carousel>
+
 
 <!-- Tableau des transactions -->
 <div class="transactions-table-wrapper">
@@ -142,7 +169,14 @@
           <td>#00TN{{ account.bankAccountId }}</td>
           <td>{{ account.userFirstName }} {{ account.userLastName }}</td>
           <td>{{ account.accountNumber }}</td>
-          <td>{{ account.typeBankAccount }}</td>
+          <td>
+            <p-tag 
+            [value]="getTypeBankAccountLabel(account.typeBankAccount)" 
+            [severity]="getTypeBankAccountSeverity(account.typeBankAccount)">
+            </p-tag>
+          </td>
+    
+ 
           <td>{{ account.balance }}</td>
           <td>{{ account.openingDate | date: 'dd/MM/yyyy'}}</td>
           <td>

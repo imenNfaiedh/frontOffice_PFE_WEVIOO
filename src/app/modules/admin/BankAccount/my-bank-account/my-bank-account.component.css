@@ -1,152 +1,163 @@
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
-  gap: 1rem; /* Réduit */
-  margin-bottom: 1.5rem;
-}
-/*Style individuel de chaque carte bancaire*/
-.bank-card {
-  border-radius: 16px; /* Un peu moins arrondi */
-  overflow: hidden;
-  position: relative;
-  width: 88%;
-  box-sizing: border-box;
-}
-
-.card-main-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem; /* Moins d’espace entre les deux parties */
-  width: 100%;
-}
-
-.card-content {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: white;
-  border-radius: 16px;
-  padding: 1rem; /* Ancien 2rem → réduit */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+.card-carousel-container {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.bank-card {
+  flex: 0 0 360px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
   position: relative;
+  overflow: hidden;
+}
+
+.bank-card .chip {
+   width: 48px;
+  height: 32px;
+  background: linear-gradient(135deg, #e0e0e0 60%, #bdbdbd 100%);
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  margin-top: 0.2rem;
+   position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 48px;
+  height: 32px;
+  background: linear-gradient(135deg, #e0e0e0 60%, #bdbdbd 100%);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  border: 1.5px solid #707614;
+ 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  border: 1.5px solid #bdbdbd;
+}
+.bank-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.bank-card:hover {
+  transform: scale(1.03) rotate(-1deg);
+  box-shadow: 0 16px 40px rgba(30,60,114,0.25);
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-  position: relative;
-  z-index: 2;
-}
-
-.account-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-
-}
-
-.account-type {
-  font-size: 0.9rem;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  position: relative;
+  align-items: center;
 }
 
 .account-number {
-  font-size: 0.8rem;
-  opacity: 0.8;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  color: #e0e7ef;
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 0.3rem 1rem;
+  margin-top: 0.5rem;
+  display: inline-block;
 }
 
-/* Icône portefeuille stylée */
-.pi-wallet {
+.card-icon {
   font-size: 1.8rem;
-  color: #a6c8ff;
-  transition: color 0.3s ease;
-  z-index: 1;
+  color: #ffffffcc;
 }
 
-.card-content:hover .pi-wallet {
-  color: #ffffff;
-}
 .user-name {
-  font-size: 1rem;
+  margin-top: 2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  margin-bottom: 0.8rem;
-  opacity: 0.95;
-  position: relative;
-  z-index: 2;
 }
 
 .account-balance {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  color: #ffd700;
+}
 
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-top: auto;
-    letter-spacing: 0.05em;
-    color: #f0f9ff;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 0.5rem;
-    position: relative;
-    z-index: 2;
+.visa-logo {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  color: white;
 }
 
 .alert-card {
-  background-color: #fff3cd;
-  border: 1px solid #ffeeba;
-  border-radius: 6px;
-  padding: 0.8rem;
-  color: #856404;
-  font-family: 'Segoe UI', sans-serif;
+  flex: 1;
+  min-width: 300px;
+}
+
+.custom-card-warning {
+  background: #fff3f3;
+  border: 1px solid #f5c6cb;
+  padding: 1rem;
+  border-radius: 12px;
+  color: #721c24;
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.1);
 }
 
 .custom-card-header {
   display: flex;
   align-items: center;
   font-weight: bold;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
 .custom-card-body {
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
 }
 
-.alert-message {
-  font-size: 0.9rem;
+.alert-message strong {
+  color: #c82333;
 }
 
-.custom-card-footer {
-  text-align: right;
+::ng-deep .custom-carousel .p-carousel-prev,
+::ng-deep .custom-carousel .p-carousel-next {
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-size: 1.8rem;
+}
+::ng-deep .custom-carousel .p-carousel-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
+::ng-deep .custom-carousel .p-carousel-prev,
+::ng-deep .custom-carousel .p-carousel-next {
+  position: relative;
+  top: 0;
+  transform: none;
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  color: #2a5298;
+}
 
+::ng-deep .custom-carousel .p-carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 
-@media (max-width: 768px) {
-  .card-container {
-    grid-template-columns: 1fr;
-  }
-
-  .card-main-content {
-    grid-template-columns: 1fr;
-  }
-
-  .card-content {
-    padding: 0.8rem;
-  }
-
-  .account-balance {
-    font-size: 1.4rem;
-  }
-
-  .account-type,
-  .account-number {
-    font-size: 0.8rem;
-  }
+.bank-card.courant { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+.bank-card.epargne { background: linear-gradient(135deg, #43cea2, #185a9d); }
+.bank-card.join    { background: linear-gradient(135deg, #ffaf7b, #d76d77); }
+.bank-card.devise  { background: linear-gradient(135deg, #f7971e, #ffd200); }
+@media (max-width: 600px) {
+  .bank-card { max-width: 98vw; padding: 1rem 0.5rem; }
 }
