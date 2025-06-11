@@ -2,8 +2,8 @@
 <div class="card-container">
   <div class="flex justify-between items-center gap-4 mb-6">
     <h4 class=" text-2xl custom-title">Liste des transactions</h4>
-    <button type="button" (click)="openModel()" class="custom-button">
-      + Ajouter Transaction
+    <button type="button"  *ngIf="authService.hasRole('CUSTOMER')" (click)="openModel()" class="custom-button">
+      + Effectuer Transaction
     </button>
   </div>
 

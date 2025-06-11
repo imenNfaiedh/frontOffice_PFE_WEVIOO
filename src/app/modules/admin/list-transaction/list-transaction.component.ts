@@ -16,6 +16,7 @@ import {TransactionDetailsComponent} from "../transaction-details/transaction-de
 import {Tag} from "primeng/tag";
 import Swal from "sweetalert2";
 import { CapitalizePipe } from "../../../shared/pipe/capitalize.pipe";
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-list-transaction',
@@ -39,7 +40,9 @@ export class ListTransactionComponent implements OnInit {
   showDetailsPopup: boolean = false;
   selectedTransactionDetails!: Transaction;
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(private transactionService: TransactionService,
+     public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getAllTransaction();
