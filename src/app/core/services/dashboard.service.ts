@@ -34,4 +34,8 @@ export class DashboardService {
   getClaimStatus(): Observable<any> {
     return this.http.get(`${this.apiUrl}/claimStatus`);
   }
+  getTransactionsCountPerMonth(): Observable<{ [key: string]: number }> {
+    return this.http.get<{ [key: string]: number }>("http://localhost:8085/transactions/transactions-count-per-month");
+  }
+
 }

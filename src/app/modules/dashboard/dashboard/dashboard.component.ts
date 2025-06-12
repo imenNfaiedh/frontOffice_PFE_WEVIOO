@@ -2,11 +2,9 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ChartModule} from "primeng/chart";
 import {CardModule} from "primeng/card";
 import {CommonModule} from "@angular/common";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+
 import {DashboardService} from "../../../core/services/dashboard.service";
 import {AuthService} from "../../../core/services/auth.service";
-import {ClaimService} from "../../../core/services/claim.service";
 import {ButtonDirective} from "primeng/button";
 import {Carousel} from "primeng/carousel";
 import {FormatAccountNumberPipe} from "../../../shared/pipe/format-account-number.pipe";
@@ -51,6 +49,10 @@ export class DashboardComponent  implements OnInit {
   validTransactions = 0;
   failedTransactions = 0;
 
+  chartLineData: any;  // données pour le line chart
+  transactionsCountPerMonth: { [key: string]: number } = {};
+
+
 
   constructor(private dashboardService : DashboardService,
               public authService :AuthService,
@@ -78,7 +80,8 @@ export class DashboardComponent  implements OnInit {
     else if (roles?.includes('CUSTOMER'))
     {
       this.loadCustomerAccounts();
-      this.getStatusTransaction()
+      this.getStatusTransaction();
+      this.loadTransactionsCountPerMonth();
     }
   }
 
@@ -152,6 +155,27 @@ export class DashboardComponent  implements OnInit {
       this.failedTransactions = data.filter(
         t => t.transactionStatus === TransactionStatus.SUSPICIOUS
       ).length;
+    });
+  }
+
+  loadTransactionsCountPerMonth() {
+    this.dashboardService.getTransactionsCountPerMonth().subscribe(data => {
+      // data est un objet { "January": 15, "February": 22, ... }
+      const labels = Object.keys(data);
+      const values = Object.values(data);
+
+      this.chartLineData = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Transactions par mois',
+            data: values,
+            fill: false,
+            borderColor: '#42A5F5',
+            tension: 0.4
+          }
+        ]
+      };
     });
   }
 
