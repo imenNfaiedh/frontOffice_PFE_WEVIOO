@@ -1,9 +1,12 @@
+<p-toast position="top-right"></p-toast>
+
 <app-sidebar (toggleSideNav)="onToggleSideNav($event)"></app-sidebar>
 <app-header
   [collapsed]="isSideNavCollapsed"
   [screenWidth]="screenWidth"
 ></app-header>
 <div style=" min-height: 80%">
+
   <app-body
     [collapsed]="isSideNavCollapsed"
     [screenWidth]="screenWidth"

@@ -68,3 +68,130 @@
 }
 
 
+/*dashboard customer */
+.left-panel {
+  width: 40%;
+}
+
+.bank-card {
+  position: relative;
+  min-height: 210px;
+  border-radius: 20px;
+  box-shadow: none;
+  overflow: hidden;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  margin: auto;
+}
+.bank-card-container {
+  display: flex;
+  justify-content: center;
+  max-width: 90%;
+}
+
+.bank-card.courant { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+.bank-card.epargne { background: linear-gradient(135deg, #43cea2, #185a9d); }
+.bank-card.join    { background: linear-gradient(135deg, #ffaf7b, #d76d77); }
+.bank-card.devise  { background: linear-gradient(135deg, #f7971e, #ffd200); }
+
+.holo-strip {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 18px;
+  background: linear-gradient(90deg, #fff, #e0e0e0 50%, #fff0 100%);
+  opacity: 0.18;
+  z-index: 1;
+}
+
+.chip {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  width: 48px;
+  height: 32px;
+  background: linear-gradient(135deg, #e0e0e0 60%, #bdbdbd 100%);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  border: 1.5px solid #bdbdbd;
+  z-index: 2;
+}
+
+.visa-logo {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  opacity: 0.85;
+  color: #fff;
+  letter-spacing: 2px;
+  z-index: 2;
+}
+
+.card-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.2rem 1.5rem 1.2rem 1.5rem;
+}
+
+.card-row {
+  margin-bottom: 0.7rem;
+}
+
+.card-type .type-label {
+  font-size: 1.1rem;
+}
+
+.account-number {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: #e0e7ef;
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 0.3rem 1rem;
+  display: inline-block;
+}
+
+.user-name {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #e0e7ef;
+}
+
+.account-balance {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 1px 2px #1e3c72;
+}
+
+@media (max-width: 768px) {
+  .left-panel {
+    width:  40%;
+    padding: 0 1rem;
+  }
+
+  .bank-card-container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .bank-card {
+    max-width: 100%;
+  }
+
+  .transactions-table-wrapper {
+    overflow-x: auto;
+    padding: 1rem;
+  }
+}
+

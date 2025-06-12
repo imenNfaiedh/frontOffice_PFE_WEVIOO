@@ -3,15 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from "./shared/components/header/header.component";
 import {SidebarComponent} from "./shared/components/sidebar/sidebar.component";
 import {CommonModule} from "@angular/common";
-import { ToastModule } from 'primeng/toast';
+import {Toast, ToastModule} from "primeng/toast";
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,
     HeaderComponent,
-    SidebarComponent,CommonModule,
-    ToastModule],
+    SidebarComponent, CommonModule, ToastModule,
+
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

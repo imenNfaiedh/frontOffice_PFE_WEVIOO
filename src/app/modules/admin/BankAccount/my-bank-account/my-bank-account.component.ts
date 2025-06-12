@@ -61,7 +61,15 @@ export class MyBankAccountComponent implements OnInit{
 
   ngOnInit(): void {
     const roles = this.authService.getRoleFromToken();
+
     if (roles?.includes('CUSTOMER')) {
+      this.loadCustomerAccounts();
+    } else if (roles?.includes('ADMIN') || roles?.includes('BANKER')) {
+      this.getAllAccount();
+    }
+  }
+
+  loadCustomerAccounts(): void {
     this.loading = true;
     this.loadTransactions();
     this.bankAccountService.getMyAccount().subscribe({
@@ -73,14 +81,8 @@ export class MyBankAccountComponent implements OnInit{
         console.error('Error loading accounts', err);
         this.loading = false;
       }
-    });}
-    else if (roles?.includes('ADMIN') || roles?.includes('BANKER')) {
-      this.getAllAccount();
-    }
-
-
+    });
   }
-
   getAllAccount(): void {
     this.bankAccountService.getAllAccount().subscribe((data: BankAccount[])=>
     this.accounts=data)
@@ -110,7 +112,7 @@ export class MyBankAccountComponent implements OnInit{
     });
   }
 
-  
+
 
   openReclamation(): void {
     this.router.navigate(['/admin/list-reclamation']);
@@ -150,7 +152,7 @@ export class MyBankAccountComponent implements OnInit{
     return isBlocked ? 'pi pi-ban' : 'pi pi-check';
   }
 
-// Pour les transactions 
+// Pour les transactions
   formatStatus(status?: string): string {
     switch (status) {
       case 'VALID': return 'Validée';

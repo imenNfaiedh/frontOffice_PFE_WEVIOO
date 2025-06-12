@@ -121,4 +121,26 @@
 
 ::ng-deep .p-toast-message {
   color: black !important;
+
+
+  /* Change la couleur et supprime le fond des flèches */
+  .p-carousel .p-carousel-button {
+    color: #007bff !important; /* Bleu */
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Supprime le petit rectangle de focus */
+  .p-carousel .p-carousel-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Optionnel : effet au survol */
+  .p-carousel .p-carousel-button:hover {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    color: #0056b3 !important;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
 }

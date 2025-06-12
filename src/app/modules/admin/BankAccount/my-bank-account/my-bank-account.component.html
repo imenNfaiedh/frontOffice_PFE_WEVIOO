@@ -161,13 +161,13 @@
           <td>{{ account.userFirstName }} {{ account.userLastName }}</td>
           <td>{{ account.accountNumber }}</td>
           <td>
-            <p-tag 
-            [value]="getTypeBankAccountLabel(account.typeBankAccount)" 
+            <p-tag
+            [value]="getTypeBankAccountLabel(account.typeBankAccount)"
             [severity]="getTypeBankAccountSeverity(account.typeBankAccount)">
             </p-tag>
           </td>
-    
- 
+
+
           <td>{{ account.balance | number: '1.2-2'}} DT</td>
           <td>{{ account.openingDate | date: 'dd/MM/yyyy'}}</td>
           <td>
@@ -192,7 +192,7 @@
         title="Voir les détails"
         (click)="viewDetails(account.bankAccountId)">
 </button>
-            
+
           </td>
 
         </tr>

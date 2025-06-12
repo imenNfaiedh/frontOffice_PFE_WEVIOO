@@ -17,13 +17,15 @@ import {Tag} from "primeng/tag";
 import Swal from "sweetalert2";
 import { CapitalizePipe } from "../../../shared/pipe/capitalize.pipe";
 import { AuthService } from '../../../core/services/auth.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-list-transaction',
   standalone: true,
   imports: [TableModule, CommonModule, IconField, InputIcon,
     FormsModule, Button, InputText, PopupComponent,
-    AddTransactionComponent, StyleClassModule,
+    AddTransactionComponent, StyleClassModule,ToastModule,
     SplitButtonModule, ButtonModule, TransactionDetailsComponent, Tag, CapitalizePipe],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
@@ -41,12 +43,15 @@ export class ListTransactionComponent implements OnInit {
   selectedTransactionDetails!: Transaction;
 
   constructor(private transactionService: TransactionService,
-     public authService: AuthService
+     public authService: AuthService,
+     
   ) {}
 
   ngOnInit(): void {
     this.getAllTransaction();
   }
+
+ 
 
   getAllTransaction(): void {
     this.transactionService.getMyTransaction().subscribe((data) => {

@@ -11,13 +11,15 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import {catchError, Observable, throwError} from 'rxjs';
 import {MessageService} from "primeng/api";
+import { Toast } from 'primeng/toast';
+import { ToastService } from '../services/toast.service';
 
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const messageService = inject(MessageService);
+  const toastService = inject(ToastService);
 
 
 
@@ -45,24 +47,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Ensuite, on continue la requête ET on gère les erreurs
   return next(modifiedReq).pipe(
-    catchError((error: HttpErrorResponse) => {
-      console.error('Contenu brut de error.error :', error.error);
+   catchError((error: HttpErrorResponse) => {
       let errorMessage = 'Une erreur est survenue.';
-
-      if (typeof error.error === 'string'&& error.error.trim() !== '') {
+      if (typeof error.error === 'string' && error.error.trim() !== '') {
         errorMessage = error.error;
       } else if (error.error?.message) {
         errorMessage = error.error.message;
       }
-      console.log('Message à afficher dans le toast:', errorMessage);
 
-      // PrimeNG toast
-      messageService.add({
-        severity: 'error',
-        summary: 'Erreur',
-        detail: errorMessage,
-        life: 5000
-      });
+      // ✅ Appelle du service centralisé — plus sûr
+      toastService.showError(errorMessage);
 
       if (error.status === 401) {
         router.navigate(['auth/login']);

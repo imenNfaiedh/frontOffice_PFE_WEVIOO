@@ -1,5 +1,5 @@
 export enum TransactionStatus {
-  VALID,
-  SUSPICIOUS,
-  BLOCKED
+  VALID = "VALID",
+  SUSPICIOUS = "SUSPICIOUS",
+  BLOCKED = "BLOCKED"
 }

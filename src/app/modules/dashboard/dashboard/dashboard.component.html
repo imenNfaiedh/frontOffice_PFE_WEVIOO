@@ -25,11 +25,120 @@
   </div>
 </div>
 
-<!-- Diagramme -->
 <div class="chart-container">
   <p-chart type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
 </div>
-  <!-- Réclamations -->
-
-
 </div>
+
+<!-- dashboard client -->
+
+<div *ngIf="authService.hasRole('CUSTOMER') && accounts && accounts.length">
+  <p class="text-4xl font-sans font-light text-black">
+    Bienvenue, <span class="font-semibold">{{ accounts[0].userFirstName }} {{ accounts[0].userLastName }}!</span>
+  </p>
+
+  <!-- Conteneur Carousel + Cartes -->
+  <div class="flex gap-4 mb-8">
+    <!-- Carousel à gauche -->
+    <div class="w-1/2">
+      <p-carousel
+        styleClass="custom-carousel"
+        class="custom-carousel"
+        [value]="accounts"
+        orientation="vertical"
+        verticalViewPortHeight="230px"
+        contentClass="flex items-center">
+        <ng-template pTemplate="item" let-account>
+          <div class="bank-card-container">
+            <div class="bank-card" [ngClass]="account.typeBankAccount?.toLowerCase()">
+              <div class="chip"></div>
+              <div class="visa-logo">VISA</div>
+              <div class="card-content">
+                <div class="card-row card-type">
+                  <span class="type-label">
+                    <p-tag [value]="getTypeBankAccountLabel(account.typeBankAccount)"
+                           [severity]="getTypeBankAccountSeverity(account.typeBankAccount)">
+                    </p-tag>
+                  </span>
+                </div>
+                <div class="card-row account-number">
+                  {{ account.accountNumber | formatAccountNumber }}
+                </div>
+                <div class="card-row user-name">
+                  {{ account.userFirstName }} {{ account.userLastName }}
+                </div>
+                <div class="card-row account-balance">
+                  {{ account.balance | number: '1.2-2' }} DT
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+
+    <!-- Cartes à droite -->
+    <div class="w-1/2 flex flex-row gap-4 items-start">
+      <!-- Total transactions -->
+      <div class="w-1/3 p-4 bg-blue-100 text-blue-800 rounded-xl shadow-md flex flex-col items-start">
+        <i class="pi pi-wallet text-2xl"></i>
+        <p class="text-sm font-semibold">Total Transactions</p>
+        <p class="text-xl font-bold">{{ totalTransactions }}</p>
+      </div>
+
+      <!-- Transactions validées -->
+      <div class="w-1/3 p-4 bg-green-100 text-green-800 rounded-xl shadow-md flex flex-col items-start">
+        <i class="pi pi-check-circle text-2xl"></i>
+        <p class="text-sm font-semibold">Transactions Validées</p>
+        <p class="text-xl font-bold">{{ validTransactions }}</p>
+      </div>
+
+      <!-- Transactions échouées -->
+      <div class="w-1/3 p-4 bg-red-100 text-red-800 rounded-xl shadow-md flex flex-col items-start">
+        <i class="pi pi-times-circle text-2xl"></i>
+        <p class="text-sm font-semibold">Transactions Échouées</p>
+        <p class="text-xl font-bold">{{ failedTransactions }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tableau des transactions -->
+  <div class="transactions-table-wrapper">
+    <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
+             [value]="recentTransactions"
+             [tableStyle]="{ 'min-width': '10rem' }">
+
+      <ng-template pTemplate="header">
+        <tr class="custom-header">
+          <th class="header-cell">Réf transaction</th>
+          <th class="header-cell">Montant</th>
+          <th class="header-cell">Devise</th>
+          <th class="header-cell">Pays</th>
+          <th class="header-cell">Date</th>
+          <th class="header-cell">Type</th>
+          <th class="header-cell">Statut</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-transaction>
+        <tr>
+          <td>#00TN{{ transaction.transactionId }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.currency }}</td>
+          <td>{{ transaction.country }}</td>
+          <td>{{ transaction.transactionDate | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ transaction.typeTransaction }}</td>
+          <td>
+            <p-tag
+              [value]="formatStatus(transaction.transactionStatus?.toString())"
+              [severity]="getSeverity(transaction.transactionStatus?.toString())"
+              [icon]="getIcon(transaction.transactionStatus?.toString())">
+            </p-tag>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>
+
