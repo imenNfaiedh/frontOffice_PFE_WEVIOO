@@ -6,6 +6,7 @@ import {DashboardComponent} from "../dashboard/dashboard/dashboard.component";
 //import {ListBankAccountComponent} from "./BankAccount/list-bank-account/list-bank-account.component";
 import {MyBankAccountComponent} from "./BankAccount/my-bank-account/my-bank-account.component";
 import {ListClaimComponent} from "./claim/list-claim/list-claim.component";
+import {ConvertisseurComponent} from "./convertisseur/convertisseur.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,9 @@ const routes: Routes = [
 
 
       { path: 'list-reclamation' , component: ListClaimComponent},
+
+      { path: 'convertisseur' , component: ConvertisseurComponent},
+
 
 
 

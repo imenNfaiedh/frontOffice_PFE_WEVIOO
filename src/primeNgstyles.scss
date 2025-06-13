@@ -113,6 +113,30 @@
   border-radius: 0px !important;
 }
 
+/* Arrondir les coins du tableau */
+.custom-datatable-sm .p-datatable-wrapper {
+  border-radius: 10px;
+  overflow: hidden; /* pour couper les débordements */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* effet subtil */
+}
+
+/* Arrondir les en-têtes */
+.custom-datatable-sm .p-datatable-thead > tr > th:first-child {
+  border-top-left-radius: 10px;
+}
+.custom-datatable-sm .p-datatable-thead > tr > th:last-child {
+  border-top-right-radius: 10px;
+}
+
+/* Optionnel : radius bas si pagination désactivée */
+.custom-datatable-sm .p-datatable-tbody > tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.custom-datatable-sm .p-datatable-tbody > tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+
 /******   validation champs *******/
 .input-error {
   border: 1px solid #f87171 !important; /* rouge Tailwind */
