@@ -1,19 +1,22 @@
 import {Component, Input} from '@angular/core';
 import {NgClass} from "@angular/common";
 import {RouterOutlet} from "@angular/router";
+ import {Button} from "primeng/button";
+ import {Ripple} from "primeng/ripple";
+
 
 @Component({
   selector: 'app-body',
   standalone: true,
-  imports: [NgClass, RouterOutlet],
+  imports: [NgClass, RouterOutlet, Button, Ripple, ],
   templateUrl: './body.component.html',
-  styleUrl: './body.component.scss'
-})
+  styleUrl: './body.component.scss',
+  providers :[  ]
+ })
 export class BodyComponent {
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
-  constructor() {}
 
   getBodyClass(): string {
     if (!this.collapsed) return '';

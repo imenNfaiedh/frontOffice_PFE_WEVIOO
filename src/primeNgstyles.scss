@@ -1,3 +1,5 @@
+
+
 //*******popup ajout *******//
 .button-group {
   display: flex;
@@ -147,24 +149,30 @@
   color: black !important;
 
 
-  /* Change la couleur et supprime le fond des flèches */
-  .p-carousel .p-carousel-button {
-    color: #007bff !important; /* Bleu */
-    background-color: transparent !important;
-    border: none !important;
+  /* Changer la bordure et le fond sélectionné de p-dropdown */
+  ::ng-deep .custom-dropdown .p-dropdown {
+    border: 1px solid #3B82F6 !important; /* bleu */
+    box-shadow: none;
   }
 
-  /* Supprime le petit rectangle de focus */
-  .p-carousel .p-carousel-button:focus {
-    outline: none !important;
-    box-shadow: none !important;
+  ::ng-deep .custom-dropdown .p-dropdown.p-focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
   }
 
-  /* Optionnel : effet au survol */
-  .p-carousel .p-carousel-button:hover {
-    background-color: rgba(0, 123, 255, 0.1) !important;
-    color: #0056b3 !important;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+  /* Texte et icône bleu aussi */
+  ::ng-deep .custom-dropdown .p-dropdown-label {
+    color: #1d4ed8 !important;
+  }
+
+  /* Pour la flèche du dropdown */
+  ::ng-deep .custom-dropdown .p-dropdown-trigger {
+    color: #2563eb !important;
+  }
+
+  /* Option sélectionnée */
+  ::ng-deep .custom-dropdown .p-dropdown-items .p-highlight {
+    background-color: #eff6ff !important;
+    color: #1d4ed8 !important;
   }
 }

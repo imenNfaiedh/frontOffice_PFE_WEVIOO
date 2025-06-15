@@ -17,8 +17,7 @@ import {Tag} from "primeng/tag";
 import Swal from "sweetalert2";
 import { CapitalizePipe } from "../../../shared/pipe/capitalize.pipe";
 import { AuthService } from '../../../core/services/auth.service';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+ import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-list-transaction',
@@ -44,14 +43,14 @@ export class ListTransactionComponent implements OnInit {
 
   constructor(private transactionService: TransactionService,
      public authService: AuthService,
-     
+
   ) {}
 
   ngOnInit(): void {
     this.getAllTransaction();
   }
 
- 
+
 
   getAllTransaction(): void {
     this.transactionService.getMyTransaction().subscribe((data) => {

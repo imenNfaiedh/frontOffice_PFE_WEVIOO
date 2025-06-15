@@ -9,7 +9,10 @@ import {authInterceptor} from "./core/interceptors/auth.interceptor";
 import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
 import { LOCALE_ID } from '@angular/core';
 import {MessageService} from "primeng/api";
-import { ToastModule } from 'primeng/toast';
+import {ToastModule} from "primeng/toast";
+
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -22,10 +25,8 @@ export const appConfig: ApplicationConfig = {
     }),
 
 
-    importProvidersFrom(HttpClientModule, ToastModule),
+    importProvidersFrom(HttpClientModule , ToastModule),
     MessageService,
-
-
     { provide: LOCALE_ID, useValue: 'fr-FR' }
   ]
 };

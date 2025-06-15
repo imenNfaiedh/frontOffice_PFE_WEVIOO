@@ -3,14 +3,14 @@
 
     <!-- From Section -->
     <div class="bg-white shadow-lg rounded-2xl p-6">
-      <div class="text-sm text-gray-500">From</div>
+      <div class="text-sm text-gray-500">Devise source</div>
       <div class="text-xl font-semibold">{{ fromCurrency?.label }}</div>
 
       <div class="flex items-center gap-2 mt-4">
         <p-dropdown [options]="currencies"
                     [(ngModel)]="fromCurrency"
                     optionLabel="label"
-                    class="w-full" placeholder="Devise source"></p-dropdown>
+                    class="w-full custom-dropdown " placeholder="Devise source"></p-dropdown>
         <img *ngIf="fromCurrency" [src]="'https://flagcdn.com/48x36/' + fromCurrency.flag + '.png'"
              class="w-8 h-6 rounded" alt="flag" />
       </div>
@@ -18,7 +18,7 @@
       <input pInputText type="number" [(ngModel)]="amount"
              class="mt-6 text-4xl font-bold w-full text-center" placeholder="0" />
 
-      <div class="mt-4 text-sm text-gray-600">
+      <div *ngIf="currentRate !== null" class="mt-4 text-sm text-gray-600">
         Taux actuel : <span class="font-semibold">{{ currentRate }}</span>
       </div>
       <div class="text-green-600 text-sm" *ngIf="change !== null">
@@ -28,14 +28,14 @@
 
     <!-- To Section -->
     <div class="bg-white shadow-lg rounded-2xl p-6">
-      <div class="text-sm text-gray-500">To</div>
+      <div class="text-sm text-gray-500">Devise cible</div>
       <div class="text-xl font-semibold">{{ toCurrency?.label }}</div>
 
       <div class="flex items-center gap-2 mt-4">
         <p-dropdown [options]="currencies"
                     [(ngModel)]="toCurrency"
                     optionLabel="label"
-                    class="w-full" placeholder="Devise cible"></p-dropdown>
+                    class="w-full custom-dropdown" placeholder="Devise cible"></p-dropdown>
         <img *ngIf="toCurrency" [src]="'https://flagcdn.com/48x36/' + toCurrency.flag + '.png'"
              class="w-8 h-6 rounded" alt="flag" />
       </div>
@@ -44,8 +44,12 @@
         {{ convertedAmount || '0.00' }}
       </div>
 
-      <!-- Graphique ligne -->
-      <p-chart type="line" [data]="chartData" [options]="chartOptions" class="mt-6 h-32"></p-chart>
+<!--      &lt;!&ndash; ✅ Graphique dynamique &ndash;&gt;-->
+<!--      <p-chart *ngIf="chartData" type="line"-->
+<!--               [data]="chartData"-->
+<!--               [options]="chartOptions"-->
+<!--               class="mt-6 h-64">-->
+<!--      </p-chart>-->
     </div>
 
   </div>

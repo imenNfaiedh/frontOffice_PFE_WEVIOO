@@ -30,7 +30,7 @@ import {AuthService} from "../../../core/services/auth.service";
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
-  providers: [MessageService]
+  providers: [ ]
 })
 export class RegisterComponent implements OnInit{
 

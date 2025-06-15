@@ -5,7 +5,7 @@ import {SideNavToggle} from "../../core/utils/type";
 import {BodyComponent} from "../../shared/components/body/body.component";
 import { ToastModule } from 'primeng/toast';
 import {RouterOutlet} from "@angular/router";
-import {ToastService} from "../../core/services/toast.service";
+//import {ToastService} from "../../core/services/toast.service";
 
 @Component({
   selector: 'app-admin-layout',
@@ -26,10 +26,10 @@ export class AdminLayoutComponent implements OnInit{
 
   isSideNavCollapsed = false;
   screenWidth = 0;
-  constructor(private toastService: ToastService) {}
+  constructor( ) {}
 
   ngOnInit() {
-    this.toastService.showSuccess('Interface admin chargée');
+    //this.toastService.showSuccess('Interface admin chargée');
     console.log("toast afficher ")
   }
 
