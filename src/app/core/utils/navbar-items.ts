@@ -8,6 +8,12 @@ export const NAV_BAR_ITEMS: NavbarItem[] = [
     title: false,
   },
   {
+    routeLink: '/admin/convertisseur',
+    icon: 'pi pi-euro',
+    label: 'Convertisseur',
+    title: false,
+  },
+  {
     routeLink: '/admin/information-compteBancaire',
     label: 'Compte Bancaire',
     icon: ' pi pi-wallet',
@@ -22,6 +28,12 @@ export const NAV_BAR_ITEMS: NavbarItem[] = [
   {
     routeLink: '/admin/list-reclamation',
     label: 'Réclamation',
+    icon: ' pi pi-comments',
+    title: false,
+  },
+  {
+    routeLink: '/admin/list-reclamation',
+    label: ' Utilisateur',
     icon: ' pi pi-comments',
     title: false,
   }

@@ -12,6 +12,24 @@
   <hr class="separator-line  my-1" />
   <!-- Barre de recherche et filtre -->
   <div class="search-container mb-4">
+    <div class="flex flex-wrap items-center gap-4 mb-2  ">
+
+      <p-dialog header="Exporter les transactions" [(visible)]="showMonthExportDialog" [modal]="true" [style]="{width: '400px'}">
+        <div class="flex flex-col gap-3">
+          <p-dropdown class="w-full text-base h-12"
+                      [options]="months"
+            [(ngModel)]="customMonth"
+            placeholder="Choisir un mois"
+            optionLabel="label">
+          </p-dropdown>
+
+          <p-button label="Exporter ce mois" [disabled]="!customMonth" (onClick)="exportCSVByMonth()" />
+        </div>
+      </p-dialog>
+
+
+
+    </div>
     <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
              [value]="transactions"
              [tableStyle]="{ 'min-width': '10rem' }"
@@ -23,22 +41,33 @@
              [(selection)]="selectedTransaction">
 
       <ng-template #caption>
-        <div class="flex justify-between">
-          <p-button icon="pi pi-filter-slash" label="Annuler recherche" severity="contrast" variant="outlined" (click)="clear(dt)"/>
-          <p-iconField iconPosition="left">
-            <p-inputIcon>
-              <i class="pi pi-search"></i>
-            </p-inputIcon>
-            <input
-              pInputText
-              type="text"
-              [(ngModel)]="searchValue"
-              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-              placeholder="Rechercher"
-            />
-          </p-iconField>
+        <div class="flex flex-col gap-3">
+
+          <!-- Bouton Exporter sur une ligne à part -->
+          <div>
+            <p-button label="Exporter par mois" icon="pi pi-download" (onClick)="showMonthExportDialog = true"></p-button>
+          </div>
+
+          <!-- Recherche + bouton annuler sur la ligne en dessous -->
+          <div class="flex justify-between items-center">
+            <p-button icon="pi pi-filter-slash" label="Annuler recherche" severity="contrast" variant="outlined" (click)="clear(dt)"/>
+            <p-iconField iconPosition="left">
+              <p-inputIcon>
+                <i class="pi pi-search"></i>
+              </p-inputIcon>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="searchValue"
+                (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                placeholder="Rechercher"
+              />
+            </p-iconField>
+          </div>
+
         </div>
       </ng-template>
+
 
       <ng-template pTemplate="header">
         <tr class="custom-header">

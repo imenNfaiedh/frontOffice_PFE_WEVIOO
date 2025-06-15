@@ -18,14 +18,21 @@ import Swal from "sweetalert2";
 import { CapitalizePipe } from "../../../shared/pipe/capitalize.pipe";
 import { AuthService } from '../../../core/services/auth.service';
  import { ToastModule } from 'primeng/toast';
+import { DropdownModule } from 'primeng/dropdown';
+import { saveAs } from 'file-saver';
+import {Dialog} from "primeng/dialog";
+
+
 
 @Component({
   selector: 'app-list-transaction',
   standalone: true,
   imports: [TableModule, CommonModule, IconField, InputIcon,
     FormsModule, Button, InputText, PopupComponent,
-    AddTransactionComponent, StyleClassModule,ToastModule,
-    SplitButtonModule, ButtonModule, TransactionDetailsComponent, Tag, CapitalizePipe],
+    AddTransactionComponent, StyleClassModule, ToastModule,
+    SplitButtonModule, ButtonModule, TransactionDetailsComponent, Tag, CapitalizePipe,
+    DropdownModule, Dialog
+  ],
   templateUrl: './list-transaction.component.html',
   styleUrls: ['./list-transaction.component.css'],
 
@@ -40,6 +47,10 @@ export class ListTransactionComponent implements OnInit {
   //view transaction
   showDetailsPopup: boolean = false;
   selectedTransactionDetails!: Transaction;
+
+  //export
+  showMonthExportDialog = false;
+  customMonth: any = null;
 
   constructor(private transactionService: TransactionService,
      public authService: AuthService,
@@ -172,4 +183,56 @@ getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondar
   }
   /******tag******////
 
+  /*****ex^port******/////
+  months = [
+    { label: 'Janvier', value: 1 },
+    { label: 'Février', value: 2 },
+    { label: 'Mars', value: 3 },
+    { label: 'Avril', value: 4 },
+    { label: 'Mai', value: 5 },
+    { label: 'Juin', value: 6 },
+    { label: 'Juillet', value: 7 },
+    { label: 'Août', value: 8 },
+    { label: 'Septembre', value: 9 },
+    { label: 'Octobre', value: 10 },
+    { label: 'Novembre', value: 11 },
+    { label: 'Décembre', value: 12 }
+  ];
+
+  exportCSVByMonth() {
+    const month = this.customMonth?.value;
+
+    const filtered = this.transactions.filter(t => {
+      if (!t.transactionDate) return false;
+      const tMonth = new Date(t.transactionDate).getMonth() + 1;
+      return tMonth === month;
+    });
+
+    if (!filtered.length) {
+      alert('Aucune transaction pour ce mois.');
+      return;
+    }
+
+    const header = ['Réf transaction', 'Montant', 'Devise', 'Pays', 'Date', 'Type', 'Statut'];
+
+    const csv = [
+      header.join(','),
+      ...filtered.map(t =>
+        [
+          `#00TN${t.transactionId}`,
+          t.amount,
+          t.currency,
+          t.country,
+          t.transactionDate ? new Date(t.transactionDate).toLocaleDateString('fr-FR') : '',
+          t.typeTransaction || '',
+          t.transactionStatus || ''
+        ].join(',')
+      )
+    ].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, `transactions-mois-${month}.csv`);
+
+    this.showMonthExportDialog = false;
+  }
 }
