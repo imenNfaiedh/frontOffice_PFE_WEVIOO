@@ -50,6 +50,7 @@ export class ListClaimComponent implements OnInit {
   //view claim
   showDetailsPopup : boolean=false;
   selectedClaimDetails!:Claim;
+
   //add
   isModelOpen = false;
 

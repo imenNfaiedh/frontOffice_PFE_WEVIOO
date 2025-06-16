@@ -13,6 +13,9 @@ import Swal from "sweetalert2";
 import {UserService} from "../../../../core/services/user.service";
 import {AddTransactionComponent} from "../../add-transaction/add-transaction.component";
 import {PopupComponent} from "../../../../shared/popup/popup.component";
+import {Router} from "@angular/router";
+import {ClaimDetailsComponent} from "../../claim/claim-details/claim-details.component";
+import {UserDetailsComponent} from "../user-details/user-details.component";
 
 @Component({
   selector: 'app-list-user',
@@ -29,7 +32,9 @@ import {PopupComponent} from "../../../../shared/popup/popup.component";
     Tag,
     ButtonDirective,
     AddTransactionComponent,
-    PopupComponent
+    PopupComponent,
+    ClaimDetailsComponent,
+    UserDetailsComponent
   ],
   templateUrl: './list-user.component.html',
   styleUrl: './list-user.component.css'
@@ -40,8 +45,13 @@ export class ListUserComponent implements OnInit{
   isModelOpen = false;
   searchValue: string = '';  // Valeur de la recherche
   @ViewChild('dt') table!: Table; // Référence au tableau PrimeNG
+
+  //view user
+  showDetailsPopup : boolean=false;
+  selectedUserDetails!:User;
   constructor(public authService: AuthService,
-              private  userService:UserService) {
+              private  userService:UserService,
+              private router : Router) {
   }
 
   ngOnInit(): void {
@@ -53,13 +63,6 @@ export class ListUserComponent implements OnInit{
       console.log(" userr is heeere");
     });
   }
-
-
-  //ouvrir popup
-  openModel() {
-    this.isModelOpen = true;
-  }
-//fermer popup
 
   clear(dt: Table) {
     this.searchValue = '';  // Réinitialiser la valeur de recherche
@@ -99,7 +102,21 @@ export class ListUserComponent implements OnInit{
       }
     });
   }
+  viewDetails(id: number) {
+    this.userService.getUserById(id).subscribe({
+      next: (data) => {
+        this.selectedUserDetails = data;
+        this.showDetailsPopup = true;
+      },
+      error: (err) => {
+        console.error("Erreur lors du chargement des détails", err);
+      }
+    });
+  }
 
+  addUser(): void {
+    this.router.navigate(['/admin/register']);
+  }
 
   /******tag******////
   getSeverity(status?: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' | undefined {
@@ -112,7 +129,7 @@ export class ListUserComponent implements OnInit{
         return 'info';
 
       case 'CUSTOMER':
-        return 'secondary';
+        return 'warn';
 
       default:
         return undefined;
@@ -136,5 +153,6 @@ export class ListUserComponent implements OnInit{
     }
   }
   /******tag******////
+
 
 }

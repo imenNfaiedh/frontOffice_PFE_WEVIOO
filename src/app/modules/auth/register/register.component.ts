@@ -12,6 +12,7 @@ import {PasswordDirective} from "primeng/password";
 import {Select, SelectModule} from "primeng/select";
 import {DropdownModule} from "primeng/dropdown";
 import {AuthService} from "../../../core/services/auth.service";
+import {RoleUser} from "../../../shared/models/roleUser.enum";
 
 @Component({
   selector: 'app-register',
@@ -40,8 +41,11 @@ export class RegisterComponent implements OnInit{
   @Output() formSubmitted= new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 
-  roles: string[] = ['Administrateur', 'Chef Agent', 'Client'];
-
+  roles = [
+    { label: 'Administrateur', value: RoleUser.ADMIN },
+    { label: 'Client', value: RoleUser.CUSTOMER },
+    { label: 'Banquier', value: RoleUser.BANKER }
+  ];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -66,9 +70,7 @@ export class RegisterComponent implements OnInit{
   get f(){ return this.registerForm.controls;}
 
   onCancel(): void {
-    this.cancel.emit();
-    this.registerForm.markAsPristine();
-    this.registerForm.markAsUntouched();
+    this.registerForm.reset();
 
 }
 

@@ -1,0 +1,53 @@
+<div class="popup-overlay">
+  <div class="popup">
+    <!-- Header stylisé -->
+    <div class="popup-header" style="background-color: #cce0ff; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0;">Détails de la réclamation</h3>
+      <button (click)="closePopup()" aria-label="Fermer" style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="popup-content" style="padding: 20px;">
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-hashtag" style="margin-right: 5px;"></i> Réf Utilisateur:
+        </span>
+        <span class="value" style="flex: 1;">#00TN{{ user.userId }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-user" style="margin-right: 5px;"></i> Nom & Prénom:
+        </span>
+        <span class="value" style="flex: 1;">{{ user.firstName }} {{ user.lastName }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-envelope" style="margin-right: 5px;"></i> E-mail:
+        </span>
+        <span class="value" style="flex: 1;">{{ user.email }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-phone" style="margin-right: 5px;"></i> N° télephone:
+        </span>
+        <span class="value" style="flex: 1;">+216 {{ user.tel }}</span>
+      </div>
+
+      <div class="detail-row" style="display: flex; align-items: center; margin-bottom: 10px;">
+        <span class="label" style="width: 230px; font-weight: 500; display: flex; align-items: center;">
+          <i class="pi pi-shield" style="margin-right: 5px;"></i> Role:
+        </span>
+        <span class="value" style="flex: 1;">
+        <p-tag
+          [value]="formatStatus(user.role?.toString())"
+          [severity]="getSeverity(user.role?.toString())">
+
+        </p-tag>
+          </span>
+      </div>
+    </div>
+  </div>
+</div>
