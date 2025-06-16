@@ -14,6 +14,7 @@ import { UserService } from '../../../core/services/user.service';
 import { User } from '../../../shared/models/user';
 import { BankAccount } from '../../../shared/models/bankAccount';
 import {MessageService} from "primeng/api";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-transaction',
@@ -40,6 +41,8 @@ export class AddTransactionComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private transactionService: TransactionService,
+    private router: Router,
+
     // private messageService : MessageService
 
 
@@ -104,6 +107,10 @@ export class AddTransactionComponent implements OnInit {
       next: () => {
         this.formSubmitted.emit();
         console.log('Transaction ajoutée avec succès');
+        // Redirection avec "refresh" de la page
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/admin/list-transaction']);
+        });
       },
       error: (err) => {
         console.error('Erreur lors de la création de la transaction :', err);

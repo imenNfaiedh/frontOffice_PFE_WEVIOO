@@ -1,6 +1,4 @@
 <!-- Carte contenant le tableau -->
-
-<!-- On Button click we will show a single toast -->
 <div class="card-container">
   <div class="flex justify-between items-center gap-4 mb-6">
     <h4 class=" text-2xl custom-title">Liste des transactions</h4>
@@ -14,20 +12,20 @@
   <div class="search-container mb-4">
     <div class="flex flex-wrap items-center gap-4 mb-2  ">
 
-      <p-dialog header="Exporter les transactions" [(visible)]="showMonthExportDialog" [modal]="true" [style]="{width: '400px'}">
+      <p-dialog header="Exporter les transactions" [(visible)]="showMonthExportDialog" [modal]="true" [style]="{width: '400px' ,  height: '400px'}">
         <div class="flex flex-col gap-3">
           <p-dropdown class="w-full text-base h-12"
                       [options]="months"
-            [(ngModel)]="customMonth"
-            placeholder="Choisir un mois"
-            optionLabel="label">
+                      [(ngModel)]="customMonth"
+                      placeholder="Choisir un mois"
+                      optionLabel="label">
           </p-dropdown>
+ <div style="margin-top: 50%">
+   <p-button  [style]="{width : '100%' }" label="Exporter ce mois" [disabled]="!customMonth" (onClick)="exportCSVByMonth()" />
 
-          <p-button label="Exporter ce mois" [disabled]="!customMonth" (onClick)="exportCSVByMonth()" />
+ </div>
         </div>
       </p-dialog>
-
-
 
     </div>
     <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
@@ -44,8 +42,8 @@
         <div class="flex flex-col gap-3">
 
           <!-- Bouton Exporter sur une ligne à part -->
-          <div>
-            <p-button label="Exporter par mois" icon="pi pi-download" (onClick)="showMonthExportDialog = true"></p-button>
+          <div >
+            <p-button   *ngIf="authService.hasRole('ADMIN')" class="p-button" label="Exporter par mois" icon="pi pi-download" (onClick)="showMonthExportDialog = true"></p-button>
           </div>
 
           <!-- Recherche + bouton annuler sur la ligne en dessous -->
@@ -102,8 +100,8 @@
                     (click)="viewDetails(transaction.transactionId)" title="Voir les détails"></button>
 
             <button pButton type="button" icon="pi pi-trash"
-              class="p-button-rounded p-button-text p-button-danger"
-              (click)="deleteTransaction(transaction.transactionId)" title="Supprimer"></button>
+                    class="p-button-rounded p-button-text p-button-danger"
+                    (click)="deleteTransaction(transaction.transactionId)" title="Supprimer"></button>
           </td>
         </tr>
       </ng-template>
@@ -122,4 +120,3 @@
   [transaction]="selectedTransactionDetails"
   (close)="showDetailsPopup = false">
 </app-transaction-details>
-

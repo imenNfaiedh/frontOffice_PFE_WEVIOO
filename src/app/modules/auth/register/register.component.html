@@ -1,37 +1,97 @@
-<div class= "card">
-  <h2> Inscription</h2>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <div> <label for="firstName"> Prénom</label></div>
-      <input formControlName="firstName"pInputText type="text" id="firstName" placeholder="Entrez votre prénom" />
-    </div>
-    <div class="form-group">
-      <div> <label for="lastName"> Nom</label></div>
-      <input formControlName="lastName"pInputText type="text" id="lastName" placeholder="Entrez votre nom" />
-    </div>
-    <div class="form-group">
-      <div> <label for="username"> Nom utilisateur</label></div>
-      <input formControlName="username"pInputText type="text" id="username" placeholder="Entrez votre nom utilisateur" />
-    </div>
-    <div class="form-group">
-      <div> <label for="email"> E-mail</label></div>
-      <input formControlName="email"pInputText type="email" id="email" placeholder="Entrez votre e-mail" />
+<div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-900">
+  <div class="flex w-full max-w-5xl rounded-lg shadow-lg bg-white overflow-hidden">
+
+    <!-- Colonne gauche (image + citation) -->
+    <div class="w-1/2 bg-cover bg-center hidden md:block relative" style="background-image: url('assets/img/mppppppp.jpg')">
+      <div class="absolute bottom-0 w-full bg-black bg-opacity-40 p-6 text-white text-lg italic text-center">
+
+      </div>
     </div>
 
-    <div class="form-group">
-      <div> <label for="password"> Mot de passe</label></div>
-      <input formControlName="password"pInputText type="password" id="password" placeholder="Entrez votre mot de passe" />
-    </div>
-    <div class="form-group">
-      <label for="roleName">Rôle</label>
-      <select formControlName="roleName" id="roleName" class="form-control">
-        <option value="" disabled>Sélectionnez un rôle</option>
-        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-      </select>
-    </div>
-    <button pButton type="submit" label="S'inscrire" class="btn-block"></button>
+    <!-- Colonne droite (formulaire) -->
+    <div class="w-full md:w-1/2 p-8">
+      <h2 class="text-2xl font-semibold text-center mb-6">Ajouter un nouveau utilisateur</h2>
 
-  </form>
-  <p-toast></p-toast>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
 
+          <!-- Prénom -->
+          <div>
+            <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900">Prénom</label>
+            <input pInputText type="text" id="firstName" class="form-control w-full"
+                   formControlName="firstName" placeholder="Prénom"
+                   [class.input-error]="f['firstName'].invalid && (f['firstName'].touched || f['firstName'].dirty)">
+            <div *ngIf="f['firstName'].invalid && (f['firstName'].touched || f['firstName'].dirty)" class="text-red-500 text-sm">
+              <div *ngIf="f['firstName'].errors?.['required']">Champ Obligatoire *</div>
+            </div>
+          </div>
+
+          <!-- Nom -->
+          <div>
+            <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900">Nom</label>
+            <input pInputText type="text" id="lastName" class="form-control w-full"
+                   formControlName="lastName" placeholder="Nom"
+                   [class.input-error]="f['lastName'].invalid && (f['lastName'].touched || f['lastName'].dirty)">
+            <div *ngIf="f['lastName'].invalid && (f['lastName'].touched || f['lastName'].dirty)" class="text-red-500 text-sm">
+              <div *ngIf="f['lastName'].errors?.['required']">Champ Obligatoire *</div>
+            </div>
+          </div>
+
+          <!-- Nom utilisateur -->
+          <div>
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Nom utilisateur</label>
+            <input pInputText type="text" id="username" class="form-control w-full"
+                   formControlName="username" placeholder="Nom utilisateur"
+                   [class.input-error]="f['username'].invalid && (f['username'].touched || f['username'].dirty)">
+            <div *ngIf="f['username'].invalid && (f['username'].touched || f['username'].dirty)" class="text-red-500 text-sm">
+              <div *ngIf="f['username'].errors?.['required']">Champ Obligatoire *</div>
+            </div>
+          </div>
+
+          <!-- E-mail -->
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
+            <input pInputText type="email" id="email" class="form-control w-full"
+                   formControlName="email" placeholder="Adresse e-mail"
+                   [class.input-error]="f['email'].invalid && (f['email'].touched || f['email'].dirty)">
+            <div *ngIf="f['email'].invalid && (f['email'].touched || f['email'].dirty)" class="text-red-500 text-sm">
+              <div *ngIf="f['email'].errors?.['required']">Champ Obligatoire *</div>
+            </div>
+          </div>
+
+          <!-- Mot de passe -->
+          <div class="md:col-span-2">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Mot de passe</label>
+            <input pInputText type="password" id="password" class="form-control w-full"
+                   formControlName="password" placeholder="Mot de passe"
+                   [class.input-error]="f['password'].invalid && (f['password'].touched || f['password'].dirty)">
+            <div *ngIf="f['password'].invalid && (f['password'].touched || f['password'].dirty)" class="text-red-500 text-sm">
+              <div *ngIf="f['password'].errors?.['required']">Champ Obligatoire *</div>
+            </div>
+          </div>
+
+          <!-- Rôle -->
+          <div class="md:col-span-2">
+            <label for="roleName" class="block mb-2 text-sm font-medium text-gray-900">Rôle</label>
+            <p-dropdown id="roleName"
+                        [options]="roles"
+                        formControlName="roleName"
+                        placeholder="Sélectionnez un rôle"
+                        class="form-control w-full"
+                        [ngClass]="{'input-error': f['roleName'].invalid && (f['roleName'].touched || f['roleName'].dirty)}">
+            </p-dropdown>
+            <div *ngIf="f['roleName'].invalid && (f['roleName'].touched || f['roleName'].dirty)" class="text-red-500 text-sm">
+              <div *ngIf="f['roleName'].errors?.['required']">Champ Obligatoire *</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex justify-end gap-4 pt-4">
+          <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded">Valider</button>
+          <button type="button" (click)="onCancel()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

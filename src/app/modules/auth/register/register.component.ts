@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 
 import {ToastModule} from "primeng/toast";
@@ -37,6 +37,8 @@ export class RegisterComponent implements OnInit{
   public registerForm!: FormGroup;
   public submitted = false;
 
+  @Output() formSubmitted= new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
 
   roles: string[] = ['Administrateur', 'Chef Agent', 'Client'];
 
@@ -63,6 +65,13 @@ export class RegisterComponent implements OnInit{
 
   get f(){ return this.registerForm.controls;}
 
+  onCancel(): void {
+    this.cancel.emit();
+    this.registerForm.markAsPristine();
+    this.registerForm.markAsUntouched();
+
+}
+
   onSubmit(): void {
     this.submitted =true;
     if (this.registerForm.invalid){
@@ -79,12 +88,17 @@ export class RegisterComponent implements OnInit{
     };
     console.log(user)
 
+
     this.authService.createUser(user).subscribe(
         response=>{
           console.log('User created successfully:', response);
           this.messageService.add({ severity:'success', summary:'Success', detail:'Utilisateur créé avec succes!!'});
 
-          this.router.navigate(['/auth/login']);
+          // Redirection avec "refresh" de la page
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/admin/list-user']);
+          });
+
           // },
           // error => {
           //   console.error('Error creating user:', error);

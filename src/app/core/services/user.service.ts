@@ -23,4 +23,8 @@ export class UserService {
   getBankAccountsByUser(userId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${userId}/bank-accounts`);
   }
+  deleteUser(id:number){
+    return this.http.delete(`${this.apiUrl}/${id}`)
+  }
+
 }

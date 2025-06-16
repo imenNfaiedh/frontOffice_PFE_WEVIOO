@@ -32,9 +32,9 @@ export const NAV_BAR_ITEMS: NavbarItem[] = [
     title: false,
   },
   {
-    routeLink: '/admin/list-reclamation',
+    routeLink: '/admin/list-user',
     label: ' Utilisateur',
-    icon: ' pi pi-comments',
+    icon: ' pi pi-users',
     title: false,
   }
 ];

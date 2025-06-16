@@ -1,0 +1,90 @@
+<!-- Carte contenant le tableau -->
+
+<div  *ngIf="authService.hasRole('ADMIN')">
+<div class="card-container  w-full">
+  <div class="flex justify-between items-center gap-4 mb-6">
+    <h4 class=" text-2xl custom-title">Liste des utilisateurs</h4>
+    <button type="button"  *ngIf="authService.hasRole('ADMIN')" (click)="openModel()" class="custom-button">
+      + Ajouter un utilisateur
+    </button>
+  </div>
+
+  <hr class="separator-line  my-1" />
+  <!-- Barre de recherche et filtre -->
+  <div class="search-container mb-4">
+    <div class="flex flex-wrap items-center gap-4 mb-2  ">
+
+      <p-table #dt class="custom-pagination-style custom-datatable-sm p-datatable-sm"
+               [value]="users"
+               [tableStyle]="{ 'min-width': '10rem' }"
+               [paginator]="true"
+               [rows]="5"
+               [rowsPerPageOptions]="[5, 10, 20]"
+               [globalFilterFields]="['userId', 'firstName','lastName','email','role']"
+               selectionMode="single"
+               [(selection)]="selectedUser">
+        <ng-template #caption>
+          <div class="flex flex-col gap-3">
+            <!-- Recherche + bouton annuler sur la ligne en dessous -->
+            <div class="flex justify-between items-center">
+              <p-button icon="pi pi-filter-slash" label="Annuler recherche" severity="contrast" variant="outlined" (click)="clear(dt)"/>
+              <p-iconField iconPosition="left">
+                <p-inputIcon>
+                  <i class="pi pi-search"></i>
+                </p-inputIcon>
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="searchValue"
+                  (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                  placeholder="Rechercher"
+                />
+              </p-iconField>
+            </div>
+
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr class="custom-header">
+            <th class="header-cell">Réf User</th>
+            <th class="header-cell">Nom</th>
+            <th class="header-cell">Prénom</th>
+            <th class="header-cell">E-mail</th>
+            <th class="header-cell">Télephone</th>
+            <th class="header-cell">Role Utilisateur</th>
+
+            <th class="header-cell">Action</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-user>
+          <tr [pSelectableRow]="user">
+            <td>#00TN{{ user.userId }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.tel }}</td>
+            <td>  <p-tag
+              [value]="formatStatus(user.role?.toString())"
+              [severity]="getSeverity(user.role?.toString?.toString())"
+             >
+            </p-tag></td>
+
+            <td>
+<!--              <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-info"-->
+<!--                      (click)="viewDetails(user.userId)" title="Voir les détails"></button>-->
+
+              <button pButton type="button" icon="pi pi-trash"
+                      class="p-button-rounded p-button-text p-button-danger"
+                      (click)="deleteUser(user.userId)" title="Supprimer"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+  </div>
+</div>
+
+</div>

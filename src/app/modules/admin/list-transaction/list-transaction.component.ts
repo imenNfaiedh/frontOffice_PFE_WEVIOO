@@ -52,6 +52,9 @@ export class ListTransactionComponent implements OnInit {
   showMonthExportDialog = false;
   customMonth: any = null;
 
+  isAdmin: boolean = false;
+
+
   constructor(private transactionService: TransactionService,
      public authService: AuthService,
 
@@ -59,6 +62,10 @@ export class ListTransactionComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTransaction();
+    this.isAdmin = this.authService.hasRole('ADMIN');
+    console.log('Role ADMIN:', this.isAdmin);
+
+
   }
 
 
