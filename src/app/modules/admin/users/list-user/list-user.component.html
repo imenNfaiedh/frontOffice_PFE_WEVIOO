@@ -94,4 +94,6 @@
 
 </app-user-details>
 <!-- 👤 Partie réservée au profil CUSTOMER -->
+<app-edit-profile *ngIf="authService.hasRole('CUSTOMER')">
 
+</app-edit-profile>

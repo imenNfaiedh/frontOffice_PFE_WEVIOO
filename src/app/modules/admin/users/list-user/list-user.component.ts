@@ -16,6 +16,7 @@ import {PopupComponent} from "../../../../shared/popup/popup.component";
 import {Router} from "@angular/router";
 import {ClaimDetailsComponent} from "../../claim/claim-details/claim-details.component";
 import {UserDetailsComponent} from "../user-details/user-details.component";
+import {EditProfileComponent} from "../../profile/edit-profile/edit-profile.component";
 
 @Component({
   selector: 'app-list-user',
@@ -34,7 +35,8 @@ import {UserDetailsComponent} from "../user-details/user-details.component";
     AddTransactionComponent,
     PopupComponent,
     ClaimDetailsComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    EditProfileComponent
   ],
   templateUrl: './list-user.component.html',
   styleUrl: './list-user.component.css'

@@ -5,6 +5,8 @@ import {UserService} from "../../../../core/services/user.service";
 import {MessageService} from "primeng/api";
 import {CommonModule} from "@angular/common";
 import {InputText} from "primeng/inputtext";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -25,21 +27,25 @@ export class EditProfileComponent implements OnInit {
   user!: User;
   readonly backendUrl = 'http://localhost:8085/userss';
 
+  formSubmitAttempt = false;
+
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router:Router,
   ) { }
 
   ngOnInit(): void {
     // Initialisation du formulaire
     this.editForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÿ\s'-]+$/)]],
+      lastName: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÿ\s'-]+$/)]],
       email: ['', [Validators.required, Validators.email]],
-      tel: ['', Validators.required],
-      cin: [''],
-      address: ['']
+      cin: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+      tel: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+      address: ['', Validators.required]
     });
 
     // Charger les données actuelles une seule fois
@@ -60,11 +66,11 @@ export class EditProfileComponent implements OnInit {
 
 
   onSubmit() {
+
     if (this.editForm.invalid) {
       this.editForm.markAllAsTouched();
       return;
     }
-
     const updatedUser: User = {
       ...this.user,
       ...this.editForm.value
@@ -72,43 +78,31 @@ export class EditProfileComponent implements OnInit {
 
     this.userService.updateCurrentUser(updatedUser).subscribe({
       next: (res) => {
-        this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Profil mis à jour.' });
+        // Redirection avec "refresh" de la page
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/admin/profile']);
+        });
       },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Impossible de mettre à jour.' });
-        console.error(err);
-      }
     });
   }
   onCancel() {
     // Redirection ou réinitialisation du formulaire, selon ton besoin :
     this.editForm.patchValue(this.user!); // remet les anciennes valeurs
   }
-  onImageSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      // Preview immédiat
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.userImageUrl = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-
-      // Upload vers backend
-      this.userService.uploadProfileImage(this.user.userId!, file).subscribe({
-        next: (imageUrl: string) => {
-          this.userImageUrl = this.backendUrl + imageUrl;
-          this.user.profileImageUrl = imageUrl;
-
-          // Met à jour l'utilisateur avec la nouvelle URL image
-          this.userService.updateCurrentUser(this.user).subscribe();
-        },
-        error: (err) => {
-          console.error('Erreur upload image:', err);
-        }
-      });
-    }
+ onImageSelected(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    this.userService.uploadProfileImage(this.user.userId!, file).subscribe({
+      next: (res) => {
+        // Met à jour l’URL de l’image si besoin
+        this.userImageUrl = res; // ou traite la réponse selon ton backend
+      },
+      error: (err) => {
+        // Affiche une erreur si besoin
+      }
+    });
   }
+}
 
 
 }

@@ -1,9 +1,10 @@
 <div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-900">
   <div class="w-full max-w-2xl rounded-lg shadow-lg bg-white p-8">
 
+    <!-- Image de profil -->
     <div class="relative w-28 h-28 mb-6">
-      <img [src]="userImageUrl" alt="Photo de profil"
-           class="w-full h-full rounded-full border-4 border-teal-500 shadow-lg object-cover">
+      <img src="assets/img/default-image.jpg" alt="Photo de profil"
+           class="w-full h-full rounded-full border-4 border-teal-500 shadow-lg object-cover" />
 
       <label for="fileInput" class="absolute bottom-0 right-0 bg-teal-600 p-2 rounded-full cursor-pointer shadow-lg">
         <i class="pi pi-camera text-white text-lg"></i>
@@ -12,6 +13,11 @@
       <input type="file" id="fileInput" (change)="onImageSelected($event)" hidden accept="image/*" />
     </div>
 
+    <!-- Alerte d’erreur générale -->
+    <div *ngIf="editForm.invalid && editForm.touched" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <strong class="font-bold">Erreur :</strong>
+      <span class="block sm:inline">Veuillez corriger les champs invalides du formulaire avant de valider.</span>
+    </div>
 
     <!-- Formulaire -->
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
@@ -25,6 +31,9 @@
                  [class.input-error]="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)">
           <div *ngIf="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)" class="text-red-500 text-sm">
             <div *ngIf="editForm.get('firstName')?.errors?.['required']">Champ Obligatoire *</div>
+            <div *ngIf="editForm.get('firstName')?.errors?.['pattern']">
+              Le prénom ne doit contenir que des lettres.
+            </div>
           </div>
         </div>
 
@@ -36,6 +45,9 @@
                  [class.input-error]="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)">
           <div *ngIf="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)" class="text-red-500 text-sm">
             <div *ngIf="editForm.get('lastName')?.errors?.['required']">Champ Obligatoire *</div>
+            <div *ngIf="editForm.get('lastName')?.errors?.['pattern']">
+              Le prénom ne doit contenir que des lettres.
+            </div>
           </div>
         </div>
 
@@ -47,6 +59,7 @@
                  [class.input-error]="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)">
           <div *ngIf="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)" class="text-red-500 text-sm">
             <div *ngIf="editForm.get('email')?.errors?.['required']">Champ Obligatoire *</div>
+            <div *ngIf="editForm.get('email')?.errors?.['email']">Format invalide</div>
           </div>
         </div>
 
@@ -54,14 +67,24 @@
         <div>
           <label for="tel" class="block mb-2 text-sm font-medium text-gray-900">Téléphone</label>
           <input pInputText id="tel" type="text" class="form-control w-full"
-                 formControlName="tel" placeholder="Téléphone">
+                 formControlName="tel" placeholder="Téléphone" maxlength="8"
+                 [class.input-error]="editForm.get('tel')?.invalid && (editForm.get('tel')?.touched || editForm.get('tel')?.dirty)">
+          <div *ngIf="editForm.get('tel')?.invalid && (editForm.get('tel')?.touched || editForm.get('tel')?.dirty)" class="text-red-500 text-sm">
+            <div *ngIf="editForm.get('tel')?.errors?.['required']">Champ Obligatoire *</div>
+            <div *ngIf="editForm.get('tel')?.errors?.['pattern']">Le numéro doit comporter exactement 8 chiffres.</div>
+          </div>
         </div>
 
         <!-- CIN -->
         <div>
           <label for="cin" class="block mb-2 text-sm font-medium text-gray-900">CIN</label>
           <input pInputText id="cin" type="text" class="form-control w-full"
-                 formControlName="cin" placeholder="CIN">
+                 formControlName="cin" placeholder="CIN" maxlength="8"
+                 [class.input-error]="editForm.get('cin')?.invalid && (editForm.get('cin')?.touched || editForm.get('cin')?.dirty)">
+          <div *ngIf="editForm.get('cin')?.invalid && (editForm.get('cin')?.touched || editForm.get('cin')?.dirty)" class="text-red-500 text-sm">
+            <div *ngIf="editForm.get('cin')?.errors?.['required']">Champ Obligatoire *</div>
+            <div *ngIf="editForm.get('cin')?.errors?.['pattern']">Le CIN doit comporter exactement 8 chiffres.</div>
+          </div>
         </div>
 
         <!-- Adresse -->
@@ -74,10 +97,11 @@
 
       <!-- Boutons -->
       <div class="flex justify-end gap-4 pt-4">
-        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded"
+        <button type="submit"  class="btn-valider bg-green-500 text-white px-4 py-2 rounded"
                 [disabled]="editForm.invalid">Valider</button>
-        <button type="button" (click)="onCancel()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Annuler</button>
+        <button type="button" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded" (click)="onCancel()">Annuler</button>
       </div>
+
     </form>
   </div>
 </div>
