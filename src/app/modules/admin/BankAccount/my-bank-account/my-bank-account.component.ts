@@ -25,6 +25,7 @@ import {AuthService} from "../../../../core/services/auth.service";
 import { CarouselModule } from 'primeng/carousel';
 import { ViewAccountComponent } from "../view-account/view-account.component";
 import Swal from 'sweetalert2';
+import {CapitalizePipe} from "../../../../shared/pipe/capitalize.pipe";
 
 
 @Component({
@@ -33,7 +34,7 @@ import Swal from 'sweetalert2';
   imports: [CardModule, DatePipe, CommonModule, FormatAccountNumberPipe, Tag,
     IconField, InputIcon, FormsModule, CarouselModule,
     StyleClassModule,
-    SplitButtonModule, ButtonModule, InputText, ReactiveFormsModule, TableModule, ViewAccountComponent],
+    SplitButtonModule, ButtonModule, InputText, ReactiveFormsModule, TableModule, ViewAccountComponent, CapitalizePipe],
   templateUrl: './my-bank-account.component.html',
   styleUrl: './my-bank-account.component.css'
 })

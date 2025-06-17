@@ -1,27 +1,29 @@
-import {Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
-import {Toolbar} from "primeng/toolbar";
-import {AvatarModule} from "primeng/avatar";
-import {ButtonModule} from "primeng/button";
-import {InputIcon} from "primeng/inputicon";
-import {IconField} from "primeng/iconfield";
-import {InputTextModule} from "primeng/inputtext";
-import {WebSocketServiceService} from "../../../core/services/web-socket-service.service";
-import {CommonModule} from "@angular/common";
-import {Subscription} from "rxjs";
-import {BadgeDirective} from "primeng/badge";
-import {ScreenConfig} from "../../../core/utils/type";
-import {APP_CONSTANTS} from "../../../core/utils/constants";
-
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {animate, style, transition, trigger} from "@angular/animations";
-import {ReclamationWebSocketService} from "../../../core/services/reclamation-web-socket.service";
+import {
+  Component, HostListener, Input, OnDestroy, OnInit
+} from '@angular/core';
+import { Toolbar } from "primeng/toolbar";
+import { AvatarModule } from "primeng/avatar";
+import { ButtonModule } from "primeng/button";
+import { InputIcon } from "primeng/inputicon";
+import { IconField } from "primeng/iconfield";
+import { InputTextModule } from "primeng/inputtext";
+import { WebSocketServiceService } from "../../../core/services/web-socket-service.service";
+import { CommonModule } from "@angular/common";
+import { Subscription } from "rxjs";
+import { BadgeDirective } from "primeng/badge";
+import { ScreenConfig } from "../../../core/utils/type";
+import { APP_CONSTANTS } from "../../../core/utils/constants";
+import { animate, style, transition, trigger } from "@angular/animations";
+import { ReclamationWebSocketService } from "../../../core/services/reclamation-web-socket.service";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [Toolbar, AvatarModule, ButtonModule,
+  imports: [
+    Toolbar, AvatarModule, ButtonModule,
     InputTextModule, IconField, InputIcon,
-    CommonModule, BadgeDirective,],
+    CommonModule, BadgeDirective
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   animations: [
@@ -36,15 +38,13 @@ import {ReclamationWebSocketService} from "../../../core/services/reclamation-we
     ]),
   ]
 })
-export class HeaderComponent implements OnInit ,OnDestroy {
-  notifications: any[] = [];           // Liste des notifications reçues
-  showDropdown = false;               // Affiche ou non le menu déroulant
-  subscription!: Subscription;        // Pour gérer l’abonnement WebSocket
-  unreadCount: number = 0;           // Nombre de notifications non lues
-  reclamationSubscription!: Subscription;  // Abonnement pour les réclamations
+export class HeaderComponent implements OnInit, OnDestroy {
+  notifications: any[] = [];
+  showDropdown = false;
+  subscription!: Subscription;
+  reclamationSubscription!: Subscription;
+  unreadCount: number = 0;
 
-
-  //open and close navbar : Gestion du responsive
   protected readonly APP_CONSTANTS = APP_CONSTANTS;
 
   private readonly SCREEN_BREAKPOINTS: ScreenConfig[] = [
@@ -52,92 +52,50 @@ export class HeaderComponent implements OnInit ,OnDestroy {
     { width: 0, class: 'header-md-screen' },
   ];
 
+  @Input() collapsed: boolean = false;
+  @Input() screenWidth: number = 0;
 
-  @Input() collapsed: boolean = false;  // Navigation repliée
-  @Input() screenWidth: number = 0;     // Largeur de l'écran
-  //open and close navbar
-
-  constructor(private webSocketService: WebSocketServiceService,
-              private reclamationService: ReclamationWebSocketService) {
-  }
-
-  //open and close navbar
-  getBodyClass(): string {
-    if (!this.collapsed) return '';
-    const config = this.SCREEN_BREAKPOINTS.find(
-      (config) => this.screenWidth > config.width,
-    );
-    return config?.class || '';
-  }
+  constructor(
+    private webSocketService: WebSocketServiceService,
+    private reclamationService: ReclamationWebSocketService
+  ) {}
 
   ngOnInit() {
-    // Récupérer les notifications sauvegardées localement
     const savedNotifications = localStorage.getItem('notifications');
     if (savedNotifications) {
       this.notifications = JSON.parse(savedNotifications);
-      this.updateUnreadCount();
-
-      // Abonnement aux réclamations traitées
-      this.reclamationSubscription = this.reclamationService.reclamations$.subscribe(reclamation => {
-        const notification = {
-          title: 'Réclamation traitée',
-          message: `Votre réclamation #${reclamation.id} a été traitée.`,
-          isRead: false,
-          timestamp: new Date().toISOString()
-        };
-        this.notifications.unshift(notification);
-
-        // Ne garder que les 3 dernières notifications
-        if (this.notifications.length > 3) {
-          this.notifications = this.notifications.slice(0, 3);
-        }
-
-        localStorage.setItem('notifications', JSON.stringify(this.notifications));
-        this.updateUnreadCount();
-      });
     }
 
-    this.updateUnreadCount(); // Met à jour le badge
+    this.updateUnreadCount();
 
-    // Écoute des nouvelles alertes depuis le WebSocket
     this.subscription = this.webSocketService.fraudAlerts$.subscribe(alert => {
-      alert.isRead = false; // Nouvelle notification non lue
-      this.notifications.unshift(alert); // Ajout en haut de la liste
+      const notif = { ...alert, type: 'fraude', isRead: false };
+      this.notifications.unshift(notif);
+      this.notifications = this.notifications.slice(0, 3);
+      localStorage.setItem('notifications', JSON.stringify(this.notifications));
+      this.updateUnreadCount();
+    });
 
-      // Garde seulement les 3 dernières
-      if (this.notifications.length > 3) {
-        this.notifications = this.notifications.slice(0, 3);
-      }
-
+    this.reclamationSubscription = this.reclamationService.reclamations$.subscribe(notification => {
+      this.notifications.unshift(notification);
+      this.notifications = this.notifications.slice(0, 3);
       localStorage.setItem('notifications', JSON.stringify(this.notifications));
       this.updateUnreadCount();
     });
   }
 
-
- //Se désabonne du WebSocket à la destruction du composant
   ngOnDestroy() {
-    this.subscription.unsubscribe(); // On se désabonne proprement
+    if (this.subscription) this.subscription.unsubscribe();
+    if (this.reclamationSubscription) this.reclamationSubscription.unsubscribe();
   }
 
-  //ouvrir ou fermer le menu déroulant (dropdown) des notifications.
   toggleDropdown(event?: MouseEvent) {
-    if (event) {
-      event.stopPropagation(); // éviter que le clic se propage
-    }
-
+    if (event) event.stopPropagation();
     this.showDropdown = !this.showDropdown;
 
     if (this.showDropdown) {
-      // Quand on ouvre le menu, on marque toutes les notifications comme lues
-      this.notifications.forEach(notification => {
-        notification.isRead = true;
-      });
-
-      // Sauvegarder les notifications dans le localStorage
+      this.notifications.forEach(n => n.isRead = true);
       localStorage.setItem('notifications', JSON.stringify(this.notifications));
-
-      // Mettre à jour le compteur des notifications non lues
       this.updateUnreadCount();
     }
   }
@@ -145,29 +103,24 @@ export class HeaderComponent implements OnInit ,OnDestroy {
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    // Vérifie que le clic est en dehors de l'icône de notification ou du dropdown
     if (!target.closest('.notification-popup') && !target.closest('.notification-wrapper')) {
       this.showDropdown = false;
     }
   }
 
   markAsRead(index: number): void {
-    // Marquer la notification comme lue
     this.notifications[index].isRead = true;
-    console.log("Updated notification:", this.notifications[index]);
-
-    // Sauvegarder les notifications dans localStorage
     localStorage.setItem('notifications', JSON.stringify(this.notifications));
-  // Mettre à jour l'affichage des notifications non lues
     this.updateUnreadCount();
+  }
 
-
-}
   updateUnreadCount() {
     this.unreadCount = this.notifications.filter(n => !n.isRead).length;
   }
 
-
-
-
+  getBodyClass(): string {
+    if (!this.collapsed) return '';
+    const config = this.SCREEN_BREAKPOINTS.find(config => this.screenWidth > config.width);
+    return config?.class || '';
+  }
 }

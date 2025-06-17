@@ -15,15 +15,12 @@
     <div class="flex items-center gap-4 relative">
       <!-- BOUTON DE NOTIFICATION -->
       <div class="notification-wrapper" (click)="toggleDropdown($event)" aria-label="Voir les notifications">
-        <i class="pi pi-bell "></i>
-        <span class="notification-badge" *ngIf="unreadCount > 0">
-  {{ unreadCount }}
-</span>
-
+        <i class="pi pi-bell"></i>
+        <span class="notification-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
       </div>
 
-      <!-- DROPDOWN (deroulant) DE NOTIFICATIONS -->
-      <div *ngIf="showDropdown"  @dropdownAnimation class="notification-popup">
+      <!-- DROPDOWN (déroulant) DE NOTIFICATIONS -->
+      <div *ngIf="showDropdown" @dropdownAnimation class="notification-popup">
         <div class="popup-header">
           <span>Notifications</span>
           <span class="badge-new">{{ notifications.length }} Nouveau</span>
@@ -34,26 +31,28 @@
                class="popup-item"
                (click)="markAsRead(i)"
                [ngClass]="{'read': alert.isRead}">
-            <div class="icon-circle warning-icon">
-              <i class="pi pi-exclamation-triangle"></i>
+            <div class="icon-circle" [ngClass]="alert.type === 'fraude' ? 'warning-icon' : 'info-icon'">
+              <i class="pi" [ngClass]="alert.type === 'fraude' ? 'pi-exclamation-triangle' : 'pi-info-circle'"></i>
             </div>
             <div class="popup-text">
-              <div class="message">
+              <div class="message" *ngIf="alert.type === 'fraude'">
                 <strong>Fraude suspectée</strong> Pour <strong>{{ alert.firstName }} {{ alert.lastName }}</strong><br>
                 <span class="fraude-reason">Raison : {{ alert.reason }}</span><br>
                 <small class="fraude-details">Montant : {{ alert.amount }} $ — Pays : {{ alert.country }}</small>
               </div>
-              <div class="time"> À l'instant {{ alert.date }}</div>
+              <div class="message" *ngIf="alert.type === 'reclamation'">
+                <strong>Réclamation traitée</strong><br>
+                {{ alert.message }}
+              </div>
+              <div class="time">À l'instant {{ alert.timestamp || alert.date }}</div>
             </div>
           </div>
-
         </ng-container>
 
         <ng-template #noNotif>
           <div class="no-notifications">Aucune notification</div>
         </ng-template>
       </div>
-      <!-- Autres éléments -->
 
       <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                 [style]="{ width: '32px', height: '32px' }" />
