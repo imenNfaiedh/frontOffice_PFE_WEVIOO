@@ -10,5 +10,9 @@ export class User {
   keycloakId?:string;
   suspicious_activity?:string;
   role: RoleUser | null | undefined;
+  cin?: string;
+  address?: string;
+  userName?:string;
+  profileImageUrl?:string;
 
 }

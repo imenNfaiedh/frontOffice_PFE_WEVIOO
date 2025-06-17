@@ -1,0 +1,83 @@
+<div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-900">
+  <div class="w-full max-w-2xl rounded-lg shadow-lg bg-white p-8">
+
+    <div class="relative w-28 h-28 mb-6">
+      <img [src]="userImageUrl" alt="Photo de profil"
+           class="w-full h-full rounded-full border-4 border-teal-500 shadow-lg object-cover">
+
+      <label for="fileInput" class="absolute bottom-0 right-0 bg-teal-600 p-2 rounded-full cursor-pointer shadow-lg">
+        <i class="pi pi-camera text-white text-lg"></i>
+      </label>
+
+      <input type="file" id="fileInput" (change)="onImageSelected($event)" hidden accept="image/*" />
+    </div>
+
+
+    <!-- Formulaire -->
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+
+        <!-- Prénom -->
+        <div>
+          <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900">Prénom</label>
+          <input pInputText type="text" id="firstName" class="form-control w-full"
+                 formControlName="firstName" placeholder="Prénom"
+                 [class.input-error]="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)">
+          <div *ngIf="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)" class="text-red-500 text-sm">
+            <div *ngIf="editForm.get('firstName')?.errors?.['required']">Champ Obligatoire *</div>
+          </div>
+        </div>
+
+        <!-- Nom -->
+        <div>
+          <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900">Nom</label>
+          <input pInputText type="text" id="lastName" class="form-control w-full"
+                 formControlName="lastName" placeholder="Nom"
+                 [class.input-error]="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)">
+          <div *ngIf="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)" class="text-red-500 text-sm">
+            <div *ngIf="editForm.get('lastName')?.errors?.['required']">Champ Obligatoire *</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
+          <input pInputText type="email" id="email" class="form-control w-full"
+                 formControlName="email" placeholder="Adresse e-mail"
+                 [class.input-error]="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)">
+          <div *ngIf="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)" class="text-red-500 text-sm">
+            <div *ngIf="editForm.get('email')?.errors?.['required']">Champ Obligatoire *</div>
+          </div>
+        </div>
+
+        <!-- Téléphone -->
+        <div>
+          <label for="tel" class="block mb-2 text-sm font-medium text-gray-900">Téléphone</label>
+          <input pInputText id="tel" type="text" class="form-control w-full"
+                 formControlName="tel" placeholder="Téléphone">
+        </div>
+
+        <!-- CIN -->
+        <div>
+          <label for="cin" class="block mb-2 text-sm font-medium text-gray-900">CIN</label>
+          <input pInputText id="cin" type="text" class="form-control w-full"
+                 formControlName="cin" placeholder="CIN">
+        </div>
+
+        <!-- Adresse -->
+        <div>
+          <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Adresse</label>
+          <input pInputText id="address" type="text" class="form-control w-full"
+                 formControlName="address" placeholder="Adresse">
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <div class="flex justify-end gap-4 pt-4">
+        <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded"
+                [disabled]="editForm.invalid">Valider</button>
+        <button type="button" (click)="onCancel()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>

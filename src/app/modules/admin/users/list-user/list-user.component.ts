@@ -49,13 +49,23 @@ export class ListUserComponent implements OnInit{
   //view user
   showDetailsPopup : boolean=false;
   selectedUserDetails!:User;
+  ///customer
+  userProfile!: User;
+  editMode = false;
   constructor(public authService: AuthService,
               private  userService:UserService,
               private router : Router) {
   }
 
   ngOnInit(): void {
+    const roles = this.authService.getRoleFromToken();
+    if (roles?.includes('ADMIN') || roles?.includes('BANKER')) {
     this.getAllUser();
+    }
+    else if (roles?.includes('CUSTOMER'))
+    {
+     // this.getUserProfile();
+    }
   }
   getAllUser(): void {
     this.userService.getAllUsers().subscribe((data) => {
@@ -136,9 +146,6 @@ export class ListUserComponent implements OnInit{
 
     }
   }
-
-
-
   formatStatus(status?: string): string {
     switch (status) {
       case 'ADMIN':
@@ -153,6 +160,12 @@ export class ListUserComponent implements OnInit{
     }
   }
   /******tag******////
+
+  /****************** customer*/////////////////
+
+
+
+
 
 
 }

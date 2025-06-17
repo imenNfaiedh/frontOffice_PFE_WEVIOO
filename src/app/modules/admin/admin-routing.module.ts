@@ -9,6 +9,7 @@ import {ListClaimComponent} from "./claim/list-claim/list-claim.component";
 import {ConvertisseurComponent} from "./convertisseur/convertisseur.component";
 import {ListUserComponent} from "./users/list-user/list-user.component";
 import {RegisterComponent} from "../auth/register/register.component";
+import {EditProfileComponent} from "./profile/edit-profile/edit-profile.component";
 
 
 const routes: Routes = [
@@ -26,7 +27,9 @@ const routes: Routes = [
 
       { path: 'convertisseur' , component: ConvertisseurComponent},
       { path: 'list-user' , component: ListUserComponent},
-      { path : 'register' , component: RegisterComponent}
+      { path : 'register' , component: RegisterComponent},
+      { path: 'profile', component: EditProfileComponent }
+
 
 
 

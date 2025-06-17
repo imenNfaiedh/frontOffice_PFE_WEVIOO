@@ -1,0 +1,23 @@
+.profile-container {
+  display: flex;
+  padding: 20px;
+}
+.sidebar {
+  width: 25%;
+  text-align: center;
+}
+.main-panel {
+  width: 75%;
+  padding-left: 30px;
+}
+.field {
+  margin-bottom: 15px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.actions {
+  margin-top: 20px;
+}
