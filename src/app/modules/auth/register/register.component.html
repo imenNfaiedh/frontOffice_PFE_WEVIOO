@@ -1,16 +1,30 @@
-<div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-900">
-  <div class="flex w-full max-w-5xl rounded-lg shadow-lg bg-white overflow-hidden">
+<!-- Background gris clair avec centrage -->
+<div class="flex flex-col min-h-screen items-center justify-center bg-gray-100 p-8">
 
-    <!-- Colonne gauche (image + citation) -->
+  <div class="w-full max-w-2xl mb-6">
+    <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-black text-center">
+      Ajouter un nouvel utilisateur
+    </h1>
+  </div>
+  <div class="flex w-full max-w-4xl rounded-2xl shadow-lg bg-white overflow-hidden">
+
+    <!-- Colonne gauche (image) -->
     <div class="w-1/2 bg-cover bg-center hidden md:block relative" style="background-image: url('assets/img/mppppppp.jpg')">
-      <div class="absolute bottom-0 w-full bg-black bg-opacity-40 p-6 text-white text-lg italic text-center">
-
+      <div class="absolute bottom-0 w-full  p-6 text-white text-lg italic text-center">
+        <!-- Citation ou info -->
       </div>
     </div>
 
     <!-- Colonne droite (formulaire) -->
     <div class="w-full md:w-1/2 p-8">
-      <h2 class="text-2xl font-semibold text-center mb-6">Ajouter un nouveau utilisateur</h2>
+      <h2 class="text-2xl font-semibold text-center mb-6"></h2>
+
+      <!-- Alerte d’erreur générale -->
+      <div *ngIf="registerForm.invalid && formSubmitAttempt"
+           class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <strong class="font-bold">Erreur :</strong>
+        <span class="block sm:inline">Veuillez corriger les champs invalides du formulaire avant de valider.</span>
+      </div>
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
@@ -23,6 +37,7 @@
                    [class.input-error]="f['firstName'].invalid && (f['firstName'].touched || f['firstName'].dirty)">
             <div *ngIf="f['firstName'].invalid && (f['firstName'].touched || f['firstName'].dirty)" class="text-red-500 text-sm">
               <div *ngIf="f['firstName'].errors?.['required']">Champ Obligatoire *</div>
+              <div *ngIf="f['firstName'].errors?.['pattern']">Le prénom ne doit contenir que des lettres, espaces ou tirets.</div>
             </div>
           </div>
 
@@ -34,6 +49,7 @@
                    [class.input-error]="f['lastName'].invalid && (f['lastName'].touched || f['lastName'].dirty)">
             <div *ngIf="f['lastName'].invalid && (f['lastName'].touched || f['lastName'].dirty)" class="text-red-500 text-sm">
               <div *ngIf="f['lastName'].errors?.['required']">Champ Obligatoire *</div>
+              <div *ngIf="f['lastName'].errors?.['pattern']">Le nom ne doit contenir que des lettres, espaces ou tirets.</div>
             </div>
           </div>
 
@@ -45,6 +61,7 @@
                    [class.input-error]="f['username'].invalid && (f['username'].touched || f['username'].dirty)">
             <div *ngIf="f['username'].invalid && (f['username'].touched || f['username'].dirty)" class="text-red-500 text-sm">
               <div *ngIf="f['username'].errors?.['required']">Champ Obligatoire *</div>
+              <div *ngIf="f['username'].errors?.['pattern']">Nom utilisateur invalide (4-20 caractères, lettres, chiffres, ._-).</div>
             </div>
           </div>
 
@@ -56,6 +73,7 @@
                    [class.input-error]="f['email'].invalid && (f['email'].touched || f['email'].dirty)">
             <div *ngIf="f['email'].invalid && (f['email'].touched || f['email'].dirty)" class="text-red-500 text-sm">
               <div *ngIf="f['email'].errors?.['required']">Champ Obligatoire *</div>
+              <div *ngIf="f['email'].errors?.['email']">Format d'adresse invalide</div>
             </div>
           </div>
 
@@ -67,6 +85,9 @@
                    [class.input-error]="f['password'].invalid && (f['password'].touched || f['password'].dirty)">
             <div *ngIf="f['password'].invalid && (f['password'].touched || f['password'].dirty)" class="text-red-500 text-sm">
               <div *ngIf="f['password'].errors?.['required']">Champ Obligatoire *</div>
+              <div *ngIf="f['password'].errors?.['pattern']">
+                Minimum 8 caractères, au moins 1 majuscule, 1 minuscule et 1 chiffre.
+              </div>
             </div>
           </div>
 
@@ -88,8 +109,12 @@
 
         <!-- Boutons -->
         <div class="flex justify-end gap-4 pt-4">
-          <button type="submit"  class="btn-valider bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded">Valider</button>
-          <button type="button" (click)="onCancel()" class="btn-cancel ">Annuler</button>
+          <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded">
+            Valider
+          </button>
+          <button type="button" (click)="onCancel()" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded">
+            Annuler
+          </button>
         </div>
       </form>
     </div>

@@ -149,7 +149,7 @@
           <td>{{ transaction.currency }}</td>
           <td>{{ transaction.country }}</td>
           <td>{{ transaction.transactionDate | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ transaction.typeTransaction }}</td>
+          <td>{{ transaction.typeTransaction | capitalize }}</td>
           <td>
             <p-tag
               [value]="formatStatus(transaction.transactionStatus?.toString())"

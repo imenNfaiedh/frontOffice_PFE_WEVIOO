@@ -30,6 +30,10 @@ export class BankAccountService {
    return  this.http.delete(`${this.apiUrl}/${id}`)
   }
 
+  createAccount(account: BankAccount): Observable<BankAccount> {
+    return this.http.post<BankAccount>(`${this.apiUrl}`, account);
+  }
+
   // getAccountsByUserId(userId: number): Observable<any[]> {
   //   return this.http.get<any[]>(`/api/bank-accounts/by-user/${userId}`);
   // }

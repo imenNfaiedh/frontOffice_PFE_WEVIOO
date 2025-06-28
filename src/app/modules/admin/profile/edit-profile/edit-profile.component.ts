@@ -6,6 +6,7 @@ import {MessageService} from "primeng/api";
 import {CommonModule} from "@angular/common";
 import {InputText} from "primeng/inputtext";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -78,13 +79,33 @@ export class EditProfileComponent implements OnInit {
 
     this.userService.updateCurrentUser(updatedUser).subscribe({
       next: (res) => {
-        // Redirection avec "refresh" de la page
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/admin/profile']);
+        Swal.fire({
+          icon: 'success',
+          title: 'Profil mis à jour',
+          text: 'Votre profil a été modifié avec succès.',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          // Après avoir cliqué sur OK, tu peux soit rafraîchir la page, soit naviguer :
+
+          // Option 1: rafraîchir la page
+          // window.location.reload();
+
+          // Option 2: redirection douce avec Angular Router
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/admin/profile']);
+          });
         });
       },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'La mise à jour a échoué. Veuillez réessayer.',
+        });
+      }
     });
   }
+
   onCancel() {
     // Redirection ou réinitialisation du formulaire, selon ton besoin :
     this.editForm.patchValue(this.user!); // remet les anciennes valeurs

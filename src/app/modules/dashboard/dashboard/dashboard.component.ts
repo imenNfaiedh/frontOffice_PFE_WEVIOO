@@ -16,6 +16,7 @@ import {TransactionService} from "../../../core/services/transaction.service";
 import {TableModule} from "primeng/table";
 import {StyleClassModule} from "primeng/styleclass";
 import {TransactionStatus} from "../../../shared/models/transactionStatus.enum";
+import {CapitalizePipe} from "../../../shared/pipe/capitalize.pipe";
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +30,8 @@ import {TransactionStatus} from "../../../shared/models/transactionStatus.enum";
     FormatAccountNumberPipe,
     Tag,
     TableModule,
-    StyleClassModule
+    StyleClassModule,
+    CapitalizePipe
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

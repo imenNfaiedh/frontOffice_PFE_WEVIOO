@@ -21,7 +21,10 @@
                       optionLabel="label">
           </p-dropdown>
  <div style="margin-top: 50%">
-   <p-button  [style]="{width : '100%' }" label="Exporter ce mois" [disabled]="!customMonth" (onClick)="exportCSVByMonth()" />
+   <p-button  [style]="{width : '100%' }"
+              label="Exporter ce mois"
+              [disabled]="!customMonth"
+              (onClick)="exportCSVByMonth()" />
 
  </div>
         </div>
@@ -43,7 +46,10 @@
 
           <!-- Bouton Exporter sur une ligne à part -->
           <div >
-            <p-button   *ngIf="authService.hasRole('ADMIN')" class="p-button" label="Exporter par mois" icon="pi pi-download" (onClick)="showMonthExportDialog = true"></p-button>
+            <p-button   *ngIf="authService.hasRole('ADMIN')"
+                        class="p-button" label="Exporter par mois"
+                        icon="pi pi-download" (onClick)="showMonthExportDialog = true"
+                        [style]="{ 'font-size': '15px', 'padding': '0.10rem 0.30rem', 'height': '2rem' }"></p-button>
           </div>
 
           <!-- Recherche + bouton annuler sur la ligne en dessous -->

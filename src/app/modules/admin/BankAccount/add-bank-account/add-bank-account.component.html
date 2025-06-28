@@ -1,0 +1,62 @@
+<form [formGroup]="bankAccountForm" class="w-full space-y-6" (ngSubmit)="onSubmit()" novalidate>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+
+    <!-- Numéro de compte -->
+
+
+    <!-- Solde -->
+    <div>
+      <label for="balance" class="block mb-2 text-sm font-medium text-gray-900">Solde</label>
+      <input pInputText type="number" id="balance" formControlName="balance"
+             placeholder="Montant initial"
+             class="form-control w-full"
+             [ngClass]="{'input-error': f['balance'].invalid && (f['balance'].touched || f['balance'].dirty)}">
+      <div *ngIf="f['balance'].invalid && (f['balance'].touched || f['balance'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['balance'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
+    </div>
+
+    <!-- Type de compte -->
+    <div>
+      <label for="typeBankAccount" class="block mb-2 text-sm font-medium text-gray-900">Type de Compte</label>
+      <p-dropdown id="typeBankAccount"
+                  formControlName="typeBankAccount"
+                  [options]="[
+                    { label: 'Courant', value: 'COURANT' },
+                    { label: 'Épargne', value: 'EPARGNE' },
+                    { label: 'Joint', value: 'JOIN' },
+                    { label: 'Devise', value: 'DEVISE' }
+                  ]"
+                  placeholder="Sélectionner le type"
+                  class="form-control w-full"
+                  [ngClass]="{'input-error': f['typeBankAccount'].invalid && (f['typeBankAccount'].touched || f['typeBankAccount'].dirty)}">
+      </p-dropdown>
+      <div *ngIf="f['typeBankAccount'].invalid && (f['typeBankAccount'].touched || f['typeBankAccount'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['typeBankAccount'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
+    </div>
+
+    <!-- Utilisateur -->
+    <div class="md:col-span-2">
+      <label for="userId" class="block mb-2 text-sm font-medium text-gray-900">Utilisateur</label>
+      <p-dropdown id="userId"
+                  formControlName="userId"
+                  [options]="users"
+                  optionLabel="fullName"
+                  optionValue="userId"
+                  placeholder="Sélectionner un utilisateur"
+                  class="form-control w-full"
+                  [ngClass]="{'input-error': f['userId'].invalid && (f['userId'].touched || f['userId'].dirty)}">
+      </p-dropdown>
+      <div *ngIf="f['userId'].invalid && (f['userId'].touched || f['userId'].dirty)" class="text-red-500 text-sm">
+        <div *ngIf="f['userId'].errors?.['required']">Champ Obligatoire *</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boutons Valider / Annuler -->
+  <div class="flex justify-end gap-4 mt-4">
+    <button type="button" (click)="onCancel()" class="btn-valider bg-green-500 text-white px-4 py-2 rounded">Annuler</button>
+    <button type="submit" [disabled]="bankAccountForm.invalid" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded">Ajouter</button>
+  </div>
+</form>

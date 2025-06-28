@@ -26,6 +26,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { ViewAccountComponent } from "../view-account/view-account.component";
 import Swal from 'sweetalert2';
 import {CapitalizePipe} from "../../../../shared/pipe/capitalize.pipe";
+import {AddBankAccountComponent} from "../add-bank-account/add-bank-account.component";
 
 
 @Component({
@@ -34,7 +35,7 @@ import {CapitalizePipe} from "../../../../shared/pipe/capitalize.pipe";
   imports: [CardModule, DatePipe, CommonModule, FormatAccountNumberPipe, Tag,
     IconField, InputIcon, FormsModule, CarouselModule,
     StyleClassModule,
-    SplitButtonModule, ButtonModule, InputText, ReactiveFormsModule, TableModule, ViewAccountComponent, CapitalizePipe],
+    SplitButtonModule, ButtonModule, InputText, ReactiveFormsModule, TableModule, ViewAccountComponent, CapitalizePipe, AddBankAccountComponent, PopupComponent],
   templateUrl: './my-bank-account.component.html',
   styleUrl: './my-bank-account.component.css'
 })
@@ -50,6 +51,9 @@ export class MyBankAccountComponent implements OnInit{
   //view account
   showDetailAccount: boolean = false;
   selectedAccountForDetail: BankAccount | null = null;
+
+  //add
+  isModelOpen = false;
 
 
 
@@ -138,6 +142,16 @@ export class MyBankAccountComponent implements OnInit{
     }
   });
 }
+//add
+  openModel() {
+    this.isModelOpen = true;
+  }
+
+  closeModel() {
+    this.isModelOpen = false;
+    this.getAllAccount(); // Recharge la liste après ajout
+  }
+
 
   /******tag******////
   // Pour les comptes bancaires

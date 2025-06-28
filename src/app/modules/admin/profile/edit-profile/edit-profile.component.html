@@ -1,4 +1,13 @@
-<div class="flex min-h-screen items-center justify-center bg-gradient-to-r from-teal-400 to-blue-900">
+<!-- Fond gris clair avec centrage -->
+
+<div class="flex flex-col min-h-screen items-center justify-center bg-gray-100 p-8">
+
+  <div class="w-full max-w-2xl mb-6">
+    <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-black text-center">
+      Informations personnelles
+    </h1>
+  </div>
+
   <div class="w-full max-w-2xl rounded-lg shadow-lg bg-white p-8">
 
     <!-- Image de profil -->
@@ -26,38 +35,34 @@
         <!-- Prénom -->
         <div>
           <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900">Prénom</label>
-          <input pInputText type="text" id="firstName" class="form-control w-full"
+          <input pInputText type="text" id="firstName" class="form-control w-full border border-gray-300 rounded-md px-3 py-2"
                  formControlName="firstName" placeholder="Prénom"
                  [class.input-error]="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)">
-          <div *ngIf="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.touched || editForm.get('firstName')?.dirty)" class="text-red-500 text-sm mt-1">
             <div *ngIf="editForm.get('firstName')?.errors?.['required']">Champ Obligatoire *</div>
-            <div *ngIf="editForm.get('firstName')?.errors?.['pattern']">
-              Le prénom ne doit contenir que des lettres.
-            </div>
+            <div *ngIf="editForm.get('firstName')?.errors?.['pattern']">Le prénom ne doit contenir que des lettres.</div>
           </div>
         </div>
 
         <!-- Nom -->
         <div>
           <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900">Nom</label>
-          <input pInputText type="text" id="lastName" class="form-control w-full"
+          <input pInputText type="text" id="lastName" class="form-control w-full border border-gray-300 rounded-md px-3 py-2"
                  formControlName="lastName" placeholder="Nom"
                  [class.input-error]="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)">
-          <div *ngIf="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.touched || editForm.get('lastName')?.dirty)" class="text-red-500 text-sm mt-1">
             <div *ngIf="editForm.get('lastName')?.errors?.['required']">Champ Obligatoire *</div>
-            <div *ngIf="editForm.get('lastName')?.errors?.['pattern']">
-              Le prénom ne doit contenir que des lettres.
-            </div>
+            <div *ngIf="editForm.get('lastName')?.errors?.['pattern']">Le prénom ne doit contenir que des lettres.</div>
           </div>
         </div>
 
         <!-- Email -->
         <div>
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
-          <input pInputText type="email" id="email" class="form-control w-full"
+          <input pInputText type="email" id="email" class="form-control w-full border border-gray-300 rounded-md px-3 py-2"
                  formControlName="email" placeholder="Adresse e-mail"
                  [class.input-error]="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)">
-          <div *ngIf="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('email')?.invalid && (editForm.get('email')?.touched || editForm.get('email')?.dirty)" class="text-red-500 text-sm mt-1">
             <div *ngIf="editForm.get('email')?.errors?.['required']">Champ Obligatoire *</div>
             <div *ngIf="editForm.get('email')?.errors?.['email']">Format invalide</div>
           </div>
@@ -66,10 +71,10 @@
         <!-- Téléphone -->
         <div>
           <label for="tel" class="block mb-2 text-sm font-medium text-gray-900">Téléphone</label>
-          <input pInputText id="tel" type="text" class="form-control w-full"
+          <input pInputText id="tel" type="text" class="form-control w-full border border-gray-300 rounded-md px-3 py-2"
                  formControlName="tel" placeholder="Téléphone" maxlength="8"
                  [class.input-error]="editForm.get('tel')?.invalid && (editForm.get('tel')?.touched || editForm.get('tel')?.dirty)">
-          <div *ngIf="editForm.get('tel')?.invalid && (editForm.get('tel')?.touched || editForm.get('tel')?.dirty)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('tel')?.invalid && (editForm.get('tel')?.touched || editForm.get('tel')?.dirty)" class="text-red-500 text-sm mt-1">
             <div *ngIf="editForm.get('tel')?.errors?.['required']">Champ Obligatoire *</div>
             <div *ngIf="editForm.get('tel')?.errors?.['pattern']">Le numéro doit comporter exactement 8 chiffres.</div>
           </div>
@@ -78,10 +83,10 @@
         <!-- CIN -->
         <div>
           <label for="cin" class="block mb-2 text-sm font-medium text-gray-900">CIN</label>
-          <input pInputText id="cin" type="text" class="form-control w-full"
+          <input pInputText id="cin" type="text" class="form-control w-full border border-gray-300 rounded-md px-3 py-2"
                  formControlName="cin" placeholder="CIN" maxlength="8"
                  [class.input-error]="editForm.get('cin')?.invalid && (editForm.get('cin')?.touched || editForm.get('cin')?.dirty)">
-          <div *ngIf="editForm.get('cin')?.invalid && (editForm.get('cin')?.touched || editForm.get('cin')?.dirty)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('cin')?.invalid && (editForm.get('cin')?.touched || editForm.get('cin')?.dirty)" class="text-red-500 text-sm mt-1">
             <div *ngIf="editForm.get('cin')?.errors?.['required']">Champ Obligatoire *</div>
             <div *ngIf="editForm.get('cin')?.errors?.['pattern']">Le CIN doit comporter exactement 8 chiffres.</div>
           </div>
@@ -90,18 +95,22 @@
         <!-- Adresse -->
         <div>
           <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Adresse</label>
-          <input pInputText id="address" type="text" class="form-control w-full"
+          <input pInputText id="address" type="text" class="form-control w-full border border-gray-300 rounded-md px-3 py-2"
                  formControlName="address" placeholder="Adresse">
         </div>
       </div>
 
       <!-- Boutons -->
       <div class="flex justify-end gap-4 pt-4">
-        <button type="submit"  class="btn-valider bg-green-500 text-white px-4 py-2 rounded"
-                [disabled]="editForm.invalid">Valider</button>
-        <button type="button" class="btn-cancel bg-red-500 text-white px-4 py-2 rounded" (click)="onCancel()">Annuler</button>
-      </div>
+        <!-- Bouton Valider caché si le formulaire n'a pas été modifié -->
+        <button *ngIf="editForm.dirty" type="submit"
+                class="btn-valider bg-green-500 text-white px-4 py-2 rounded shadow-md"
+                [disabled]="editForm.invalid">
+          Valider
+        </button>
 
+
+      </div>
     </form>
   </div>
 </div>
