@@ -19,7 +19,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # ✅ Option 1 : Utiliser npx pour éviter d’installer Angular CLI globalement
       - name: Build Angular app
