@@ -3,7 +3,7 @@ name: Build and Push Angular Frontend to DockerHub
 on:
   push:
     branches:
-      - main # ou la branche que tu veux suivre
+      - main
 
 jobs:
   build-and-push:
@@ -18,12 +18,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm install
 
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
 
       - name: Build Angular app
-        run: npm run build --prod
-
-
+        run: ng build --prod
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
