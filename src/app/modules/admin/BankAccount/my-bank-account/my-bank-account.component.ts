@@ -89,8 +89,11 @@ export class MyBankAccountComponent implements OnInit{
     });
   }
   getAllAccount(): void {
-    this.bankAccountService.getAllAccount().subscribe((data: BankAccount[])=>
-    this.accounts=data)
+    this.bankAccountService.getAllAccount().subscribe((data: BankAccount[])=>{
+      console.log("lalalalalala", data);
+      this.accounts=data;
+    })
+
   }
   // les 4 dernier transactions
   loadTransactions(): void {

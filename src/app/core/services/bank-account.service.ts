@@ -31,6 +31,7 @@ export class BankAccountService {
   }
 
   createAccount(account: BankAccount): Observable<BankAccount> {
+    console.log(account);
     return this.http.post<BankAccount>(`${this.apiUrl}`, account);
   }
 
