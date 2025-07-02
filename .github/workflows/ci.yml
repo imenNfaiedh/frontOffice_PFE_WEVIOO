@@ -21,16 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      # ✅ Option 1 : Utiliser npx pour éviter d’installer Angular CLI globalement
       - name: Build Angular app
-        run: npx ng build --prod
-
-      # ✅ Option 2 : Si tu préfères installer Angular CLI globalement, décommente ceci :
-      # - name: Install Angular CLI globally
-      #   run: npm install -g @angular/cli
-
-      # - name: Build Angular app
-      #   run: ng build --prod
+        run: npx ng build --configuration production
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
