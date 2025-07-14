@@ -1,6 +1,4 @@
-<p>hello world  dashbord !!!!</p>
-<p> admin : {{authService.hasRole('ADMIN')}} </p>
-<p> banker :: {{authService.hasRole('BANKER')}}</p>
+
 <div *ngIf="authService.hasRole('ADMIN') || authService.hasRole('BANKER')">
 <div class="dashboard-container">
   <div class="stat-card users">

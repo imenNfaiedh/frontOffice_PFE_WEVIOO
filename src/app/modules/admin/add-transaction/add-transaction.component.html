@@ -30,8 +30,9 @@
     </div>
 
     <div>
+
       <label for="transactionDate" class="block mb-2 text-sm font-medium text-gray-900">Date de Transaction</label>
-      <input pInputText type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate"
+      <input pInputText [disabled]="true" type="date" id="transactionDate" class="form-control w-full" formControlName="transactionDate"
              [class.input-error]="f['transactionDate'].invalid && (f['transactionDate'].touched || f['transactionDate'].dirty)">
       <div *ngIf="f['transactionDate'].invalid && (f['transactionDate'].touched || f['transactionDate'].dirty)" class="text-red-500 text-sm">
         <div *ngIf="f['transactionDate'].errors?.['required']">Champ Obligatoire *</div>

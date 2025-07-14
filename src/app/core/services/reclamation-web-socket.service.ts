@@ -27,7 +27,7 @@ export class ReclamationWebSocketService {
         const data = JSON.parse(message.body);
         const notification = {
           type: 'reclamation',
-          message: `Votre réclamation #${data.id} a été traitée.`,
+          message: `Votre réclamation  a été traitée.`,
           isRead: false,
           timestamp: new Date().toISOString()
         };

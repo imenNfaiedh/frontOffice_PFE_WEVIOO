@@ -75,7 +75,7 @@ export class AuthService {
   }
   // Déconnexion
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     // Redirection éventuelle vers la page de login
   }
 }

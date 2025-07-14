@@ -1,30 +1,28 @@
-<div class="login-container">
-  <!-- Arrière-plan supérieur avec une image -->
-  <div class="background-top"></div>
-
-  <!-- Arrière-plan inférieur gris -->
-  <div class="background-bottom"></div>
-
-  <div class="card">
-<!--    <div class="logo">-->
-<!--      <img src="assets/logo.png" alt="Logo Banque" width="100" />-->
-<!--    </div>-->
-    <h2 class="title">Bienvenue !</h2>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="username">Nom utilisateur</label>
-        <input formControlName="username" pInputText type="text" id="username" placeholder="Entrez votre nom d'utilisateur" />
+<div class="login-page">
+  <div class="login-left">
+    <div class="card">
+      <h2 class="title">Bienvenue !</h2>
+      <div *ngIf="errorMessage" class="form-error">
+        {{ errorMessage }}
       </div>
 
-      <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input formControlName="password" pPassword type="password" id="password" placeholder="Entrez votre mot de passe" [feedback]="false" />
-      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Nom utilisateur</label>
+          <input formControlName="username" pInputText type="text" id="username" placeholder="Entrez votre nom d'utilisateur" />
+        </div>
 
-      <button pButton type="submit" label="Se connecter" class="btn-block"></button>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input formControlName="password" pPassword type="password" id="password" placeholder="Entrez votre mot de passe" [feedback]="false" />
+        </div>
 
-    </form>
+        <button pButton type="submit" label="Se connecter" class="btn-block"></button>
+      </form>
+    </div>
+  </div>
 
+  <div class="login-right">
+    <img src="assets/Capture22-removebg-preview.png" alt="Illustration" />
   </div>
 </div>

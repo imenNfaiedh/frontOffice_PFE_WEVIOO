@@ -1,5 +1,5 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
@@ -15,6 +15,7 @@ import { User } from '../../../shared/models/user';
 import { BankAccount } from '../../../shared/models/bankAccount';
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-add-transaction',
@@ -52,13 +53,16 @@ export class AddTransactionComponent implements OnInit {
       amount: ['', Validators.required],
       currency: ['', Validators.required],
       country: ['', Validators.required],
-      transactionDate: ['', Validators.required],
+      transactionDate: [ { value: '', disabled: true }, Validators.required ,],
       bankAccountId: ['', Validators.required],
       beneficiary: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
+    const date = new Date();
+    const formattedDate = date.toISOString().split('T')[0]; // format 'yyyy-MM-dd'
+    this.transactionForm.get("transactionDate")?.setValue(formattedDate);
     this.loadUsers();
   }
 
@@ -114,6 +118,24 @@ export class AddTransactionComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erreur lors de la création de la transaction :', err);
+
+        // ✅ ALERTE D'ÉCHEC
+        let errorMsg = 'Une erreur est survenue.';
+
+        // Vérifier si le backend a renvoyé un message explicite
+        if (typeof err.error === 'string') {
+          errorMsg = err.error;
+        } else if (err?.error?.message) {
+          errorMsg = err.error.message;
+        }
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Échec de la transaction',
+          text: errorMsg,
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#d33'
+        });
       }
     });
   }

@@ -15,6 +15,8 @@ import { ScreenConfig } from "../../../core/utils/type";
 import { APP_CONSTANTS } from "../../../core/utils/constants";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { ReclamationWebSocketService } from "../../../core/services/reclamation-web-socket.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -55,9 +57,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() collapsed: boolean = false;
   @Input() screenWidth: number = 0;
 
+  firstName: string = '';
+  lastName: string = '';
+  role: string = '';
   constructor(
     private webSocketService: WebSocketServiceService,
-    private reclamationService: ReclamationWebSocketService
+    private reclamationService: ReclamationWebSocketService,
+    private authService: AuthService, private router: Router
   ) {}
 
   ngOnInit() {
@@ -81,6 +87,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.notifications = this.notifications.slice(0, 3);
       localStorage.setItem('notifications', JSON.stringify(this.notifications));
       this.updateUnreadCount();
+    });
+
+    // 💡 Récupération des infos utilisateur connecté
+    this.authService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+        this.role = user.role || 'utilisateur'; // ou 'userRole', selon ta structure
+      },
+      error: (err) => {
+        console.error('Erreur récupération utilisateur :', err);
+      }
     });
   }
 
@@ -122,5 +140,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!this.collapsed) return '';
     const config = this.SCREEN_BREAKPOINTS.find(config => this.screenWidth > config.width);
     return config?.class || '';
+  }
+
+
+  //logout
+  showUserMenu = false;
+
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  logout() {
+    this.authService.logout();
+    // redirection manuelle
+    this.router.navigate(['/auth/login']);
+  }
+  getDisplayRole(): string {
+    switch (this.role) {
+      case 'ADMIN':
+        return 'administrateur';
+      case 'CUSTOMER':
+        return 'client';
+      default:
+        return this.role.toLowerCase(); // ou une valeur par défaut comme 'utilisateur'
+    }
   }
 }

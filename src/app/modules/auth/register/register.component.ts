@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit{
   roles = [
     { label: 'Administrateur', value: RoleUser.ADMIN },
     { label: 'Client', value: RoleUser.CUSTOMER },
-    { label: 'Banquier', value: RoleUser.BANKER }
+
   ];
 
   // alerte formulaire

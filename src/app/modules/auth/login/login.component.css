@@ -1,104 +1,125 @@
-
-
-/* Conteneur principal */
-.login-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #f3f5f8;
-
-}
-
-.background-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 66vh; /* plus grand pour couvrir davantage */
-  /*background-image: url('C:/Users/Lenovo/Desktop/frontOffice/frontOffice_pfeV1/src/assets/img/hfkugfkfugd.png');*/
-  background-size: cover;
-  background-position: center;
-  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
-  z-index: 0;
-
-}
+/* Couleur de fond uniforme */
 body {
-  background-color: #f3f5f8;
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f3f5f8; /* ✅ Fond uniforme */
 }
 
+.login-page {
+  display: flex;
+  height: 100vh;
+  background-color: #f3f5f8; /* ✅ Fond uniforme */
+}
 
+/* Colonne gauche */
+.login-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Carte de connexion */
 .card {
-  position: relative;
   background-color: white;
-  padding: 2.5rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
   width: 100%;
-  max-width: 450px;
-  text-align: center;
-  z-index: 1; /* Pour s'assurer que le formulaire est au-dessus des arrière-plans */
 }
 
-/* Titre principal */
+/* Titre */
 .title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #373e9a; /* Bleu profond */
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #373e9a;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-/* Style des groupes de formulaires */
+/* Champs formulaire */
 .form-group {
   margin-bottom: 1.5rem;
-  text-align: left; /* Alignement des labels à gauche */
 }
 
-/* Style des labels */
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #262525; /* Gris foncé */
-  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
 }
 
-/* Style des champs de saisie */
 .form-group input {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid #d1d5db; /* Gris clair */
-  border-radius: 8px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
 .form-group input:focus {
-  border-color: #0ab29b; /* Vert bancaire */
-  box-shadow: 0 0 5px rgba(10, 178, 155, 0.3); /* Effet de focus doux */
+  border-color: #0ab29b;
   outline: none;
+  box-shadow: 0 0 5px rgba(10, 178, 155, 0.3);
 }
 
-/* Style du bouton */
+/* Bouton */
 .btn-block {
   width: 100%;
   padding: 1rem;
-  font-size: 1rem;
-  background-color: #0ab29b; /* Vert bancaire */
+  background-color: #0ab29b;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn-block:hover {
-  background-color: #088f77; /* Vert plus foncé */
+  background-color: #088f77;
 }
 
+/* Colonne droite avec image */
+.login-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.login-right img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
 
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-right {
+    display: none;
+  }
+
+  .login-left {
+    flex: 1;
+  }
+}
+
+.form-error {
+  background-color: #fdecea;
+  color: #b71c1c;
+  border: 1px solid #f5c6cb;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
